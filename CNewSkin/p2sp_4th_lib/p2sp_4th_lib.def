@@ -1,0 +1,5 @@
+;LIBRARY	"p2sp_4th_lib_dll - vc9"
+
+EXPORTS 
+	; 
+	p2spUpdateEngineForRundll32 @ 1

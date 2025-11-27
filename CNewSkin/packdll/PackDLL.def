@@ -1,0 +1,19 @@
+LIBRARY PackDLL
+
+EXPORTS
+SetPackVersion
+PackInitialize
+PackFinalize
+IsFileInPack
+AddFileToPack
+RemoveFileFromPack
+GetFileFromPack
+CleanUpPackFile
+ReleasePackBuf
+NeedCleanUpPackFile
+UseLocalUpdatePack
+GetLocalUpdateFile
+CalcCompressFile
+DecompressFile
+FillPackVersion
+GetPackVersion

@@ -1,0 +1,1 @@
+trademoveobj.hpp

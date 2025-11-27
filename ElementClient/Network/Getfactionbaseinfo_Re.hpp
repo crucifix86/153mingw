@@ -1,0 +1,1 @@
+getfactionbaseinfo_re.hpp

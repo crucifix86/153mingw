@@ -1,0 +1,714 @@
+﻿<SkinApp>
+	<Style Name="ButtonStyle1" CharSet="134" Face="Arial" Height="12" Default="127,214,255" Disabled="116,108,75" Hover="160,25,0"/>
+	<Style Name="ButtonStyle2" CharSet="134" Face="Arial" Height="12" Default="255,255,255" Disabled="170,112,101" Hover="234,228,180"/>
+	<Style Name="ButtonStyle3" CharSet="134" Face="Arial" Height="12" Default="182,255,208" Disabled="116,108,75" Hover="255,238,181"/>
+	<Style Name="TipTextStyle" CharSet="134" Face="Arial" Height="11" Default="105,200,240" Disabled="105,200,240" Hover="105,200,240"/>
+	<Style Name="TipTextStyle1" CharSet="134" Face="Arial" Height="12" Default="130,223,122" Disabled="105,200,240" Hover="105,200,240"/>
+	<Style Name="TitleStyle" CharSet="134" Face="Arial" Height="16" Weight="800" Default="182,255,208" Disabled="116,108,75" Hover="160,25,0"/>
+	<Option Name="ServerSelection" FileName="../config/patcher/game.cfg"/>
+	<Option Name="VideoSelection" FileName="../config/patcher/video.cfg"/>
+	<Option Name="UpdateServerSelection" FileName="../config/patcher/update.cfg"/>
+
+	<SkinWindow Name="Choose" Text="Selecione">
+		<SkinArt BackgroundColor="255,0,255">
+			<Image Type="BackgroundImage" Path="skin/image/choose-bg.png"/>
+			<Image Type="MapImage" Path="skin/image/choose-map.png"/>
+		</SkinArt>
+		<Command Event="OnClose" Name="ClickNo"/>
+		<SkinButton Name="Tip1" TabID="0" MapColor="0,255,255" Align="center" PlainText="true" Text="" Style="ButtonStyle1"/>
+		<SkinButton Name="Tip2" TabID="0" MapColor="255,255,128" Align="center" PlainText="true" Text="" Style="ButtonStyle1"/>
+		<SkinButton Name="Tip3" TabID="0" MapColor="128,0,128" Align="center" PlainText="true" Text="" Style="ButtonStyle1"/>
+		<SkinButton Name="Yes" TabID="1" MapColor="128,0,0" Text="Sim" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="ClickYes"/>
+			<Command Event="click" Name="CloseWindow"/>
+		</SkinButton>
+		<SkinButton Name="No" TabID="2" MapColor="128,128,128" Text="Não" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="ClickNo"/>
+			<Command Event="click" Name="CloseWindow"/>
+		</SkinButton>
+	</SkinWindow>
+	
+	<SkinWindow Name="MainWindow" Text="Atualizar" MainWindow="true">
+		<OnWindowLoad Name="Update"/>
+		<SkinArt BackgroundColor="255,0,255">
+			<Image Type="BackgroundImage" Path="skin/image/main-bg.png"/>
+			<Image Type="MapImage" Path="skin/image/main-map.png"/>
+		</SkinArt>
+		
+		<SkinButton Name="ElementVersion" TabID="0" MapColor="22,22,22" Align="left" PlainText="true" Text="" Style="TipTextStyle"/>
+		<SkinButton Name="UpdateState" TabID="0" MapColor="0,255,255" Align="left" PlainText="true" Text="" Style="TipTextStyle"/>
+		<SkinButton Name="LoadFileName" TabID="0" MapColor="255,255,128" Align="left" PlainText="true" Text="" Style="ButtonStyle1"/>
+		<SkinAnimItem Name="Anim1" MapColor="255,100,0" Count="14">
+			<SkinArt>
+				<Image Type="Frame1" Path="skin/image/大-1.png"/>
+				<Image Type="Frame2" Path="skin/image/大-2.png"/>
+				<Image Type="Frame3" Path="skin/image/大-3.png"/>
+				<Image Type="Frame4" Path="skin/image/大-4.png"/>
+				<Image Type="Frame5" Path="skin/image/大-5.png"/>
+				<Image Type="Frame6" Path="skin/image/大-6.png"/>
+				<Image Type="Frame7" Path="skin/image/大-7.png"/>
+				<Image Type="Frame8" Path="skin/image/大-8.png"/>
+				<Image Type="Frame9" Path="skin/image/大-9.png"/>
+				<Image Type="Frame10" Path="skin/image/大-10.png"/>
+				<Image Type="Frame11" Path="skin/image/大-11.png"/>
+				<Image Type="Frame12" Path="skin/image/大-12.png"/>
+				<Image Type="Frame13" Path="skin/image/大-13.png"/>
+				<Image Type="Frame14" Path="skin/image/大-14.png"/>
+			</SkinArt>
+		</SkinAnimItem>
+		<SkinAnimItem Name="Anim2" MapColor="0,200,255" Count="15">
+			<SkinArt>
+				<Image Type="Frame1" Path="skin/image/右-1.png"/>
+				<Image Type="Frame2" Path="skin/image/右-2.png"/>
+				<Image Type="Frame3" Path="skin/image/右-3.png"/>
+				<Image Type="Frame4" Path="skin/image/右-4.png"/>
+				<Image Type="Frame5" Path="skin/image/右-5.png"/>
+				<Image Type="Frame6" Path="skin/image/右-6.png"/>
+				<Image Type="Frame7" Path="skin/image/右-7.png"/>
+				<Image Type="Frame8" Path="skin/image/右-8.png"/>
+				<Image Type="Frame9" Path="skin/image/右-9.png"/>
+				<Image Type="Frame10" Path="skin/image/右-10.png"/>
+				<Image Type="Frame11" Path="skin/image/右-11.png"/>
+				<Image Type="Frame12" Path="skin/image/右-12.png"/>
+				<Image Type="Frame13" Path="skin/image/右-13.png"/>
+				<Image Type="Frame14" Path="skin/image/右-14.png"/>
+				<Image Type="Frame15" Path="skin/image/右-15.png"/>		
+			</SkinArt>
+		</SkinAnimItem>
+		<SkinAnimItem Name="Anim3" MapColor="0,255,0" Count="15">
+			<SkinArt>
+				<Image Type="Frame1" Path="skin/image/左-1.png"/>
+				<Image Type="Frame2" Path="skin/image/左-2.png"/>
+				<Image Type="Frame3" Path="skin/image/左-3.png"/>
+				<Image Type="Frame4" Path="skin/image/左-4.png"/>
+				<Image Type="Frame5" Path="skin/image/左-5.png"/>
+				<Image Type="Frame6" Path="skin/image/左-6.png"/>
+				<Image Type="Frame7" Path="skin/image/左-7.png"/>
+				<Image Type="Frame8" Path="skin/image/左-8.png"/>
+				<Image Type="Frame9" Path="skin/image/左-9.png"/>
+				<Image Type="Frame10" Path="skin/image/左-10.png"/>
+				<Image Type="Frame11" Path="skin/image/左-11.png"/>
+				<Image Type="Frame12" Path="skin/image/左-12.png"/>
+				<Image Type="Frame13" Path="skin/image/左-13.png"/>
+				<Image Type="Frame14" Path="skin/image/左-14.png"/>
+				<Image Type="Frame15" Path="skin/image/左-15.png"/>
+			</SkinArt>
+		</SkinAnimItem>
+		<SkinButton Name="Play" TabID="1" MapColor="128,0,0" Text="" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-begin-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-begin-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-begin-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-begin-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-begin-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-begin-inphoto.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="Update"/>
+		</SkinButton>
+		<SkinButton Name="CleanPack" TabID="2" MapColor="192,192,192" Text="At. Manual" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="CleanUpAllPack"/>
+		</SkinButton>
+		<SkinButton Name="FullCheck" TabID="3" MapColor="128,128,128" Text="Verificar" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="FullCheck"/>
+		</SkinButton>
+		<SkinButton Name="DisplaySettings" TabID="4" MapColor="128,0,128" Text="Configuração" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="CalcDisplayMode"/>
+			<Command Event="click" Name="ShowWindow" Window="SystemSetting"/>
+			<Command Event="click" Name="LoadVideoSetting"/>
+		</SkinButton>
+		<SkinButton Name="UpdateSettings" TabID="5" MapColor="0,0,255" Text="Atualização" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="ShowWindow" Window="UpdateSetting"/>
+		</SkinButton>
+		<SkinButton Name="Regist" TabID="6" MapColor="128,0,255" Text="Cadastrar" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="BrowserLink" URL="http://pwbrngames.4funbr.net/painel/cadastro"/>
+		</SkinButton>
+		<SkinButton Name="HomePage" TabID="7" MapColor="0,64,128" Text="Site Oficial" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="BrowserLink" URL="http://site.brnentertainment.com.br/"/>
+		</SkinButton>
+		<SkinButton Name="Service" TabID="8" MapColor="0,128,255" Text="Suporte" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="BrowserLink" URL="http://pwbrngames.4funbr.net/painel/suporte"/>
+		</SkinButton>
+		<SkinButton Name="BBS" TabID="9" MapColor="128,128,255" Text="Fórum" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="BrowserLink" URL="http://forum.brnentertainment.com.br/forum"/>
+		</SkinButton>
+		<SkinButton Name="Exit" TabID="10" MapColor="255,128,64" Text="Sair" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="CloseWindow"/>
+		</SkinButton>
+		<SkinButton Name="Minimize" TabID="0" MapColor="20,20,20">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/minimize_button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/minimize_button-bg.png"/>
+				<Image Type="ClickedImage" Path="skin/image/minimize_button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/minimize_button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="MinimizeWindow"/>
+		</SkinButton>
+		<SkinButton Name="Closebox" TabID="0" MapColor="0,0,0">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/xbutton-hover.png"/>
+				<Image Type="FocusedImage" Path="skin/image/xbutton-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/xbutton-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="HoverImage" Path="skin/image/xbutton-bg.png"/>
+			</SkinArt>
+			<Command Event="click" Name="CloseWindow"/>
+		</SkinButton>
+    <SkinBrowser Name="UpdateBrowser" MapColor="255,0,0" InitURL="http://cpw.brnentertainment.com.br/launcher/index.php"/>
+		<SkinProgressBar Name="TotalProgress" MapColor="128,128,64">
+			<SkinArt>
+				<Image Type="FilledImage" Path="skin/image/progress-filled1.png"/>
+				<Image Type="UnfilledImage" Path="skin/image/progress-unfilled.png"/>
+			</SkinArt>
+		</SkinProgressBar>
+		<SkinProgressBar Name="FileProgress" MapColor="0,128,0">
+			<SkinArt>
+				<Image Type="FilledImage" Path="skin/image/progress-filled2.png"/>
+				<Image Type="UnfilledImage" Path="skin/image/progress-unfilled.png"/>
+			</SkinArt>
+		</SkinProgressBar>
+		
+	
+ 	</SkinWindow>
+		
+	<SkinWindow Name="UpdateSetting" Text="Configuração">
+		<SkinArt BackgroundColor="255,0,255">
+			<Image Type="BackgroundImage" Path="skin/image/update-bg.png"/>
+			<Image Type="MapImage" Path="skin/image/update-map.png"/>
+		</SkinArt>
+		
+		<SkinButton Name="UpdateSettingTitle" TabID="0" MapColor="0,0,0" PlainText="true" Text="Configuração" Style="TitleStyle"/>
+		<SkinButton Name="UpdateServerText" TabID="0" MapColor="255,255,128" Align="center" PlainText="true" Text="Servidor" Style="ButtonStyle3"/>
+		<SkinComboBox Name="UpdateServerSelectCombo" Text="Servidor" TabID="0" MapColor="96,0,128" Align="center" Style="ButtonStyle2">
+			<SkinArt BackgroundColor="111,111,111">
+				<Image Type="MapImage" Path="skin/image/combo-map.png"/>
+				<Image Type="BackgroundImage" Path="skin/image/combo-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/combo-hover.png"/>
+				<Image Type="SelectedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="ClickedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/combo-expandbg.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+		</SkinComboBox>
+		<SkinListBox Name="UpdateServerSelect" TabID="0" ListFile="server/updateserver.txt" Option="UpdateServerSelection" MapColor="100,0,0" ComboBox="UpdateServerSelectCombo" 
+					DefaultSel="Auto" bgSelected="132,122,105" bgHover="173,162,151" Align="center" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/dropdown-bg.png"/>
+			</SkinArt>
+		</SkinListBox>
+		<SkinScrollBar Name="UpdateServerSelectBar" ListBox="UpdateServerSelect" TabID="0" MapColor="0,0,100">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/scrollbar-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/scrollbar-focused.png"/>
+			</SkinArt>
+		</SkinScrollBar>
+		<SkinScrollArrow Name="UpdateServerSelectDec" ListBox="UpdateServerSelect" Type="dec" TabID="0" MapColor="0,100,0">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/arrowup-bg.png"/>
+			</SkinArt>
+		</SkinScrollArrow>
+		<SkinScrollArrow Name="UpdateServerSelectInc" ListBox="UpdateServerSelect" Type="inc" TabID="0" MapColor="100,100,100">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/arrowdown-bg.png"/>
+			</SkinArt>
+		</SkinScrollArrow>
+		
+		<SkinButton Name="AutoUpdatingText" TabID="0" MapColor="0,0,200" Align="left" Text="Atualizar automaticamente" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="AutoUpdating"/>
+		</SkinButton>
+		<SkinButton Name="AutoUpdating" TabID="0" MapColor="200,0,200" Selected="false" Option="UpdateServerSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="SelectServerEveryTimeText" TabID="0" MapColor="0,255,255" Align="left" Text="Selecionar manualmente" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="SelectServerEveryTime"/>
+		</SkinButton>
+		<SkinButton Name="SelectServerEveryTime" TabID="0" MapColor="128,128,0" Selected="true" Option="UpdateServerSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="P2SPDownloadText" TabID="0" MapColor="0,0,255" Align="left" Text="Continuar automaticamente" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="AutoContinue"/>
+		</SkinButton>
+		<SkinButton Name="P2SPDownload" TabID="0" MapColor="0,128,0" Selected="true" Option="UpdateServerSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+
+		<SkinButton Name="UpdateApply" TabID="1" MapColor="128,64,0" Text="OK" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="SaveOption" Option="UpdateServerSelection"/>
+			<Command Event="click" Name="CloseWindow"/>
+			<Command Event="click" Name="SaveUpdateSetting"/>
+		</SkinButton>
+	<SkinButton Name="UpdateCancel" TabID="2" MapColor="255,128,64" Text="Cancelar" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="CloseWindow"/>
+			<Command Event="click" Name="LoadOption" Option="UpdateServerSelection"/>
+			<Command Event="click" Name="CancelUpdateSetting"/>
+		</SkinButton>
+	<SkinButton Name="DownSpeedTip" TabID="0" MapColor="0,70,255" Align="left" PlainText="true" Text="Download(KB/s):" Style="ButtonStyle3"/>
+	<SkinComboBox Name="DownSpeedCombo" Text="Download" TabID="0" MapColor="222,111,255" Align="center" Style="ButtonStyle2">
+		<SkinArt BackgroundColor="111,111,111">
+				<Image Type="MapImage" Path="skin/image/combo-map-speed.png"/>
+				<Image Type="BackgroundImage" Path="skin/image/combo-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/combo-hover.png"/>
+				<Image Type="SelectedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="ClickedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/combo-expandbg-speed.png"/>
+		</SkinArt>
+		<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+	</SkinComboBox>
+	<SkinListBox Name="DownSpeedSelect" TabID="0" ListFile="server/Downspeed.txt" Option="UpdateServerSelection" MapColor="100,0,0" ComboBox="DownSpeedCombo" 
+					DefaultSel="无限制" bgSelected="132,122,105" bgHover="173,162,151" Align="center" Style="ButtonStyle2">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/combo-expandbg-speed.png"/>
+		</SkinArt>
+	</SkinListBox>
+	<SkinScrollBar Name="UpdateDownSpeedSelectBar" ListBox="DownSpeedSelect" TabID="0" MapColor="0,0,100">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/scrollbar-bg-speed.png"/>
+			<Image Type="FocusedImage" Path="skin/image/scrollbar-focused.png"/>
+		</SkinArt>
+	</SkinScrollBar>
+	<SkinScrollArrow Name="UpdateDownSpeedSelectDec" ListBox="DownSpeedSelect" Type="dec" TabID="0" MapColor="0,100,0">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/arrowup-bg.png"/>
+		</SkinArt>
+	</SkinScrollArrow>
+	<SkinScrollArrow Name="UpdateDownSpeedSelectInc" ListBox="DownSpeedSelect" Type="inc" TabID="0" MapColor="100,100,100">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/arrowdown-bg.png"/>
+		</SkinArt>
+	</SkinScrollArrow>
+	<SkinButton Name="UpSpeedTip" TabID="0" MapColor="0,110,255" Align="left" PlainText="true" Text="Upload(KB/s):" Style="ButtonStyle3"/>
+	<SkinComboBox Name="UpSpeedCombo" Text="Upload" TabID="0" MapColor="222,0,230" Align="center" Style="ButtonStyle2">
+		<SkinArt BackgroundColor="111,111,111">
+				<Image Type="MapImage" Path="skin/image/combo-map-speed.png"/>
+				<Image Type="BackgroundImage" Path="skin/image/combo-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/combo-hover.png"/>
+				<Image Type="SelectedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="ClickedImage" Path="skin/image/combo-selected.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/combo-expandbg-speed.png"/>
+		</SkinArt>
+		<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+	</SkinComboBox>
+	<SkinListBox Name="UpSpeedSelect" TabID="0" ListFile="server/Upspeed.txt" Option="UpdateServerSelection" MapColor="100,0,0" ComboBox="UpSpeedCombo" 
+					DefaultSel="无限制" bgSelected="132,122,105" bgHover="173,162,151" Align="center" Style="ButtonStyle2">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/combo-expandbg-speed.png"/>
+		</SkinArt>
+	</SkinListBox>
+	<SkinScrollBar Name="UpdateUpSpeedSelectBar" ListBox="UpSpeedSelect" TabID="0" MapColor="0,0,100">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/scrollbar-bg-speed.png"/>
+			<Image Type="FocusedImage" Path="skin/image/scrollbar-focused.png"/>
+		</SkinArt>
+	</SkinScrollBar>
+	<SkinScrollArrow Name="UpdateUpSpeedSelectDec" ListBox="UpSpeedSelect" Type="dec" TabID="0" MapColor="0,100,0">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/arrowup-bg.png"/>
+		</SkinArt>
+	</SkinScrollArrow>
+	<SkinScrollArrow Name="UpdateUpSpeedSelectInc" ListBox="UpSpeedSelect" Type="inc" TabID="0" MapColor="100,100,100">
+		<SkinArt>
+			<Image Type="BackgroundImage" Path="skin/image/arrowdown-bg.png"/>
+		</SkinArt>
+	</SkinScrollArrow>
+	</SkinWindow>
+	
+	<SkinWindow Name="SystemSetting" Text="Configuração Vídeo/Áudio">
+		<SkinArt BackgroundColor="255,0,255">
+			<Image Type="BackgroundImage" Path="skin/image/video-bg.png"/>
+			<Image Type="MapImage" Path="skin/image/video-map.png"/>
+		</SkinArt>
+		
+		<SkinButton Name="OsInfo" TabID="0" MapColor="255,255,0" Align="left" PlainText="true" Text="" Style="ButtonStyle3"/>
+		<SkinButton Name="CpuInfo" TabID="0" MapColor="128,0,0" Align="left" PlainText="true" Text="" Style="ButtonStyle3"/>
+		<SkinButton Name="MemInfo" TabID="0" MapColor="255,0,0" Align="left" PlainText="true" Text="" Style="ButtonStyle3"/>
+		<SkinButton Name="VideoInfo" TabID="0" MapColor="128,128,128" Align="left" PlainText="true" Text="" Style="ButtonStyle3"/>
+		
+		<SkinButton Name="Apply" TabID="1" MapColor="128,64,0" Text="OK" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="SaveOption" Option="VideoSelection"/>
+			<Command Event="click" Name="CloseWindow"/>
+			<Command Event="click" Name="SaveVideoSetting"/>
+		</SkinButton>
+		<SkinButton Name="Suggest" TabID="2" MapColor="192,192,192" Text="Padrão" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="SuggestSetting"/>
+		</SkinButton>
+		<SkinButton Name="Cancel" TabID="3" MapColor="255,128,64" Text="Cancelar" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/button-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/button-hover.png"/>
+				<Image Type="ClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="DisabledImage" Path="skin/image/button-disabled.png"/>
+				<Image Type="HoverImage" Path="skin/image/button-hover.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+			<Command Event="click" Name="CloseWindow"/>
+			<Command Event="click" Name="LoadOption" Option="VideoSelection"/>
+		</SkinButton>
+		
+		<SkinButton Name="VideoOptionTitle" TabID="0" MapColor="0,0,0" PlainText="true" Text="Configuração" Style="TitleStyle"/>
+		
+		<SkinButton Name="FullScreenText" TabID="0" MapColor="0,0,200" Align="left" Text="Janela" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="FullScreenSelect"/>
+		</SkinButton>
+		<SkinButton Name="FullScreenSelect" TabID="0" MapColor="200,0,200" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="WideScreenText" TabID="0" MapColor="0,155,0" Align="left" Text="16:9 Wide" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="WideScreenSelect"/>
+		</SkinButton>
+		<SkinButton Name="WideScreenSelect" TabID="0" MapColor="155,0,0" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="ShadowText" TabID="0" MapColor="0,128,128" Align="left" Text="Sombras" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="ShadowSelect"/>
+		</SkinButton>
+		<SkinButton Name="ShadowSelect" TabID="0" MapColor="0,255,0" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="MipMapBiasText" TabID="0" MapColor="0,255,255" Align="left" Text="Nitidez" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="MipMapBiasSelect"/>
+		</SkinButton>
+		<SkinButton Name="SunFlareText" TabID="0" MapColor="0,175,0" Align="left" Text="Luz" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="SunFlareSelect"/>
+		</SkinButton>
+		<SkinButton Name="SunFlareSelect" TabID="0" MapColor="175,0,0" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+				<Image Type="DisabledAndSelectedImage" Path="skin/image/checkbox-disabledandselected.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="SpaceWarpText" TabID="0" MapColor="175,175,0" Align="left" Text="Ondas" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="SpaceWarpSelect"/>
+		</SkinButton>
+		<SkinButton Name="SpaceWarpSelect" TabID="0" MapColor="0,0,175" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+				<Image Type="DisabledAndSelectedImage" Path="skin/image/checkbox-disabledandselected.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="VerticalSyncText" TabID="0" MapColor="0,175,175" Align="left" Text="V-Sync" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="VerticalSyncSelect"/>
+		</SkinButton>
+		<SkinButton Name="VerticalSyncSelect" TabID="0" MapColor="175,0,175" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+				<Image Type="DisabledAndSelectedImage" Path="skin/image/checkbox-disabledandselected.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="MipMapBiasSelect" TabID="0" MapColor="128,128,0" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		<SkinButton Name="FullGlowText" TabID="0" MapColor="50,50,0" Align="left" Text="Brilho" Style="ButtonStyle1">
+			<Command Event="click" Name="SetSelected" Item="FullGlowSelect"/>
+		</SkinButton>
+		<SkinButton Name="FullGlowSelect" TabID="0" MapColor="50,0,0" Selected="false" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="HoverImage" Path="skin/image/checkbox-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/checkbox-selected.png"/>
+				<Image Type="DisabledImage" Path="skin/image/checkbox-disabled.png"/>
+			</SkinArt>
+		</SkinButton>
+		
+		<SkinButton Name="ResolutionText" TabID="0" MapColor="128,0,255" PlainText="true" Text="Resolução" Style="ButtonStyle1"/>
+		<SkinComboBox Name="ResolutionSelectCombo" Text="Personalizar" TabID="0" MapColor="255,0,128" Align="center" Style="ButtonStyle2">
+			<SkinArt BackgroundColor="111,111,111">
+				<Image Type="MapImage" Path="skin/image/combosmall-map.png"/>
+				<Image Type="HoverImage" Path="skin/image/combosmall-hover.png"/>
+				<Image Type="BackgroundImage" Path="skin/image/combosmall-bg.png"/>
+				<Image Type="SelectedImage" Path="skin/image/combosmall-selected.png"/>
+				<Image Type="ClickedImage" Path="skin/image/combosmall-selected.png"/>
+				<Image Type="FocusClickedImage" Path="skin/image/button-clicked.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/combosmall-expandbg.png"/>
+			</SkinArt>
+			<Command Event="click" Name="PlaySound" FileName="skin/sounds/click.wav"/>
+		</SkinComboBox>
+		<SkinListBox Name="ResolutionSelect" TabID="0" ListFile="../config/patcher/resolution.txt" Option="VideoSelection" 
+					DefaultSel="Escolher" MapColor="100,0,0" ComboBox="ResolutionSelectCombo" bgSelected="132,122,105" bgHover="173,162,151" Align="center" Style="ButtonStyle2">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/dropdownsmall-bg.png"/>
+			</SkinArt>
+		</SkinListBox>
+		<SkinScrollBar Name="ResolutionSelectBar" ListBox="ResolutionSelect" TabID="0" MapColor="0,0,100">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/scrollbar-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/scrollbar-focused.png"/>
+			</SkinArt>
+		</SkinScrollBar>
+		<SkinScrollArrow Name="ResolutionSelectDec" ListBox="ResolutionSelect" Type="dec" TabID="0" MapColor="0,100,0">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/arrowup-bg.png"/>
+			</SkinArt>
+		</SkinScrollArrow>
+		<SkinScrollArrow Name="ResolutionSelectInc" ListBox="ResolutionSelect" Type="inc" TabID="0" MapColor="100,100,100">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/arrowdown-bg.png"/>
+			</SkinArt>
+		</SkinScrollArrow>
+		
+		<SkinButton Name="GraphText" TabID="0" MapColor="0,64,128" PlainText="true" Text="Texturas" Style="ButtonStyle1"/>
+		<SkinButton Name="GraphSelectLeft" TabID="0" MapColor="200,0,0" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="GraphSelectRight" TabID="0" MapColor="0,200,0" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="GraphSelect" MapColor="128,128,255" Min="0" Max="2" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand1.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="VegetationText" TabID="0" MapColor="255,0,255" PlainText="true" Text="Vegetação" Style="ButtonStyle1"/>
+		<SkinButton Name="VegetationSelectLeft" TabID="0" MapColor="0,0,100" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="VegetationSelectRight" TabID="0" MapColor="100,100,0" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="VegetationSelect" MapColor="0,0,128" Min="0" Max="4" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand1.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="SightText" TabID="0" MapColor="0,128,255" PlainText="true" Text="Distância" Style="ButtonStyle1"/>
+		<SkinButton Name="SightSelectLeft" TabID="0" MapColor="100,0,100" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="SightSelectRight" TabID="0" MapColor="0,100,100" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="SightSelect" MapColor="128,255,255" Min="0" Max="4" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand3.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="WaterText" TabID="0" MapColor="0,64,64" PlainText="true" Text="Água" Style="ButtonStyle1"/>
+		<SkinButton Name="WaterSelectLeft" TabID="0" MapColor="100,100,100" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="WaterSelectRight" TabID="0" MapColor="200,200,200" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="WaterSelect" MapColor="128,128,64" Min="0" Max="2" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="DisabledImage" Path="skin/image/slider-disabled.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="DisableFocusedImage" Path="skin/image/slider-disablefocused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand2.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="GrassText" TabID="0" MapColor="150,0,0" PlainText="true" Text="Grama" Style="ButtonStyle1"/>
+		<SkinButton Name="GrassSelectLeft" TabID="0" MapColor="0,0,150" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="GrassSelectRight" TabID="0" MapColor="150,0,150" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="GrassSelect" MapColor="150,150,0" Min="0" Max="4" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand1.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="CloudText" TabID="0" MapColor="255,255,128" PlainText="true" Text="Detalhes" Style="ButtonStyle1"/>
+		<SkinButton Name="CloudSelectLeft" TabID="0" MapColor="100,0,0" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="CloudSelectRight" TabID="0" MapColor="0,100,0" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="CloudSelect" MapColor="128,0,128" Min="0" Max="4" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="DisabledImage" Path="skin/image/slider-disabled.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="DisableFocusedImage" Path="skin/image/slider-disablefocused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand3.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="AudioText" TabID="0" MapColor="0,150,0" PlainText="true" Text="Áudio" Style="ButtonStyle1"/>
+		<SkinButton Name="AudioSelectLeft" TabID="0" MapColor="0,150,150" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="AudioSelectRight" TabID="0" MapColor="0,200,200" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="AudioSelect" MapColor="150,150,150" Min="0" Max="2" DrawAllEx="true" ExpandWidth="3"  Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand1.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+		<SkinButton Name="TerrainText" TabID="0" MapColor="123,0,0" PlainText="true" Text="Terreno" Style="ButtonStyle1"/>
+		<SkinButton Name="TerrainSelectLeft" TabID="0" MapColor="123,123,0" Align="left" PlainText="true" Text="-" Style="TipTextStyle1"/>
+		<SkinButton Name="TerrainSelectRight" TabID="0" MapColor="0,123,0" Align="left" PlainText="true" Text="+" Style="TipTextStyle1"/>
+		<SkinSlider Name="TerrainSelect" MapColor="123,123,123" Min="0" Max="1" DrawAllEx="true" ExpandWidth="3" Option="VideoSelection">
+			<SkinArt>
+				<Image Type="BackgroundImage" Path="skin/image/slider-bg.png"/>
+				<Image Type="FocusedImage" Path="skin/image/slider-focused.png"/>
+				<Image Type="ExpandBackgroundImage" Path="skin/image/slider-expand3.png"/>
+			</SkinArt>
+		</SkinSlider>
+		
+	</SkinWindow>
+	
+</SkinApp>

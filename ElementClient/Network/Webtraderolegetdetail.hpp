@@ -1,0 +1,1 @@
+webtraderolegetdetail.hpp

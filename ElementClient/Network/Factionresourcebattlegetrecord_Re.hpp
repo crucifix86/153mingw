@@ -1,0 +1,1 @@
+factionresourcebattlegetrecord_re.hpp

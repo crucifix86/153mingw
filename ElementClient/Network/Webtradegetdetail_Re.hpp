@@ -1,0 +1,1 @@
+webtradegetdetail_re.hpp

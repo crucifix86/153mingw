@@ -1,0 +1,46 @@
+# Build outputs
+build/
+*.obj
+*.a
+*.o
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+*.exp
+*.idb
+*.ipch
+*.log
+
+# Visual Studio directories
+Debug/
+Release/
+x64/
+x86/
+.vs/
+ipch/
+bin/
+
+# Build intermediates
+*.tlog
+*.lastbuildstate
+*.unsuccessfulbuild
+*.FileListAbsolute.txt
+
+# User-specific files
+*.suo
+*.user
+*.ncb
+*.aps
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.opendb
+
+# Temporary files
+*~
+*.swp
+*.tmp
+Thumbs.db

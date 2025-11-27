@@ -1,0 +1,1 @@
+AUIObjectTemplateManager.cpp

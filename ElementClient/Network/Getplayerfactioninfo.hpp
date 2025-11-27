@@ -1,0 +1,1 @@
+getplayerfactioninfo.hpp

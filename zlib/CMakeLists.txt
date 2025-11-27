@@ -1,0 +1,18 @@
+# zlib library
+add_library(zlib STATIC
+    adler32.c
+    compress.c
+    crc32.c
+    deflate.c
+    gzio.c
+    infback.c
+    inffast.c
+    inflate.c
+    inftrees.c
+    trees.c
+    uncompr.c
+    zutil.c
+)
+
+target_include_directories(zlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(zlib PRIVATE WIN32)

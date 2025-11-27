@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseInternational|Win32">
+      <Configuration>ReleaseInternational</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{25A927E4-E838-4065-B256-2CA400B0FBD6}</ProjectGuid>
+    <RootNamespace>p2sp_4th_lib</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseInternational|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseInternational|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.27924.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>../bin/$(Configuration)\</OutDir>
+    <IntDir>../bin/obj/$(Configuration)/4th_lib\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>../bin/$(Configuration)\</OutDir>
+    <IntDir>../bin/obj/$(Configuration)/4th_lib\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseInternational|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./Dependencies/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;TIXML_USE_STL;P2SP_ENGINE_EXPORT;WINVER=0x0500;_WIN32_WINNT=0x0501;_WIN32_WINDOWS=0x0410;_WIN32_IE=0x0600;P2SP_ENGINE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <ProgramDataBaseFileName>$(IntDir)p2sp_4th_lib.pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName)D.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>./Dependencies/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIBWIN32;_LIB;TIXML_USE_STL;P2SP_ENGINE_EXPORT;WINVER=0x0500;_WIN32_WINNT=0x0501;_WIN32_WINDOWS=0x0410;_WIN32_IE=0x0600;P2SP_ENGINE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>p2sp_4th_lib.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseInternational|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>./Dependencies/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIBWIN32;_LIB;TIXML_USE_STL;P2SP_ENGINE_EXPORT;WINVER=0x0500;_WIN32_WINNT=0x0501;_WIN32_WINDOWS=0x0410;_WIN32_IE=0x0600;P2SP_ENGINE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="p2sp_4th_lib.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Dependencies\fagex\fagexStringUtil.cpp" />
+    <ClCompile Include="Dependencies\lzari.cpp" />
+    <ClCompile Include="Dependencies\md5.cpp" />
+    <ClCompile Include="Dependencies\tinyxml\tinystr.cpp" />
+    <ClCompile Include="Dependencies\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="Dependencies\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="Dependencies\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="Dependencies\win\file_util.cpp" />
+    <ClCompile Include="Dependencies\win\file_version_info.cpp" />
+    <ClCompile Include="Dependencies\win\http_request.cpp" />
+    <ClCompile Include="Dependencies\win\http_upload.cpp" />
+    <ClCompile Include="Dependencies\win\netcard_info.cpp" />
+    <ClCompile Include="Dependencies\win\path_service.cpp" />
+    <ClCompile Include="Dependencies\win\registry.cpp" />
+    <ClCompile Include="Dependencies\win\string_conversion.cpp" />
+    <ClCompile Include="Dependencies\win\string_printf.cpp" />
+    <ClCompile Include="Dependencies\win\window_util.cpp" />
+    <ClCompile Include="download.cc" />
+    <ClCompile Include="memory_map_file.cc" />
+    <ClCompile Include="p2spEngineHandler.cpp" />
+    <ClCompile Include="p2spEngineUpdate.cc" />
+    <ClCompile Include="p2spInternalStruct.cpp" />
+    <ClCompile Include="p2spRoot.cpp" />
+    <ClCompile Include="p2spVersion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dependencies\fagex\fagexPrerequisites.h" />
+    <ClInclude Include="Dependencies\fagex\fagexSingleton.h" />
+    <ClInclude Include="Dependencies\fagex\fagexStdHeaders.h" />
+    <ClInclude Include="Dependencies\fagex\fagexStringUtil.h" />
+    <ClInclude Include="Dependencies\fagex\fagexWinUtility.h" />
+    <ClInclude Include="Dependencies\lzari.h" />
+    <ClInclude Include="Dependencies\md5.h" />
+    <ClInclude Include="Dependencies\SimpleIni.h" />
+    <ClInclude Include="Dependencies\tinyxml\tinystr.h" />
+    <ClInclude Include="Dependencies\tinyxml\tinyxml.h" />
+    <ClInclude Include="Dependencies\win\file_util.h" />
+    <ClInclude Include="Dependencies\win\file_version_info.h" />
+    <ClInclude Include="Dependencies\win\http_request.h" />
+    <ClInclude Include="Dependencies\win\http_upload.h" />
+    <ClInclude Include="Dependencies\win\netcard_info.h" />
+    <ClInclude Include="Dependencies\win\path_service.h" />
+    <ClInclude Include="Dependencies\win\registry.h" />
+    <ClInclude Include="Dependencies\win\string_conversion.h" />
+    <ClInclude Include="Dependencies\win\string_printf.h" />
+    <ClInclude Include="Dependencies\win\string_util.h" />
+    <ClInclude Include="Dependencies\win\window_util.h" />
+    <ClInclude Include="download.h" />
+    <ClInclude Include="engine_sdk.h" />
+    <ClInclude Include="i_p2sp_download.h" />
+    <ClInclude Include="memory_map_file.h" />
+    <ClInclude Include="p2spEngineHandler.h" />
+    <ClInclude Include="p2spEngineUpdate.h" />
+    <ClInclude Include="p2spInternalStruct.h" />
+    <ClInclude Include="p2spPrerequisites.h" />
+    <ClInclude Include="p2spRoot.h" />
+    <ClInclude Include="p2spStableHeadres.h" />
+    <ClInclude Include="p2spUtility.h" />
+    <ClInclude Include="p2spVersion.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

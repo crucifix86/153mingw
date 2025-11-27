@@ -1,0 +1,1 @@
+countrybattlegetconfig_re.hpp

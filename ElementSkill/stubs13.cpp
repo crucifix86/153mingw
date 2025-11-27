@@ -1,0 +1,873 @@
+#include "skill.h"
+#include "skill3042.h"
+#include "skill3043.h"
+#include "skill3044.h"
+#include "skill3045.h"
+#include "skill3046.h"
+#include "skill3047.h"
+#include "skill3048.h"
+#include "skill3049.h"
+#include "skill3050.h"
+#include "skill3051.h"
+#include "skill3052.h"
+#include "skill3053.h"
+#include "skill3054.h"
+#include "skill3055.h"
+#include "skill3056.h"
+#include "skill3057.h"
+#include "skill3058.h"
+#include "skill3059.h"
+#include "skill3060.h"
+#include "skill3061.h"
+#include "skill3062.h"
+#include "skill3063.h"
+#include "skill3064.h"
+#include "skill3065.h"
+#include "skill3066.h"
+#include "skill3067.h"
+#include "skill3068.h"
+#include "skill3069.h"
+#include "skill3070.h"
+#include "skill3071.h"
+#include "skill3072.h"
+#include "skill3073.h"
+#include "skill3074.h"
+#include "skill3075.h"
+#include "skill3076.h"
+#include "skill3077.h"
+#include "skill3078.h"
+#include "skill3079.h"
+#include "skill3080.h"
+#include "skill3081.h"
+#include "skill3082.h"
+#include "skill3083.h"
+#include "skill3084.h"
+#include "skill3085.h"
+#include "skill3086.h"
+#include "skill3087.h"
+#include "skill3088.h"
+#include "skill3089.h"
+#include "skill3090.h"
+#include "skill3091.h"
+#include "skill3092.h"
+#include "skill3093.h"
+#include "skill3094.h"
+#include "skill3095.h"
+#include "skill3096.h"
+#include "skill3097.h"
+#include "skill3098.h"
+#include "skill3099.h"
+#include "skill3100.h"
+#include "skill3101.h"
+#include "skill3102.h"
+#include "skill3103.h"
+#include "skill3104.h"
+#include "skill3105.h"
+#include "skill3106.h"
+#include "skill3107.h"
+#include "skill3108.h"
+#include "skill3109.h"
+#include "skill3110.h"
+#include "skill3111.h"
+#include "skill3112.h"
+#include "skill3113.h"
+#include "skill3114.h"
+#include "skill3115.h"
+#include "skill3116.h"
+#include "skill3117.h"
+#include "skill3118.h"
+#include "skill3119.h"
+#include "skill3120.h"
+#include "skill3121.h"
+#include "skill3122.h"
+#include "skill3123.h"
+#include "skill3124.h"
+#include "skill3125.h"
+#include "skill3126.h"
+#include "skill3127.h"
+#include "skill3128.h"
+#include "skill3129.h"
+#include "skill3130.h"
+#include "skill3131.h"
+#include "skill3132.h"
+#include "skill3133.h"
+#include "skill3134.h"
+#include "skill3135.h"
+#include "skill3136.h"
+#include "skill3137.h"
+#include "skill3138.h"
+#include "skill3139.h"
+#include "skill3140.h"
+#include "skill3141.h"
+#include "skill3142.h"
+#include "skill3143.h"
+#include "skill3144.h"
+#include "skill3145.h"
+#include "skill3146.h"
+#include "skill3147.h"
+#include "skill3148.h"
+#include "skill3149.h"
+#include "skill3150.h"
+#include "skill3151.h"
+#include "skill3152.h"
+#include "skill3153.h"
+#include "skill3154.h"
+#include "skill3155.h"
+#include "skill3156.h"
+#include "skill3157.h"
+#include "skill3158.h"
+#include "skill3159.h"
+#include "skill3160.h"
+#include "skill3161.h"
+#include "skill3162.h"
+#include "skill3163.h"
+#include "skill3164.h"
+#include "skill3165.h"
+#include "skill3166.h"
+#include "skill3167.h"
+#include "skill3168.h"
+#include "skill3169.h"
+#include "skill3170.h"
+#include "skill3171.h"
+#include "skill3172.h"
+#include "skill3173.h"
+#include "skill3174.h"
+#include "skill3175.h"
+#include "skill3176.h"
+#include "skill3177.h"
+#include "skill3178.h"
+#include "skill3179.h"
+#include "skill3180.h"
+#include "skill3181.h"
+#include "skill3182.h"
+#include "skill3183.h"
+#include "skill3184.h"
+#include "skill3185.h"
+#include "skill3186.h"
+#include "skill3187.h"
+#include "skill3188.h"
+#include "skill3189.h"
+#include "skill3190.h"
+#include "skill3191.h"
+#include "skill3192.h"
+#include "skill3193.h"
+#include "skill3194.h"
+#include "skill3195.h"
+#include "skill3196.h"
+#include "skill3197.h"
+#include "skill3198.h"
+#include "skill3199.h"
+#include "skill3200.h"
+#include "skill3201.h"
+#include "skill3202.h"
+#include "skill3203.h"
+#include "skill3204.h"
+#include "skill3205.h"
+#include "skill3206.h"
+#include "skill3207.h"
+#include "skill3208.h"
+#include "skill3209.h"
+#include "skill3210.h"
+#include "skill3211.h"
+#include "skill3212.h"
+#include "skill3213.h"
+#include "skill3214.h"
+#include "skill3215.h"
+#include "skill3216.h"
+#include "skill3217.h"
+#include "skill3218.h"
+#include "skill3219.h"
+#include "skill3220.h"
+#include "skill3221.h"
+#include "skill3222.h"
+#include "skill3223.h"
+#include "skill3224.h"
+#include "skill3225.h"
+#include "skill3226.h"
+#include "skill3227.h"
+#include "skill3228.h"
+#include "skill3229.h"
+#include "skill3230.h"
+#include "skill3231.h"
+#include "skill3232.h"
+#include "skill3233.h"
+#include "skill3234.h"
+#include "skill3235.h"
+#include "skill3236.h"
+#include "skill3237.h"
+#include "skill3238.h"
+#include "skill3239.h"
+#include "skill3240.h"
+#include "skill3241.h"
+#include "skill3242.h"
+#include "skill3243.h"
+#include "skill3244.h"
+#include "skill3245.h"
+#include "skill3246.h"
+#include "skill3247.h"
+#include "skill3248.h"
+#include "skill3249.h"
+#include "skill3250.h"
+#include "skill3251.h"
+#include "skill3252.h"
+#include "skill3253.h"
+#include "skill3254.h"
+#include "skill3255.h"
+#include "skill3256.h"
+#include "skill3257.h"
+#include "skill3258.h"
+#include "skill3259.h"
+#include "skill3260.h"
+#include "skill3261.h"
+#include "skill3262.h"
+#include "skill3263.h"
+#include "skill3264.h"
+#include "skill3265.h"
+#include "skill3266.h"
+#include "skill3267.h"
+#include "skill3268.h"
+#include "skill3269.h"
+#include "skill3270.h"
+#include "skill3271.h"
+#include "skill3272.h"
+#include "skill3273.h"
+#include "skill3274.h"
+#include "skill3275.h"
+#include "skill3276.h"
+#include "skill3277.h"
+#include "skill3278.h"
+#include "skill3279.h"
+#include "skill3280.h"
+#include "skill3281.h"
+#include "skill3282.h"
+#include "skill3283.h"
+#include "skill3284.h"
+#include "skill3285.h"
+#include "skill3286.h"
+#include "skill3287.h"
+#include "skill3288.h"
+#include "skill3289.h"
+#include "skill3290.h"
+#include "skill3291.h"
+#include "skill3292.h"
+#include "skill3293.h"
+#include "skill3294.h"
+#include "skill3295.h"
+#include "skill3296.h"
+#include "skill3297.h"
+#include "skill3298.h"
+#include "skill3299.h"
+#include "skill3300.h"
+#include "skill3301.h"
+#include "skill3302.h"
+#include "skill3303.h"
+#include "skill3304.h"
+#include "skill3305.h"
+#include "skill3306.h"
+#include "skill3307.h"
+#include "skill3308.h"
+#include "skill3309.h"
+#include "skill3310.h"
+#include "skill3311.h"
+#include "skill3312.h"
+#include "skill3313.h"
+#include "skill3314.h"
+#include "skill3315.h"
+#include "skill3316.h"
+#include "skill3317.h"
+#include "skill3318.h"
+#include "skill3319.h"
+#include "skill3320.h"
+#include "skill3321.h"
+#include "skill3322.h"
+#include "skill3323.h"
+#include "skill3324.h"
+#include "skill3325.h"
+#include "skill3326.h"
+#include "skill3327.h"
+#include "skill3328.h"
+#include "skill3329.h"
+#include "skill3330.h"
+namespace GNET
+{
+    Skill3042Stub __stub_Skill3042Stub;
+    Skill3043Stub __stub_Skill3043Stub;
+    Skill3044Stub __stub_Skill3044Stub;
+    Skill3045Stub __stub_Skill3045Stub;
+    Skill3046Stub __stub_Skill3046Stub;
+    Skill3047Stub __stub_Skill3047Stub;
+    Skill3048Stub __stub_Skill3048Stub;
+    Skill3049Stub __stub_Skill3049Stub;
+    Skill3050Stub __stub_Skill3050Stub;
+    Skill3051Stub __stub_Skill3051Stub;
+    Skill3052Stub __stub_Skill3052Stub;
+    Skill3053Stub __stub_Skill3053Stub;
+    Skill3054Stub __stub_Skill3054Stub;
+    Skill3055Stub __stub_Skill3055Stub;
+    Skill3056Stub __stub_Skill3056Stub;
+    Skill3057Stub __stub_Skill3057Stub;
+    Skill3058Stub __stub_Skill3058Stub;
+    Skill3059Stub __stub_Skill3059Stub;
+    Skill3060Stub __stub_Skill3060Stub;
+    Skill3061Stub __stub_Skill3061Stub;
+    Skill3062Stub __stub_Skill3062Stub;
+    Skill3063Stub __stub_Skill3063Stub;
+    Skill3064Stub __stub_Skill3064Stub;
+    Skill3065Stub __stub_Skill3065Stub;
+    Skill3066Stub __stub_Skill3066Stub;
+    Skill3067Stub __stub_Skill3067Stub;
+    Skill3068Stub __stub_Skill3068Stub;
+    Skill3069Stub __stub_Skill3069Stub;
+    Skill3070Stub __stub_Skill3070Stub;
+    Skill3071Stub __stub_Skill3071Stub;
+    Skill3072Stub __stub_Skill3072Stub;
+    Skill3073Stub __stub_Skill3073Stub;
+    Skill3074Stub __stub_Skill3074Stub;
+    Skill3075Stub __stub_Skill3075Stub;
+    Skill3076Stub __stub_Skill3076Stub;
+    Skill3077Stub __stub_Skill3077Stub;
+    Skill3078Stub __stub_Skill3078Stub;
+    Skill3079Stub __stub_Skill3079Stub;
+    Skill3080Stub __stub_Skill3080Stub;
+    Skill3081Stub __stub_Skill3081Stub;
+    Skill3082Stub __stub_Skill3082Stub;
+    Skill3083Stub __stub_Skill3083Stub;
+    Skill3084Stub __stub_Skill3084Stub;
+    Skill3085Stub __stub_Skill3085Stub;
+    Skill3086Stub __stub_Skill3086Stub;
+    Skill3087Stub __stub_Skill3087Stub;
+    Skill3088Stub __stub_Skill3088Stub;
+    Skill3089Stub __stub_Skill3089Stub;
+    Skill3090Stub __stub_Skill3090Stub;
+    Skill3091Stub __stub_Skill3091Stub;
+    Skill3092Stub __stub_Skill3092Stub;
+    Skill3093Stub __stub_Skill3093Stub;
+    Skill3094Stub __stub_Skill3094Stub;
+    Skill3095Stub __stub_Skill3095Stub;
+    Skill3096Stub __stub_Skill3096Stub;
+    Skill3097Stub __stub_Skill3097Stub;
+    Skill3098Stub __stub_Skill3098Stub;
+    Skill3099Stub __stub_Skill3099Stub;
+    Skill3100Stub __stub_Skill3100Stub;
+    Skill3101Stub __stub_Skill3101Stub;
+    Skill3102Stub __stub_Skill3102Stub;
+    Skill3103Stub __stub_Skill3103Stub;
+    Skill3104Stub __stub_Skill3104Stub;
+    Skill3105Stub __stub_Skill3105Stub;
+    Skill3106Stub __stub_Skill3106Stub;
+    Skill3107Stub __stub_Skill3107Stub;
+    Skill3108Stub __stub_Skill3108Stub;
+    Skill3109Stub __stub_Skill3109Stub;
+    Skill3110Stub __stub_Skill3110Stub;
+    Skill3111Stub __stub_Skill3111Stub;
+    Skill3112Stub __stub_Skill3112Stub;
+    Skill3113Stub __stub_Skill3113Stub;
+    Skill3114Stub __stub_Skill3114Stub;
+    Skill3115Stub __stub_Skill3115Stub;
+    Skill3116Stub __stub_Skill3116Stub;
+    Skill3117Stub __stub_Skill3117Stub;
+    Skill3118Stub __stub_Skill3118Stub;
+    Skill3119Stub __stub_Skill3119Stub;
+    Skill3120Stub __stub_Skill3120Stub;
+    Skill3121Stub __stub_Skill3121Stub;
+    Skill3122Stub __stub_Skill3122Stub;
+    Skill3123Stub __stub_Skill3123Stub;
+    Skill3124Stub __stub_Skill3124Stub;
+    Skill3125Stub __stub_Skill3125Stub;
+    Skill3126Stub __stub_Skill3126Stub;
+    Skill3127Stub __stub_Skill3127Stub;
+    Skill3128Stub __stub_Skill3128Stub;
+    Skill3129Stub __stub_Skill3129Stub;
+    Skill3130Stub __stub_Skill3130Stub;
+    Skill3131Stub __stub_Skill3131Stub;
+    Skill3132Stub __stub_Skill3132Stub;
+    Skill3133Stub __stub_Skill3133Stub;
+    Skill3134Stub __stub_Skill3134Stub;
+    Skill3135Stub __stub_Skill3135Stub;
+    Skill3136Stub __stub_Skill3136Stub;
+    Skill3137Stub __stub_Skill3137Stub;
+    Skill3138Stub __stub_Skill3138Stub;
+    Skill3139Stub __stub_Skill3139Stub;
+    Skill3140Stub __stub_Skill3140Stub;
+    Skill3141Stub __stub_Skill3141Stub;
+    Skill3142Stub __stub_Skill3142Stub;
+    Skill3143Stub __stub_Skill3143Stub;
+    Skill3144Stub __stub_Skill3144Stub;
+    Skill3145Stub __stub_Skill3145Stub;
+    Skill3146Stub __stub_Skill3146Stub;
+    Skill3147Stub __stub_Skill3147Stub;
+    Skill3148Stub __stub_Skill3148Stub;
+    Skill3149Stub __stub_Skill3149Stub;
+    Skill3150Stub __stub_Skill3150Stub;
+    Skill3151Stub __stub_Skill3151Stub;
+    Skill3152Stub __stub_Skill3152Stub;
+    Skill3153Stub __stub_Skill3153Stub;
+    Skill3154Stub __stub_Skill3154Stub;
+    Skill3155Stub __stub_Skill3155Stub;
+    Skill3156Stub __stub_Skill3156Stub;
+    Skill3157Stub __stub_Skill3157Stub;
+    Skill3158Stub __stub_Skill3158Stub;
+    Skill3159Stub __stub_Skill3159Stub;
+    Skill3160Stub __stub_Skill3160Stub;
+    Skill3161Stub __stub_Skill3161Stub;
+    Skill3162Stub __stub_Skill3162Stub;
+    Skill3163Stub __stub_Skill3163Stub;
+    Skill3164Stub __stub_Skill3164Stub;
+    Skill3165Stub __stub_Skill3165Stub;
+    Skill3166Stub __stub_Skill3166Stub;
+    Skill3167Stub __stub_Skill3167Stub;
+    Skill3168Stub __stub_Skill3168Stub;
+    Skill3169Stub __stub_Skill3169Stub;
+    Skill3170Stub __stub_Skill3170Stub;
+    Skill3171Stub __stub_Skill3171Stub;
+    Skill3172Stub __stub_Skill3172Stub;
+    Skill3173Stub __stub_Skill3173Stub;
+    Skill3174Stub __stub_Skill3174Stub;
+    Skill3175Stub __stub_Skill3175Stub;
+    Skill3176Stub __stub_Skill3176Stub;
+    Skill3177Stub __stub_Skill3177Stub;
+    Skill3178Stub __stub_Skill3178Stub;
+    Skill3179Stub __stub_Skill3179Stub;
+    Skill3180Stub __stub_Skill3180Stub;
+    Skill3181Stub __stub_Skill3181Stub;
+    Skill3182Stub __stub_Skill3182Stub;
+    Skill3183Stub __stub_Skill3183Stub;
+    Skill3184Stub __stub_Skill3184Stub;
+    Skill3185Stub __stub_Skill3185Stub;
+    Skill3186Stub __stub_Skill3186Stub;
+    Skill3187Stub __stub_Skill3187Stub;
+    Skill3188Stub __stub_Skill3188Stub;
+    Skill3189Stub __stub_Skill3189Stub;
+    Skill3190Stub __stub_Skill3190Stub;
+    Skill3191Stub __stub_Skill3191Stub;
+    Skill3192Stub __stub_Skill3192Stub;
+    Skill3193Stub __stub_Skill3193Stub;
+    Skill3194Stub __stub_Skill3194Stub;
+    Skill3195Stub __stub_Skill3195Stub;
+    Skill3196Stub __stub_Skill3196Stub;
+    Skill3197Stub __stub_Skill3197Stub;
+    Skill3198Stub __stub_Skill3198Stub;
+    Skill3199Stub __stub_Skill3199Stub;
+    Skill3200Stub __stub_Skill3200Stub;
+    Skill3201Stub __stub_Skill3201Stub;
+    Skill3202Stub __stub_Skill3202Stub;
+    Skill3203Stub __stub_Skill3203Stub;
+    Skill3204Stub __stub_Skill3204Stub;
+    Skill3205Stub __stub_Skill3205Stub;
+    Skill3206Stub __stub_Skill3206Stub;
+    Skill3207Stub __stub_Skill3207Stub;
+    Skill3208Stub __stub_Skill3208Stub;
+    Skill3209Stub __stub_Skill3209Stub;
+    Skill3210Stub __stub_Skill3210Stub;
+    Skill3211Stub __stub_Skill3211Stub;
+    Skill3212Stub __stub_Skill3212Stub;
+    Skill3213Stub __stub_Skill3213Stub;
+    Skill3214Stub __stub_Skill3214Stub;
+    Skill3215Stub __stub_Skill3215Stub;
+    Skill3216Stub __stub_Skill3216Stub;
+    Skill3217Stub __stub_Skill3217Stub;
+    Skill3218Stub __stub_Skill3218Stub;
+    Skill3219Stub __stub_Skill3219Stub;
+    Skill3220Stub __stub_Skill3220Stub;
+    Skill3221Stub __stub_Skill3221Stub;
+    Skill3222Stub __stub_Skill3222Stub;
+    Skill3223Stub __stub_Skill3223Stub;
+    Skill3224Stub __stub_Skill3224Stub;
+    Skill3225Stub __stub_Skill3225Stub;
+    Skill3226Stub __stub_Skill3226Stub;
+    Skill3227Stub __stub_Skill3227Stub;
+    Skill3228Stub __stub_Skill3228Stub;
+    Skill3229Stub __stub_Skill3229Stub;
+    Skill3230Stub __stub_Skill3230Stub;
+    Skill3231Stub __stub_Skill3231Stub;
+    Skill3232Stub __stub_Skill3232Stub;
+    Skill3233Stub __stub_Skill3233Stub;
+    Skill3234Stub __stub_Skill3234Stub;
+    Skill3235Stub __stub_Skill3235Stub;
+    Skill3236Stub __stub_Skill3236Stub;
+    Skill3237Stub __stub_Skill3237Stub;
+    Skill3238Stub __stub_Skill3238Stub;
+    Skill3239Stub __stub_Skill3239Stub;
+    Skill3240Stub __stub_Skill3240Stub;
+    Skill3241Stub __stub_Skill3241Stub;
+    Skill3242Stub __stub_Skill3242Stub;
+    Skill3243Stub __stub_Skill3243Stub;
+    Skill3244Stub __stub_Skill3244Stub;
+    Skill3245Stub __stub_Skill3245Stub;
+    Skill3246Stub __stub_Skill3246Stub;
+    Skill3247Stub __stub_Skill3247Stub;
+    Skill3248Stub __stub_Skill3248Stub;
+    Skill3249Stub __stub_Skill3249Stub;
+    Skill3250Stub __stub_Skill3250Stub;
+    Skill3251Stub __stub_Skill3251Stub;
+    Skill3252Stub __stub_Skill3252Stub;
+    Skill3253Stub __stub_Skill3253Stub;
+    Skill3254Stub __stub_Skill3254Stub;
+    Skill3255Stub __stub_Skill3255Stub;
+    Skill3256Stub __stub_Skill3256Stub;
+    Skill3257Stub __stub_Skill3257Stub;
+    Skill3258Stub __stub_Skill3258Stub;
+    Skill3259Stub __stub_Skill3259Stub;
+    Skill3260Stub __stub_Skill3260Stub;
+    Skill3261Stub __stub_Skill3261Stub;
+    Skill3262Stub __stub_Skill3262Stub;
+    Skill3263Stub __stub_Skill3263Stub;
+    Skill3264Stub __stub_Skill3264Stub;
+    Skill3265Stub __stub_Skill3265Stub;
+    Skill3266Stub __stub_Skill3266Stub;
+    Skill3267Stub __stub_Skill3267Stub;
+    Skill3268Stub __stub_Skill3268Stub;
+    Skill3269Stub __stub_Skill3269Stub;
+    Skill3270Stub __stub_Skill3270Stub;
+    Skill3271Stub __stub_Skill3271Stub;
+    Skill3272Stub __stub_Skill3272Stub;
+    Skill3273Stub __stub_Skill3273Stub;
+    Skill3274Stub __stub_Skill3274Stub;
+    Skill3275Stub __stub_Skill3275Stub;
+    Skill3276Stub __stub_Skill3276Stub;
+    Skill3277Stub __stub_Skill3277Stub;
+    Skill3278Stub __stub_Skill3278Stub;
+    Skill3279Stub __stub_Skill3279Stub;
+    Skill3280Stub __stub_Skill3280Stub;
+    Skill3281Stub __stub_Skill3281Stub;
+    Skill3282Stub __stub_Skill3282Stub;
+    Skill3283Stub __stub_Skill3283Stub;
+    Skill3284Stub __stub_Skill3284Stub;
+    Skill3285Stub __stub_Skill3285Stub;
+    Skill3286Stub __stub_Skill3286Stub;
+    Skill3287Stub __stub_Skill3287Stub;
+    Skill3288Stub __stub_Skill3288Stub;
+    Skill3289Stub __stub_Skill3289Stub;
+    Skill3290Stub __stub_Skill3290Stub;
+    Skill3291Stub __stub_Skill3291Stub;
+    Skill3292Stub __stub_Skill3292Stub;
+    Skill3293Stub __stub_Skill3293Stub;
+    Skill3294Stub __stub_Skill3294Stub;
+    Skill3295Stub __stub_Skill3295Stub;
+    Skill3296Stub __stub_Skill3296Stub;
+    Skill3297Stub __stub_Skill3297Stub;
+    Skill3298Stub __stub_Skill3298Stub;
+    Skill3299Stub __stub_Skill3299Stub;
+    Skill3300Stub __stub_Skill3300Stub;
+    Skill3301Stub __stub_Skill3301Stub;
+    Skill3302Stub __stub_Skill3302Stub;
+    Skill3303Stub __stub_Skill3303Stub;
+    Skill3304Stub __stub_Skill3304Stub;
+    Skill3305Stub __stub_Skill3305Stub;
+    Skill3306Stub __stub_Skill3306Stub;
+    Skill3307Stub __stub_Skill3307Stub;
+    Skill3308Stub __stub_Skill3308Stub;
+    Skill3309Stub __stub_Skill3309Stub;
+    Skill3310Stub __stub_Skill3310Stub;
+    Skill3311Stub __stub_Skill3311Stub;
+    Skill3312Stub __stub_Skill3312Stub;
+    Skill3313Stub __stub_Skill3313Stub;
+    Skill3314Stub __stub_Skill3314Stub;
+    Skill3315Stub __stub_Skill3315Stub;
+    Skill3316Stub __stub_Skill3316Stub;
+    Skill3317Stub __stub_Skill3317Stub;
+    Skill3318Stub __stub_Skill3318Stub;
+    Skill3319Stub __stub_Skill3319Stub;
+    Skill3320Stub __stub_Skill3320Stub;
+    Skill3321Stub __stub_Skill3321Stub;
+    Skill3322Stub __stub_Skill3322Stub;
+    Skill3323Stub __stub_Skill3323Stub;
+    Skill3324Stub __stub_Skill3324Stub;
+    Skill3325Stub __stub_Skill3325Stub;
+    Skill3326Stub __stub_Skill3326Stub;
+    Skill3327Stub __stub_Skill3327Stub;
+    Skill3328Stub __stub_Skill3328Stub;
+    Skill3329Stub __stub_Skill3329Stub;
+    Skill3330Stub __stub_Skill3330Stub;
+#ifdef _SKILL_SERVER
+    Skill3042 __stub_Skill3042;
+    Skill3043 __stub_Skill3043;
+    Skill3044 __stub_Skill3044;
+    Skill3045 __stub_Skill3045;
+    Skill3046 __stub_Skill3046;
+    Skill3047 __stub_Skill3047;
+    Skill3048 __stub_Skill3048;
+    Skill3049 __stub_Skill3049;
+    Skill3050 __stub_Skill3050;
+    Skill3051 __stub_Skill3051;
+    Skill3052 __stub_Skill3052;
+    Skill3053 __stub_Skill3053;
+    Skill3054 __stub_Skill3054;
+    Skill3055 __stub_Skill3055;
+    Skill3056 __stub_Skill3056;
+    Skill3057 __stub_Skill3057;
+    Skill3058 __stub_Skill3058;
+    Skill3059 __stub_Skill3059;
+    Skill3060 __stub_Skill3060;
+    Skill3061 __stub_Skill3061;
+    Skill3062 __stub_Skill3062;
+    Skill3063 __stub_Skill3063;
+    Skill3064 __stub_Skill3064;
+    Skill3065 __stub_Skill3065;
+    Skill3066 __stub_Skill3066;
+    Skill3067 __stub_Skill3067;
+    Skill3068 __stub_Skill3068;
+    Skill3069 __stub_Skill3069;
+    Skill3070 __stub_Skill3070;
+    Skill3071 __stub_Skill3071;
+    Skill3072 __stub_Skill3072;
+    Skill3073 __stub_Skill3073;
+    Skill3074 __stub_Skill3074;
+    Skill3075 __stub_Skill3075;
+    Skill3076 __stub_Skill3076;
+    Skill3077 __stub_Skill3077;
+    Skill3078 __stub_Skill3078;
+    Skill3079 __stub_Skill3079;
+    Skill3080 __stub_Skill3080;
+    Skill3081 __stub_Skill3081;
+    Skill3082 __stub_Skill3082;
+    Skill3083 __stub_Skill3083;
+    Skill3084 __stub_Skill3084;
+    Skill3085 __stub_Skill3085;
+    Skill3086 __stub_Skill3086;
+    Skill3087 __stub_Skill3087;
+    Skill3088 __stub_Skill3088;
+    Skill3089 __stub_Skill3089;
+    Skill3090 __stub_Skill3090;
+    Skill3091 __stub_Skill3091;
+    Skill3092 __stub_Skill3092;
+    Skill3093 __stub_Skill3093;
+    Skill3094 __stub_Skill3094;
+    Skill3095 __stub_Skill3095;
+    Skill3096 __stub_Skill3096;
+    Skill3097 __stub_Skill3097;
+    Skill3098 __stub_Skill3098;
+    Skill3099 __stub_Skill3099;
+    Skill3100 __stub_Skill3100;
+    Skill3101 __stub_Skill3101;
+    Skill3102 __stub_Skill3102;
+    Skill3103 __stub_Skill3103;
+    Skill3104 __stub_Skill3104;
+    Skill3105 __stub_Skill3105;
+    Skill3106 __stub_Skill3106;
+    Skill3107 __stub_Skill3107;
+    Skill3108 __stub_Skill3108;
+    Skill3109 __stub_Skill3109;
+    Skill3110 __stub_Skill3110;
+    Skill3111 __stub_Skill3111;
+    Skill3112 __stub_Skill3112;
+    Skill3113 __stub_Skill3113;
+    Skill3114 __stub_Skill3114;
+    Skill3115 __stub_Skill3115;
+    Skill3116 __stub_Skill3116;
+    Skill3117 __stub_Skill3117;
+    Skill3118 __stub_Skill3118;
+    Skill3119 __stub_Skill3119;
+    Skill3120 __stub_Skill3120;
+    Skill3121 __stub_Skill3121;
+    Skill3122 __stub_Skill3122;
+    Skill3123 __stub_Skill3123;
+    Skill3124 __stub_Skill3124;
+    Skill3125 __stub_Skill3125;
+    Skill3126 __stub_Skill3126;
+    Skill3127 __stub_Skill3127;
+    Skill3128 __stub_Skill3128;
+    Skill3129 __stub_Skill3129;
+    Skill3130 __stub_Skill3130;
+    Skill3131 __stub_Skill3131;
+    Skill3132 __stub_Skill3132;
+    Skill3133 __stub_Skill3133;
+    Skill3134 __stub_Skill3134;
+    Skill3135 __stub_Skill3135;
+    Skill3136 __stub_Skill3136;
+    Skill3137 __stub_Skill3137;
+    Skill3138 __stub_Skill3138;
+    Skill3139 __stub_Skill3139;
+    Skill3140 __stub_Skill3140;
+    Skill3141 __stub_Skill3141;
+    Skill3142 __stub_Skill3142;
+    Skill3143 __stub_Skill3143;
+    Skill3144 __stub_Skill3144;
+    Skill3145 __stub_Skill3145;
+    Skill3146 __stub_Skill3146;
+    Skill3147 __stub_Skill3147;
+    Skill3148 __stub_Skill3148;
+    Skill3149 __stub_Skill3149;
+    Skill3150 __stub_Skill3150;
+    Skill3151 __stub_Skill3151;
+    Skill3152 __stub_Skill3152;
+    Skill3153 __stub_Skill3153;
+    Skill3154 __stub_Skill3154;
+    Skill3155 __stub_Skill3155;
+    Skill3156 __stub_Skill3156;
+    Skill3157 __stub_Skill3157;
+    Skill3158 __stub_Skill3158;
+    Skill3159 __stub_Skill3159;
+    Skill3160 __stub_Skill3160;
+    Skill3161 __stub_Skill3161;
+    Skill3162 __stub_Skill3162;
+    Skill3163 __stub_Skill3163;
+    Skill3164 __stub_Skill3164;
+    Skill3165 __stub_Skill3165;
+    Skill3166 __stub_Skill3166;
+    Skill3167 __stub_Skill3167;
+    Skill3168 __stub_Skill3168;
+    Skill3169 __stub_Skill3169;
+    Skill3170 __stub_Skill3170;
+    Skill3171 __stub_Skill3171;
+    Skill3172 __stub_Skill3172;
+    Skill3173 __stub_Skill3173;
+    Skill3174 __stub_Skill3174;
+    Skill3175 __stub_Skill3175;
+    Skill3176 __stub_Skill3176;
+    Skill3177 __stub_Skill3177;
+    Skill3178 __stub_Skill3178;
+    Skill3179 __stub_Skill3179;
+    Skill3180 __stub_Skill3180;
+    Skill3181 __stub_Skill3181;
+    Skill3182 __stub_Skill3182;
+    Skill3183 __stub_Skill3183;
+    Skill3184 __stub_Skill3184;
+    Skill3185 __stub_Skill3185;
+    Skill3186 __stub_Skill3186;
+    Skill3187 __stub_Skill3187;
+    Skill3188 __stub_Skill3188;
+    Skill3189 __stub_Skill3189;
+    Skill3190 __stub_Skill3190;
+    Skill3191 __stub_Skill3191;
+    Skill3192 __stub_Skill3192;
+    Skill3193 __stub_Skill3193;
+    Skill3194 __stub_Skill3194;
+    Skill3195 __stub_Skill3195;
+    Skill3196 __stub_Skill3196;
+    Skill3197 __stub_Skill3197;
+    Skill3198 __stub_Skill3198;
+    Skill3199 __stub_Skill3199;
+    Skill3200 __stub_Skill3200;
+    Skill3201 __stub_Skill3201;
+    Skill3202 __stub_Skill3202;
+    Skill3203 __stub_Skill3203;
+    Skill3204 __stub_Skill3204;
+    Skill3205 __stub_Skill3205;
+    Skill3206 __stub_Skill3206;
+    Skill3207 __stub_Skill3207;
+    Skill3208 __stub_Skill3208;
+    Skill3209 __stub_Skill3209;
+    Skill3210 __stub_Skill3210;
+    Skill3211 __stub_Skill3211;
+    Skill3212 __stub_Skill3212;
+    Skill3213 __stub_Skill3213;
+    Skill3214 __stub_Skill3214;
+    Skill3215 __stub_Skill3215;
+    Skill3216 __stub_Skill3216;
+    Skill3217 __stub_Skill3217;
+    Skill3218 __stub_Skill3218;
+    Skill3219 __stub_Skill3219;
+    Skill3220 __stub_Skill3220;
+    Skill3221 __stub_Skill3221;
+    Skill3222 __stub_Skill3222;
+    Skill3223 __stub_Skill3223;
+    Skill3224 __stub_Skill3224;
+    Skill3225 __stub_Skill3225;
+    Skill3226 __stub_Skill3226;
+    Skill3227 __stub_Skill3227;
+    Skill3228 __stub_Skill3228;
+    Skill3229 __stub_Skill3229;
+    Skill3230 __stub_Skill3230;
+    Skill3231 __stub_Skill3231;
+    Skill3232 __stub_Skill3232;
+    Skill3233 __stub_Skill3233;
+    Skill3234 __stub_Skill3234;
+    Skill3235 __stub_Skill3235;
+    Skill3236 __stub_Skill3236;
+    Skill3237 __stub_Skill3237;
+    Skill3238 __stub_Skill3238;
+    Skill3239 __stub_Skill3239;
+    Skill3240 __stub_Skill3240;
+    Skill3241 __stub_Skill3241;
+    Skill3242 __stub_Skill3242;
+    Skill3243 __stub_Skill3243;
+    Skill3244 __stub_Skill3244;
+    Skill3245 __stub_Skill3245;
+    Skill3246 __stub_Skill3246;
+    Skill3247 __stub_Skill3247;
+    Skill3248 __stub_Skill3248;
+    Skill3249 __stub_Skill3249;
+    Skill3250 __stub_Skill3250;
+    Skill3251 __stub_Skill3251;
+    Skill3252 __stub_Skill3252;
+    Skill3253 __stub_Skill3253;
+    Skill3254 __stub_Skill3254;
+    Skill3255 __stub_Skill3255;
+    Skill3256 __stub_Skill3256;
+    Skill3257 __stub_Skill3257;
+    Skill3258 __stub_Skill3258;
+    Skill3259 __stub_Skill3259;
+    Skill3260 __stub_Skill3260;
+    Skill3261 __stub_Skill3261;
+    Skill3262 __stub_Skill3262;
+    Skill3263 __stub_Skill3263;
+    Skill3264 __stub_Skill3264;
+    Skill3265 __stub_Skill3265;
+    Skill3266 __stub_Skill3266;
+    Skill3267 __stub_Skill3267;
+    Skill3268 __stub_Skill3268;
+    Skill3269 __stub_Skill3269;
+    Skill3270 __stub_Skill3270;
+    Skill3271 __stub_Skill3271;
+    Skill3272 __stub_Skill3272;
+    Skill3273 __stub_Skill3273;
+    Skill3274 __stub_Skill3274;
+    Skill3275 __stub_Skill3275;
+    Skill3276 __stub_Skill3276;
+    Skill3277 __stub_Skill3277;
+    Skill3278 __stub_Skill3278;
+    Skill3279 __stub_Skill3279;
+    Skill3280 __stub_Skill3280;
+    Skill3281 __stub_Skill3281;
+    Skill3282 __stub_Skill3282;
+    Skill3283 __stub_Skill3283;
+    Skill3284 __stub_Skill3284;
+    Skill3285 __stub_Skill3285;
+    Skill3286 __stub_Skill3286;
+    Skill3287 __stub_Skill3287;
+    Skill3288 __stub_Skill3288;
+    Skill3289 __stub_Skill3289;
+    Skill3290 __stub_Skill3290;
+    Skill3291 __stub_Skill3291;
+    Skill3292 __stub_Skill3292;
+    Skill3293 __stub_Skill3293;
+    Skill3294 __stub_Skill3294;
+    Skill3295 __stub_Skill3295;
+    Skill3296 __stub_Skill3296;
+    Skill3297 __stub_Skill3297;
+    Skill3298 __stub_Skill3298;
+    Skill3299 __stub_Skill3299;
+    Skill3300 __stub_Skill3300;
+    Skill3301 __stub_Skill3301;
+    Skill3302 __stub_Skill3302;
+    Skill3303 __stub_Skill3303;
+    Skill3304 __stub_Skill3304;
+    Skill3305 __stub_Skill3305;
+    Skill3306 __stub_Skill3306;
+    Skill3307 __stub_Skill3307;
+    Skill3308 __stub_Skill3308;
+    Skill3309 __stub_Skill3309;
+    Skill3310 __stub_Skill3310;
+    Skill3311 __stub_Skill3311;
+    Skill3312 __stub_Skill3312;
+    Skill3313 __stub_Skill3313;
+    Skill3314 __stub_Skill3314;
+    Skill3315 __stub_Skill3315;
+    Skill3316 __stub_Skill3316;
+    Skill3317 __stub_Skill3317;
+    Skill3318 __stub_Skill3318;
+    Skill3319 __stub_Skill3319;
+    Skill3320 __stub_Skill3320;
+    Skill3321 __stub_Skill3321;
+    Skill3322 __stub_Skill3322;
+    Skill3323 __stub_Skill3323;
+    Skill3324 __stub_Skill3324;
+    Skill3325 __stub_Skill3325;
+    Skill3326 __stub_Skill3326;
+    Skill3327 __stub_Skill3327;
+    Skill3328 __stub_Skill3328;
+    Skill3329 __stub_Skill3329;
+    Skill3330 __stub_Skill3330;
+#endif
+}

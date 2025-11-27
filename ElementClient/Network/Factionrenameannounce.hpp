@@ -1,0 +1,1 @@
+factionrenameannounce.hpp

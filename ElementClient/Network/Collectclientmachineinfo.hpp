@@ -1,0 +1,1 @@
+collectclientmachineinfo.hpp

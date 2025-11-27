@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="头文件\Dependencies">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="头文件\Dependencies\fagex">
+      <UniqueIdentifier>{1364b37d-c237-4aac-8950-f311cef2ac83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dependencies\win">
+      <UniqueIdentifier>{c68c2344-fef8-4a02-8c16-d41b4faa4cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dependencies\tinyxml">
+      <UniqueIdentifier>{568528a7-aca3-40e4-ab34-87fb295fbcb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="接口头文件">
+      <UniqueIdentifier>{8e09cdfd-4980-44c1-85ef-bf353347996b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="p2sp_4th_lib.def">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="p2spEngineHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="p2spEngineUpdate.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="p2spInternalStruct.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="p2spRoot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="p2spVersion.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="download.cc">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="memory_map_file.cc">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\lzari.cpp">
+      <Filter>头文件\Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\md5.cpp">
+      <Filter>头文件\Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\fagex\fagexStringUtil.cpp">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\file_util.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\file_version_info.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\http_request.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\http_upload.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\netcard_info.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\path_service.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\registry.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\string_conversion.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\string_printf.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\win\window_util.cpp">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\tinyxml\tinystr.cpp">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\tinyxml\tinyxml.cpp">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\tinyxml\tinyxmlerror.cpp">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependencies\tinyxml\tinyxmlparser.cpp">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="p2spEngineUpdate.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="download.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="memory_map_file.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spEngineHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spInternalStruct.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spPrerequisites.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spRoot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spStableHeadres.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spUtility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p2spVersion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\lzari.h">
+      <Filter>头文件\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\md5.h">
+      <Filter>头文件\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\SimpleIni.h">
+      <Filter>头文件\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\fagex\fagexPrerequisites.h">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\fagex\fagexSingleton.h">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\fagex\fagexStdHeaders.h">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\fagex\fagexStringUtil.h">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\fagex\fagexWinUtility.h">
+      <Filter>头文件\Dependencies\fagex</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\file_util.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\file_version_info.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\http_request.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\http_upload.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\netcard_info.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\path_service.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\registry.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\string_conversion.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\string_printf.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\string_util.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\win\window_util.h">
+      <Filter>头文件\Dependencies\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\tinyxml\tinystr.h">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\tinyxml\tinyxml.h">
+      <Filter>头文件\Dependencies\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="engine_sdk.h">
+      <Filter>接口头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="i_p2sp_download.h">
+      <Filter>接口头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

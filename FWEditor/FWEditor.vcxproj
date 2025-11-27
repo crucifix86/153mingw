@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug Release|Win32">
+      <Configuration>Debug Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Release|x64">
+      <Configuration>Debug Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release AVX2|Win32">
+      <Configuration>Release AVX2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release AVX2|x64">
+      <Configuration>Release AVX2</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release SSE2|Win32">
+      <Configuration>Release SSE2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release SSE2|x64">
+      <Configuration>Release SSE2</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{241400ab-e8d0-4d99-b401-1cd921e2f0b9}</ProjectGuid>
+    <RootNamespace>FWEditor</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release SSE2|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release AVX2|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>false</StringPooling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DX9;_FW_EDITOR;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\AngelicaCommon\header;..\AngelicaFile\header;..\AngelicaMedia\header;..\Angelica3D\header;..\AUInterface;..\GfxCommon;..\PropDlg</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CharContour.cpp" />
+    <ClCompile Include="CharCurve.cpp" />
+    <ClCompile Include="CharOutline.cpp" />
+    <ClCompile Include="CharVerticesBuffer.cpp" />
+    <ClCompile Include="CodeTemplate.cpp" />
+    <ClCompile Include="FWAlgorithm.cpp" />
+    <ClCompile Include="FWArchive.cpp" />
+    <ClCompile Include="FWArt.cpp" />
+    <ClCompile Include="FWArtArc.cpp" />
+    <ClCompile Include="FWArtCreator.cpp" />
+    <ClCompile Include="FWArtDoubleArc.cpp" />
+    <ClCompile Include="FWArtNoChange.cpp" />
+    <ClCompile Include="FWArtStepScale.cpp" />
+    <ClCompile Include="FWArtTilt.cpp" />
+    <ClCompile Include="FWArtWave.cpp" />
+    <ClCompile Include="FWAssemblyCache.cpp" />
+    <ClCompile Include="FWAssemblyProfile.cpp" />
+    <ClCompile Include="FWAssemblySet.cpp" />
+    <ClCompile Include="FWAUIManager.cpp" />
+    <ClCompile Include="FWCommand.cpp" />
+    <ClCompile Include="FWCommandCombine.cpp" />
+    <ClCompile Include="FWCommandCreate.cpp" />
+    <ClCompile Include="FWCommandDelete.cpp" />
+    <ClCompile Include="FWCommandDuplicateHandle.cpp" />
+    <ClCompile Include="FWCommandList.cpp" />
+    <ClCompile Include="FWCommandMove.cpp" />
+    <ClCompile Include="FWCommandMoveHandle.cpp" />
+    <ClCompile Include="FWCommandRemoveHandle.cpp" />
+    <ClCompile Include="FWCommandResize.cpp" />
+    <ClCompile Include="FWCommandRotate.cpp" />
+    <ClCompile Include="FWCommandSetBezierMode.cpp" />
+    <ClCompile Include="FWCommandSetGlyphProp.cpp" />
+    <ClCompile Include="FWCommandUnCombine.cpp" />
+    <ClCompile Include="FWDialogBase.cpp" />
+    <ClCompile Include="FWDialogBezierMenu.cpp" />
+    <ClCompile Include="FWDialogBoard.cpp" />
+    <ClCompile Include="FWDialogCustom.cpp" />
+    <ClCompile Include="FWDialogEdit.cpp" />
+    <ClCompile Include="FWDialogGraph.cpp" />
+    <ClCompile Include="FWDialogGraphMenu.cpp" />
+    <ClCompile Include="FWDialogLanch.cpp" />
+    <ClCompile Include="FWDialogMain.cpp" />
+    <ClCompile Include="FWDialogParam.cpp" />
+    <ClCompile Include="FWDialogPlay.cpp" />
+    <ClCompile Include="FWDialogPolygonMenu.cpp" />
+    <ClCompile Include="FWDialogPropBase.cpp" />
+    <ClCompile Include="FWDialogScale.cpp" />
+    <ClCompile Include="FWDialogSimple.cpp" />
+    <ClCompile Include="FWDialogText.cpp" />
+    <ClCompile Include="FWDialogTool.cpp" />
+    <ClCompile Include="FWDoc.cpp" />
+    <ClCompile Include="FWFirework.cpp" />
+    <ClCompile Include="FWFireworkCustom.cpp" />
+    <ClCompile Include="FWFireworkElement.cpp" />
+    <ClCompile Include="FWFireworkGraph.cpp" />
+    <ClCompile Include="FWFireworkLanch.cpp" />
+    <ClCompile Include="FWFireworkLeaf.cpp" />
+    <ClCompile Include="FWFireworkSimple.cpp" />
+    <ClCompile Include="FWFlatCollector.cpp" />
+    <ClCompile Include="FWFontEnum.cpp" />
+    <ClCompile Include="FWFormula.cpp" />
+    <ClCompile Include="FWFormulaElement.cpp" />
+    <ClCompile Include="FWFormulaList.cpp" />
+    <ClCompile Include="FWGfxWithModifier.cpp" />
+    <ClCompile Include="FWGlyph.cpp" />
+    <ClCompile Include="FWGlyphBezier.cpp" />
+    <ClCompile Include="FWGlyphComposite.cpp" />
+    <ClCompile Include="FWGlyphEllipse.cpp" />
+    <ClCompile Include="FWGlyphFirework.cpp" />
+    <ClCompile Include="FWGlyphGraphBase.cpp" />
+    <ClCompile Include="FWGlyphList.cpp" />
+    <ClCompile Include="FWGlyphPolygon.cpp" />
+    <ClCompile Include="FWGlyphRectangle.cpp" />
+    <ClCompile Include="FWGlyphRectBase.cpp" />
+    <ClCompile Include="FWGlyphText.cpp" />
+    <ClCompile Include="FWInnerProperty.cpp" />
+    <ClCompile Include="FWLog.cpp" />
+    <ClCompile Include="FWManager.cpp" />
+    <ClCompile Include="FWModifier.cpp" />
+    <ClCompile Include="FWModifierCreator.cpp" />
+    <ClCompile Include="FWModifierParabola.cpp" />
+    <ClCompile Include="FWModifierRing.cpp" />
+    <ClCompile Include="FWObject.cpp" />
+    <ClCompile Include="FWOperand.cpp" />
+    <ClCompile Include="FWOperator.cpp" />
+    <ClCompile Include="FWOutterProperty.cpp" />
+    <ClCompile Include="FWParam.cpp" />
+    <ClCompile Include="FWParticalQuota.cpp" />
+    <ClCompile Include="FWParticalQuotaList.cpp" />
+    <ClCompile Include="FWPlayer.cpp" />
+    <ClCompile Include="FWRuntimeClass.cpp" />
+    <ClCompile Include="FWSharedFile.cpp" />
+    <ClCompile Include="FWState.cpp" />
+    <ClCompile Include="FWStateCreateBezier.cpp" />
+    <ClCompile Include="FWStateCreateFirework.cpp" />
+    <ClCompile Include="FWStateCreatePolygon.cpp" />
+    <ClCompile Include="FWStateCreateRect.cpp" />
+    <ClCompile Include="FWStateCreateText.cpp" />
+    <ClCompile Include="FWStateMove.cpp" />
+    <ClCompile Include="FWStateMoveHandle.cpp" />
+    <ClCompile Include="FWStateMoveWindow.cpp" />
+    <ClCompile Include="FWStateNetSelect.cpp" />
+    <ClCompile Include="FWStateResize.cpp" />
+    <ClCompile Include="FWStateRotate.cpp" />
+    <ClCompile Include="FWStateSelect.cpp" />
+    <ClCompile Include="FWStream.cpp" />
+    <ClCompile Include="FWTemplate.cpp" />
+    <ClCompile Include="FWTextMesh.cpp" />
+    <ClCompile Include="FWView.cpp" />
+    <ClCompile Include="GLUContour.cpp" />
+    <ClCompile Include="GLUPolygon.cpp" />
+    <ClCompile Include="GLUTess.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Triangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CharContour.h" />
+    <ClInclude Include="CharCurve.h" />
+    <ClInclude Include="CharOutline.h" />
+    <ClInclude Include="CharVerticesBuffer.h" />
+    <ClInclude Include="CodeTemplate.h" />
+    <ClInclude Include="FWAlgorithm.h" />
+    <ClInclude Include="FWArchive.h" />
+    <ClInclude Include="FWArray.h" />
+    <ClInclude Include="FWArt.h" />
+    <ClInclude Include="FWArtArc.h" />
+    <ClInclude Include="FWArtCreator.h" />
+    <ClInclude Include="FWArtDoubleArc.h" />
+    <ClInclude Include="FWArtNoChange.h" />
+    <ClInclude Include="FWArtStepScale.h" />
+    <ClInclude Include="FWArtTilt.h" />
+    <ClInclude Include="FWArtWave.h" />
+    <ClInclude Include="FWAssemblyCache.h" />
+    <ClInclude Include="FWAssemblyProfile.h" />
+    <ClInclude Include="FWAssemblySet.h" />
+    <ClInclude Include="FWAUIManager.h" />
+    <ClInclude Include="FWCommand.h" />
+    <ClInclude Include="FWCommandCombine.h" />
+    <ClInclude Include="FWCommandCreate.h" />
+    <ClInclude Include="FWCommandDelete.h" />
+    <ClInclude Include="FWCommandDuplicateHandle.h" />
+    <ClInclude Include="FWCommandList.h" />
+    <ClInclude Include="FWCommandMove.h" />
+    <ClInclude Include="FWCommandMoveHandle.h" />
+    <ClInclude Include="FWCommandRemoveHandle.h" />
+    <ClInclude Include="FWCommandResize.h" />
+    <ClInclude Include="FWCommandRotate.h" />
+    <ClInclude Include="FWCommandSetBezierMode.h" />
+    <ClInclude Include="FWCommandSetGlyphProp.h" />
+    <ClInclude Include="FWCommandUnCombine.h" />
+    <ClInclude Include="FWConfig.h" />
+    <ClInclude Include="FWDefinedMsg.h" />
+    <ClInclude Include="FWDialogBase.h" />
+    <ClInclude Include="FWDialogBezierMenu.h" />
+    <ClInclude Include="FWDialogBoard.h" />
+    <ClInclude Include="FWDialogCustom.h" />
+    <ClInclude Include="FWDialogEdit.h" />
+    <ClInclude Include="FWDialogGraph.h" />
+    <ClInclude Include="FWDialogGraphMenu.h" />
+    <ClInclude Include="FWDialogLanch.h" />
+    <ClInclude Include="FWDialogMain.h" />
+    <ClInclude Include="FWDialogParam.h" />
+    <ClInclude Include="FWDialogPlay.h" />
+    <ClInclude Include="FWDialogPolygonMenu.h" />
+    <ClInclude Include="FWDialogPropBase.h" />
+    <ClInclude Include="FWDialogScale.h" />
+    <ClInclude Include="FWDialogSimple.h" />
+    <ClInclude Include="FWDialogText.h" />
+    <ClInclude Include="FWDialogTool.h" />
+    <ClInclude Include="FWDoc.h" />
+    <ClInclude Include="FWFirework.h" />
+    <ClInclude Include="FWFireworkCustom.h" />
+    <ClInclude Include="FWFireworkElement.h" />
+    <ClInclude Include="FWFireworkGraph.h" />
+    <ClInclude Include="FWFireworkLanch.h" />
+    <ClInclude Include="FWFireworkLeaf.h" />
+    <ClInclude Include="FWFireworkSimple.h" />
+    <ClInclude Include="FWFlatCollector.h" />
+    <ClInclude Include="FWFontEnum.h" />
+    <ClInclude Include="FWFormula.h" />
+    <ClInclude Include="FWFormulaElement.h" />
+    <ClInclude Include="FWFormulaList.h" />
+    <ClInclude Include="FWGfxWithModifier.h" />
+    <ClInclude Include="FWGlyph.h" />
+    <ClInclude Include="FWGlyphBezier.h" />
+    <ClInclude Include="FWGlyphComposite.h" />
+    <ClInclude Include="FWGlyphEllipse.h" />
+    <ClInclude Include="FWGlyphFirework.h" />
+    <ClInclude Include="FWGlyphGraphBase.h" />
+    <ClInclude Include="FWGlyphList.h" />
+    <ClInclude Include="FWGlyphPolygon.h" />
+    <ClInclude Include="FWGlyphRectangle.h" />
+    <ClInclude Include="FWGlyphRectBase.h" />
+    <ClInclude Include="FWGlyphText.h" />
+    <ClInclude Include="FWInfoSet.h" />
+    <ClInclude Include="FWInnerProperty.h" />
+    <ClInclude Include="FWLog.h" />
+    <ClInclude Include="FWManager.h" />
+    <ClInclude Include="FWModifier.h" />
+    <ClInclude Include="FWModifierCreator.h" />
+    <ClInclude Include="FWModifierParabola.h" />
+    <ClInclude Include="FWModifierRing.h" />
+    <ClInclude Include="FWObject.h" />
+    <ClInclude Include="FWObPtrList.h" />
+    <ClInclude Include="FWOperand.h" />
+    <ClInclude Include="FWOperator.h" />
+    <ClInclude Include="FWOutterProperty.h" />
+    <ClInclude Include="FWParam.h" />
+    <ClInclude Include="FWParticalQuota.h" />
+    <ClInclude Include="FWParticalQuotaList.h" />
+    <ClInclude Include="FWPlayer.h" />
+    <ClInclude Include="FWRuntimeClass.h" />
+    <ClInclude Include="FWSharedFile.h" />
+    <ClInclude Include="FWState.h" />
+    <ClInclude Include="FWStateCreateBezier.h" />
+    <ClInclude Include="FWStateCreateFirework.h" />
+    <ClInclude Include="FWStateCreatePolygon.h" />
+    <ClInclude Include="FWStateCreateRect.h" />
+    <ClInclude Include="FWStateCreateText.h" />
+    <ClInclude Include="FWStateMove.h" />
+    <ClInclude Include="FWStateMoveHandle.h" />
+    <ClInclude Include="FWStateMoveWindow.h" />
+    <ClInclude Include="FWStateNetSelect.h" />
+    <ClInclude Include="FWStateResize.h" />
+    <ClInclude Include="FWStateRotate.h" />
+    <ClInclude Include="FWStateSelect.h" />
+    <ClInclude Include="FWStream.h" />
+    <ClInclude Include="FWTemplate.h" />
+    <ClInclude Include="FWTextMesh.h" />
+    <ClInclude Include="FWView.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="GLUContour.h" />
+    <ClInclude Include="GLUPolygon.h" />
+    <ClInclude Include="GLUTess.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Triangle.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

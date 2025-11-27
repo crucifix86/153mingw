@@ -1,0 +1,11 @@
+LIBRARY PackDLL
+
+EXPORTS
+PackInitialize
+PackFinalize
+CleanUpPackFile
+FillPackVersion
+UpdateFile
+PackUpdateInit
+PackUpdate
+GetUpdateProgress

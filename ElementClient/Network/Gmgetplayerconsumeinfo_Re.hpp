@@ -1,0 +1,1 @@
+gmgetplayerconsumeinfo_re.hpp

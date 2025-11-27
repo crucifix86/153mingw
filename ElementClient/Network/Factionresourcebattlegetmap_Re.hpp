@@ -1,0 +1,1 @@
+factionresourcebattlegetmap_re.hpp

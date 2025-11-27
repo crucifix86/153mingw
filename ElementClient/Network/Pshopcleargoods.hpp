@@ -1,0 +1,1 @@
+pshopcleargoods.hpp
