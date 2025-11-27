@@ -112,18 +112,16 @@ public:		//	Types
 		DWORD		dwCompressedLength;	//	The compressed file entry length
 		BYTE *		pEntryCompressed;	//	The compressed file entry data
 	};
+// v2.0.2 file entry format (276 bytes)
 #pragma pack(push, 1)
 	struct FILEENTRY
 	{
-		char	szFileName[MAX_PATH];	//	The file name of this entry; this may contain a path;
-		DWORD unknown;
-		DWORD unknown2;
+		char	szFileName[256];		//	The file name of this entry; note: v2.0.2 uses 256, not MAX_PATH (260)
+		DWORD   dwUnknown1;				//	Unknown field
 		DWORD	dwOffset;				//	The offset from the beginning of the package file;
-		DWORD	dwLength;				//	The length of this file;
+		DWORD	dwLength;				//	The length of this file (uncompressed);
 		DWORD	dwCompressedLength;		//	The compressed data length;
-
-		int		iAccessCnt;				//	Access counter used by OpenSharedFile
-		DWORD unknown3;
+		DWORD   dwUnknown2;				//	Unknown field / access counter
 	};
 #pragma pack(pop)
 

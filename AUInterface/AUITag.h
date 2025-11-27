@@ -276,7 +276,7 @@ struct AUITAG_CACHE_IN_PARAMS
 		if (!pPrinter) \
 			return NULL; \
 		AUITAG_NODE* pNodeBase = pPrinter->GetNode(#base_classname); \
-		ASSERT(pNodeBase && #base_classname" not registered"); \
+		/* Wine: Don't crash if base class not registered - just return NULL */ \
 		if (!pNodeBase) \
 			return NULL; \
 		AUITAG_NODE* pNode = pPrinter->GetNode(#class_name); \

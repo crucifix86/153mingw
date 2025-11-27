@@ -16,8 +16,7 @@ const char *	g_szPckDir[] = {
 	"textures",
 	"trees",
 	"litmodels",
-	"loddata",
-	"evolved"
+	"loddata"
 };
 
 const char *	g_szNoPckDir[][2] = {

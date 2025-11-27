@@ -13,6 +13,7 @@
 #include <A3DMacros.h>
 
 #include <hashmap.h>
+#include "ADebugLog.h"
 
 extern CECGame * g_pGame;
 
@@ -63,7 +64,7 @@ void CECSpecialShader::SetTexture(A3DShader *pShader, const char *szTexMap, cons
 AString CECSpecialShader::GetFileTitleLowerCase(const char *szFilePath){
 	char result[MAX_PATH] = {0};
 	af_GetFileTitle(szFilePath, result, MAX_PATH);
-	strlwr(result);
+	strlwr_mbcs(result);
 	return result;
 }
 

@@ -15,6 +15,7 @@
 #include "AFilePackageWinPCK.h"
 #include "AMemory.h"
 #include "AAssist.h"
+#include "ADebugLog.h"  // For MBCS-safe string functions
 #include <algorithm>
 #include <fstream>
 #include <sstream>
@@ -514,30 +515,50 @@ bool AFilePackageWinPCK::ConvertWinPCKEntry(LPCENTRY pWinEntry, AFilePackage::FI
 	pFileEntry->dwLength = (DWORD)pck_getFileSizeInEntry(pWinEntry);
 	pFileEntry->dwCompressedLength = (DWORD)pck_getCompressedSizeInEntry(pWinEntry);
 	
-	// Set other fields
-	pFileEntry->unknown = 0;
-	pFileEntry->unknown2 = 0;
-	pFileEntry->unknown3 = 0;
-	pFileEntry->iAccessCnt = 0;
+	// Set other fields (v2.0.2 structure only has dwUnknown1, dwUnknown2)
+	pFileEntry->dwUnknown1 = 0;
+	pFileEntry->dwUnknown2 = 0;
 	
 	return true;
 }
 
-// Normalize file name
+// Normalize file name - MBCS-safe for GBK/GB2312 encoded paths
 void AFilePackageWinPCK::NormalizeFileName(const char* szIn, char* szOut)
 {
-	// Convert to lowercase and normalize slashes
+	// Convert to lowercase and normalize slashes, preserving GBK multi-byte characters
+	// GBK lead bytes are 0x81-0xFE, trail bytes are 0x40-0xFE
+	const unsigned char* pIn = (const unsigned char*)szIn;
+	unsigned char* pOut = (unsigned char*)szOut;
 	int i = 0;
-	while (szIn[i] && i < MAX_PATH-1) {
-		if (szIn[i] == '/') {
-			szOut[i] = '\\';
+
+	while (pIn[i] && i < MAX_PATH-1) {
+		unsigned char c = pIn[i];
+
+		// Check if this is a GBK lead byte (0x81-0xFE)
+		if (c >= 0x81 && c <= 0xFE) {
+			// Copy both bytes of the GBK character without modification
+			pOut[i] = c;
+			i++;
+			if (pIn[i] && i < MAX_PATH-1) {
+				pOut[i] = pIn[i];
+				i++;
+			}
+		} else if (c == '/') {
+			// Normalize forward slash to backslash
+			pOut[i] = '\\';
+			i++;
+		} else if (c >= 'A' && c <= 'Z') {
+			// ASCII uppercase - safe to lowercase
+			pOut[i] = c + ('a' - 'A');
+			i++;
 		} else {
-			szOut[i] = tolower(szIn[i]);
+			// Other ASCII characters - copy as-is
+			pOut[i] = c;
+			i++;
 		}
-		i++;
 	}
-	szOut[i] = '\0';
-	
+	pOut[i] = '\0';
+
 	// Remove leading ".\"
 	if (szOut[0] == '.' && szOut[1] == '\\') {
 		memmove(szOut, szOut + 2, strlen(szOut) - 1);

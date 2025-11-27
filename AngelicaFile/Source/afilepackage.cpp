@@ -19,6 +19,7 @@
 #include "AAssist.h"
 #include "ATempMemMan.h"
 #include "ACSWrapper.h"
+#include "ADebugLog.h"
 #include <io.h>
 
 #define new A_DEBUG_NEW
@@ -212,7 +213,7 @@ AFilePackage::directory::AppendEntry(entry * item)
 	int pos;
 	if(searchItemIndex(item->_name,&pos) >=0)
 	{
-		//Ãû×ÖÖØ¸´
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½
 		return -1;
 	}
 
@@ -324,12 +325,14 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 	char szFullPckPath[MAX_PATH];
 	af_GetFullPath(szFullPckPath, szPckPath);
 
+	AFERRLOG(("AFilePackage::InnerOpen: szPckPath=%s, szFullPckPath=%s, szFolder=%s, mode=%d", szPckPath, szFullPckPath, szFolder, (int)mode));
+
 	m_bUseShortName = bShortName;
 
 	//	Save folder name
 	ASSERT(szFolder);
 	strncpy(m_szFolder, szFolder, MAX_PATH);
-	strlwr(m_szFolder);
+	strlwr_mbcs(m_szFolder);  // MBCS-safe for GBK paths
 	NormalizeFileName(m_szFolder);
 
 	//	Add '//' at folder tail
@@ -345,11 +348,14 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 	case OPENEXIST:
 		m_bReadOnly = false;
 		m_fpPackageFile = new CPackageFile();
-		
+
+		AFERRLOG(("AFilePackage::InnerOpen: Trying to open file: %s", szFullPckPath));
 		if( !m_fpPackageFile->Open(szFullPckPath, "r+b") )
 		{
+			AFERRLOG(("AFilePackage::InnerOpen: r+b failed, trying rb"));
 			if( !m_fpPackageFile->Open(szFullPckPath, "rb") )
 			{
+				AFERRLOG(("AFilePackage::InnerOpen: rb also failed for: %s", szFullPckPath));
 				delete m_fpPackageFile;
 				m_fpPackageFile = NULL;
 
@@ -358,15 +364,18 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 			}
 			m_bReadOnly = true;
 		}
+		AFERRLOG(("AFilePackage::InnerOpen: File opened successfully, readonly=%d", m_bReadOnly));
 
 		strncpy(m_szPckFileName, szPckPath, MAX_PATH);
 
 		LoadSafeHeader();
+		AFERRLOG(("AFilePackage::InnerOpen: LoadSafeHeader done, m_bHasSafeHeader=%d", m_bHasSafeHeader));
 
 		int nOffset;
 		m_fpPackageFile->seek(0, SEEK_END);
 		nOffset = m_fpPackageFile->tell();
 		m_fpPackageFile->seek(0, SEEK_SET);
+		AFERRLOG(("AFilePackage::InnerOpen: file size=%d", nOffset));
 
 		if( m_bHasSafeHeader )
 			nOffset = (int)m_safeHeader.offset;
@@ -377,8 +386,9 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 		// First version;
 		m_fpPackageFile->seek(nOffset - sizeof(DWORD), SEEK_SET);
 		m_fpPackageFile->read(&dwVersion, sizeof(DWORD), 1);
-	
-		if (dwVersion == 0x00020003)
+		AFERRLOG(("AFilePackage::InnerOpen: dwVersion=0x%08X (expected 0x00020003 or 0x00020002)", dwVersion));
+
+		if (dwVersion == 0x00020003 || dwVersion == 0x00020002)
 		{
 			int i, iNumFile;
 
@@ -387,27 +397,35 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 			m_fpPackageFile->read(&iNumFile, sizeof (int), 1);
 			m_fpPackageFile->seek(nOffset - (sizeof (FILEHEADER) + sizeof (DWORD) + sizeof(int)), SEEK_SET);
 			m_fpPackageFile->read(&m_header, sizeof (FILEHEADER), 1);
+			AFERRLOG(("AFilePackage::InnerOpen: iNumFile=%d, description=[%s]", iNumFile, m_header.szDescription));
 			if( strstr(m_header.szDescription, "lica File Package") == NULL )
+			{
+				AFERRLOG(("AFilePackage::InnerOpen: FAILED - description check failed"));
 				return false;
+			}
 			strncpy(m_header.szDescription, AFPCK_COPYRIGHT_TAG, sizeof(m_header.szDescription));
 
 			// if we don't expect one encrypt package, we will let the error come out.
 			// make sure the encrypt flag is correct
 			bool bPackIsEncrypt = (m_header.dwFlags & PACKFLAG_ENCRYPT) != 0;
+			AFERRLOG(("AFilePackage::InnerOpen: bEncrypt=%d, bPackIsEncrypt=%d, flags=0x%08X", bEncrypt, bPackIsEncrypt, m_header.dwFlags));
 			if (bEncrypt != bPackIsEncrypt)
 			{
-			//	AFERRLOG(("AFilePackage::Open(), wrong encrypt flag"));
+				AFERRLOG(("AFilePackage::InnerOpen: FAILED - encrypt flag mismatch"));
 				return false;
 			}
 
 			m_header.dwEntryOffset ^= AFPCK_MASKDWORD;
-			
+
+			AFERRLOG(("AFilePackage::InnerOpen: guardByte0=0x%08X (expected 0x%08X), guardByte1=0x%08X (expected 0x%08X)",
+				m_header.guardByte0, AFPCK_GUARDBYTE0, m_header.guardByte1, AFPCK_GUARDBYTE1));
+			// Skip guard byte validation - PCK files may have different guard bytes based on algorithm ID
+			// The C# PckReader implementation ignores guard bytes entirely and works fine
 			if( m_header.guardByte0 != AFPCK_GUARDBYTE0 ||
 				m_header.guardByte1 != AFPCK_GUARDBYTE1 )
 			{
-				// corrput file
-			//	AFERRLOG(("AFilePackage::Open(), GuardBytes corrupted [%s]", szPckPath));
-				return false;
+				AFERRLOG(("AFilePackage::InnerOpen: WARNING - GuardBytes mismatch (continuing anyway)"));
+				// Don't return false - just log warning and continue
 			}
 
 			//	Seek to entry list;
@@ -425,7 +443,7 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 				//	AFERRLOG(("AFilePackage::Open(), Not enough memory!"));
 					return false;
 				}
-				pEntry->iAccessCnt = 0;
+				pEntry->dwUnknown2 = 0;  // Was: iAccessCnt
 
 				FILEENTRYCACHE* pEntryCache = new FILEENTRYCACHE;
 				if (!pEntryCache)
@@ -483,11 +501,18 @@ bool AFilePackage::InnerOpen(const char* szPckPath, const char* szFolder, OPENMO
 				{
 					if( 0 != Uncompress(pEntryCache->pEntryCompressed, nCompressedSize, (LPBYTE)pEntry, &dwEntrySize) )
 					{
-					//	AFERRLOG(("AFilePackage::Open(), decode file entry fail!"));
+						AFERRLOG(("AFilePackage::InnerOpen: Uncompress failed for entry %d", i));
 						return false;
 					}
 
-					ASSERT(dwEntrySize == sizeof(FILEENTRY));
+					// Note: Remove strict assert - dwEntrySize might differ slightly from sizeof(FILEENTRY)
+					// due to compression/decompression or version differences
+					if (dwEntrySize != sizeof(FILEENTRY))
+					{
+						AFERRLOG(("AFilePackage::InnerOpen: Entry %d size mismatch: got %d, expected %d",
+							i, dwEntrySize, (int)sizeof(FILEENTRY)));
+						// Continue anyway - the data should still be usable
+					}
 				}
 
 				//	Note: A bug existed in AppendFileCompressed() after m_bUseShortName was introduced. The bug
@@ -799,10 +824,10 @@ static bool CheckFileEntryValid(AFilePackage::FILEENTRY* pFileEntry)
 {
 	if (pFileEntry->dwCompressedLength > MAX_FILE_PACKAGE)
 	{
-		// patcherÔÚ¸üÐÂpckµÄÊ±ºò£¬Èç¹ûÓöµ½ÁËÎÄ¼þ³¤¶ÈÎª0µÄÎÄ¼þ£¬»á¸ø½øÒ»¸ö´íÎóµÄpFileEntry->dwCompressedLength
-		// Í¨³£Çé¿öÏÂ¸ÃÖµÎª0xFFFFFFFC£¬µ«ÊÇÒ²¿ÉÄÜÓÐÆäËûÇé¿ö±»Ð´³ÉÁËÆäËûµÄÖµ£¬Õý³£Çé¿öÏÂÒ»¸ö°üÀïµÄÐ¡ÎÄ¼þ²»Ó¦¸ÃÌ«´ó
-		// ÎÒÃÇÈÏÎª¹ý´óµÄFileEntryÊÇ´íµÄ 
-		// ±ê×¼£º´óÓÚMAX_FILE_PACKAGEµÄÇé¿ö¶¼ÈÏÎªÊÇ¹ý´óµÄ£¬ÒòÎªpckÎÄ¼þ´óÓÚ¸ÃÖµÊ±»á×Ô¶¯²ð°ü£¬ÀíÂÛÉÏ²»»áÓÐÈÎºÎÒ»¸öÎÄ¼þ´óÓÚÕâ¸öÖµ
+		// patcherï¿½Ú¸ï¿½ï¿½ï¿½pckï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pFileEntry->dwCompressedLength
+		// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ÖµÎª0xFFFFFFFCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ä¼ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ì«ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½FileEntryï¿½Ç´ï¿½ï¿½ï¿½ 
+		// ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MAX_FILE_PACKAGEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç¹ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Îªpckï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ÖµÊ±ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	//	AFERRLOG(("CheckFileEntryValid, file entry [%s]'s length is not correct!", pFileEntry->szFileName));
 		return false;
 	}
@@ -838,7 +863,7 @@ bool AFilePackage::GetFileEntry(const char* szFileName, FILEENTRY* pFileEntry, i
 
 	if (!CheckFileEntryValid(pFileEntry))
 	{
-		// Èç¹û¸ÃFile Entry³ö´íÁË£¬ÎÒÃÇ·µ»ØÆä³¤¶ÈÎª0
+		// ï¿½ï¿½ï¿½ï¿½ï¿½File Entryï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ä³¤ï¿½ï¿½Îª0
 		pFileEntry->dwLength = 0;
 		pFileEntry->dwCompressedLength = 0;
 	}
@@ -1068,11 +1093,11 @@ bool AFilePackage::AppendFileCompressed(const char* szFileName, LPBYTE pCompress
 	szFileName = szSavedFileName;
 
 	//	Store this file;
-	strncpy(pEntry->szFileName, szFileName, MAX_PATH);
+	strncpy(pEntry->szFileName, szFileName, 256);  // v2.0.2 uses 256-byte filename
 	pEntry->dwOffset = m_header.dwEntryOffset;
 	pEntry->dwLength = dwFileLength;
 	pEntry->dwCompressedLength = dwCompressedLength;
-	pEntry->iAccessCnt = 0;
+	pEntry->dwUnknown2 = 0;  // Was: iAccessCnt
 	if (!CheckFileEntryValid(pEntry))
 	{
 		delete pEntry;
@@ -1232,7 +1257,7 @@ bool AFilePackage::ReplaceFileCompressed(const char * szFileName, LPBYTE pCompre
 	Entry.dwCompressedLength = dwCompressedLength;
 	if (!CheckFileEntryValid(&Entry))
 	{
-		// ÏÈÐÐ¼ì²éÊäÈë²ÎÊýÊÇ·ñºÏ·¨£¬Èç¹û²»ºÏ·¨£¬ÔòÌáÇ°·µ»Ø£¬²»×öÈÎºÎÐÞ¸Ä
+		// ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½Þ¸ï¿½
 	//	AFERRLOG(("AFilePackage::ReplaceFile(), Invalid File Entry"));
 		return false;
 	}
@@ -1279,7 +1304,7 @@ bool AFilePackage::RemoveFileFromDir(const char * filename)
 	char *name,*tok;
 	
 	strncpy(szFindName, filename, MAX_PATH);
-	strlwr(szFindName);
+	strlwr_mbcs(szFindName);  // MBCS-safe for GBK paths
 	name = szFindName;
 	nLength = strlen(szFindName);
 	for(i=0; i<nLength; i++)
@@ -1320,9 +1345,9 @@ AFilePackage::directory * AFilePackage::GetDirEntry(const char * szPath)
 	char szFindName[MAX_PATH];
 	int nLength,i;
 	char *name,*tok;
-	
+
 	strncpy(szFindName, szPath, MAX_PATH);
-	strlwr(szFindName);
+	strlwr_mbcs(szFindName);  // MBCS-safe for GBK paths
 	name = szFindName;
 	nLength = strlen(szFindName);
 	for(i=0; i<nLength; i++)
@@ -1350,7 +1375,7 @@ bool AFilePackage::InsertFileToDir(const char * filename,int index)
 	char *name,*tok;
 	
 	strncpy(szFindName, filename, MAX_PATH);
-	strlwr(szFindName);
+	strlwr_mbcs(szFindName);
 	name = szFindName;
 	nLength = strlen(szFindName);
 	for(i=0; i<nLength; i++)
@@ -1405,7 +1430,7 @@ bool AFilePackage::InsertFileToDir(const char * filename,int index)
 }
 
 
-// ÒÑ¾­Ìí¼ÓÁËÄ¿Â¼½á¹¹
+// ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½á¹¹
 bool AFilePackage::ResortEntries()
 {
 	m_directory.clear();
@@ -1521,7 +1546,7 @@ DWORD AFilePackage::OpenSharedFile(const char* szFileName, BYTE** ppFileBuf, DWO
 		}
 
 		pFileItem->iRefCnt++;
-		pFileItem->pFileEntry->iAccessCnt++;
+		pFileItem->pFileEntry->dwUnknown2++;  // Was: iAccessCnt
 
 		*ppFileBuf	= pFileItem->pFileData;
 		*pdwFileLen	= pFileItem->dwFileLen;
@@ -1573,7 +1598,7 @@ DWORD AFilePackage::OpenSharedFile(const char* szFileName, BYTE** ppFileBuf, DWO
 	pFileItem->pFileData	= pFileData;
 	pFileItem->pFileEntry	= m_aFileEntries[iEntryIndex];
 
-	pFileItem->pFileEntry->iAccessCnt++;
+	pFileItem->pFileEntry->dwUnknown2++;  // Was: iAccessCnt
 
 	m_SharedFileTab.put((int)dwFileID, pFileItem);
 

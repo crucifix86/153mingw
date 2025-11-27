@@ -3344,7 +3344,7 @@ BOOL CTsfUiLessMode::SetupSinks()
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available, but don't crash
 		return FALSE;
 	}
 
@@ -3451,7 +3451,7 @@ void CTsfUiLessMode::ReleaseSinks()
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return;
 	}
 
@@ -3677,7 +3677,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::OnActivated(DWORD dwProfileType, LANGID l
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return S_OK;
 	}
 	static GUID TF_PROFILE_DAYI = { 0x037B2C25, 0x480C, 0x4D7F, 0xB0, 0x27, 0xD6, 0xCA, 0x6B, 0x69, 0x78, 0x8A };
@@ -3701,7 +3701,7 @@ STDMETHODIMP CTsfUiLessMode::CUIElementSink::OnActivated( REFCLSID clsid,REFGUID
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return S_OK;
 	}
 	HRESULT hr;
@@ -3811,7 +3811,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::OnChange(REFGUID rguid)
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return S_OK;
 	}
 	HRESULT hr;

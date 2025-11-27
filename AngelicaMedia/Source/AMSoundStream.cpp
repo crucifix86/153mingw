@@ -22,6 +22,7 @@
 #include "AFileImage.h"
 #include <fcntl.h>
 #include <io.h>
+#include "ADebugLog.h"
 
 // Forward declaration of thread function
 DWORD WINAPI BgmHandle(LPVOID pArg);
@@ -555,7 +556,7 @@ bool AMSoundStream::LoadStreamFromFile(const char* szStreamFile)
 		return true;
 
 	strncpy(szFileNameLwr, szStreamFile, MAX_PATH);
-	strlwr(szFileNameLwr);
+	strlwr_mbcs(szFileNameLwr);
 
 	if( strstr(szFileNameLwr, ".wav") )
 	{

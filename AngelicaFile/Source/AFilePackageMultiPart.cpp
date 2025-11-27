@@ -15,6 +15,7 @@
 #include "AFilePackageMultiPart.h"
 #include "AMemory.h"
 #include "AAssist.h"
+#include "ADebugLog.h"
 #include <algorithm>
 #include <io.h>
 
@@ -78,8 +79,10 @@ bool AFilePackageMultiPart::Open(const char* szPckPath, AFilePackage::OPENMODE m
 
 bool AFilePackageMultiPart::Open(const char* szPckPath, const char* szFolder, AFilePackage::OPENMODE mode, bool bEncrypt)
 {
+	ALOG_INFO("AFilePackageMultiPart::Open: pck=[%s] folder=[%s] mode=%d encrypt=%d",
+		szPckPath, szFolder ? szFolder : "(null)", (int)mode, bEncrypt);
 	Close();
-	
+
 	// Don't log at error level - this is normal operation
 	// AFERRLOG(("MultiPart: Opening '%s' with folder '%s'", szPckPath, szFolder));
 	
@@ -482,17 +485,33 @@ ULONGLONG AFilePackageMultiPart::GetTotalSize()
 void AFilePackageMultiPart::NormalizeFileName(const char* szIn, char* szOut)
 {
 	// Convert to lowercase and normalize slashes
+	// MBCS-safe: preserve GBK multi-byte characters (lead bytes 0x81-0xFE)
+	const unsigned char* pIn = (const unsigned char*)szIn;
+	unsigned char* pOut = (unsigned char*)szOut;
 	int i = 0;
-	while (szIn[i] && i < MAX_PATH-1) {
-		if (szIn[i] == '/') {
-			szOut[i] = '\\';
+
+	while (pIn[i] && i < MAX_PATH-1) {
+		// Check if this is a GBK lead byte (0x81-0xFE)
+		if (pIn[i] >= 0x81 && pIn[i] <= 0xFE && pIn[i+1] && i < MAX_PATH-2) {
+			// Copy both bytes of GBK character unchanged
+			pOut[i] = pIn[i];
+			pOut[i+1] = pIn[i+1];
+			i += 2;
+		} else if (pIn[i] == '/') {
+			pOut[i] = '\\';
+			i++;
 		} else {
-			szOut[i] = tolower(szIn[i]);
+			// ASCII character - safe to lowercase
+			if (pIn[i] >= 'A' && pIn[i] <= 'Z') {
+				pOut[i] = pIn[i] + ('a' - 'A');
+			} else {
+				pOut[i] = pIn[i];
+			}
+			i++;
 		}
-		i++;
 	}
-	szOut[i] = '\0';
-	
+	pOut[i] = '\0';
+
 	// Remove leading ".\"
 	if (szOut[0] == '.' && szOut[1] == '\\') {
 		memmove(szOut, szOut + 2, strlen(szOut) - 1);

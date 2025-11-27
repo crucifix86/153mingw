@@ -13,6 +13,7 @@
 #include "ABaseDef.h"
 #include "AString.h"
 #include "AMemory.h"
+#include "ADebugLog.h"
 
  ///////////////////////////////////////////////////////////////////////////
  //
@@ -684,7 +685,7 @@ void AString::MakeLower()
 		m_pStr = AllocThenCopy(m_pStr, iLen);
 	}
 
-	strlwr(m_pStr);
+	strlwr_mbcs(m_pStr);
 }
 
 //	Format string

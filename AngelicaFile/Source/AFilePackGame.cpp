@@ -19,6 +19,7 @@
 #include "AAssist.h"
 #include "ATempMemMan.h"
 #include "ACSWrapper.h"
+#include "ADebugLog.h"
 #include <io.h>
 
 #define new A_DEBUG_NEW
@@ -108,16 +109,21 @@ AFilePackGame::~AFilePackGame()
 
 bool AFilePackGame::InnerOpen(const char* szPckPath, const char* szFolder, OPENMODE mode, bool bEncrypt, bool bShortName)
 {
+	ALOG_INFO("AFilePackGame::InnerOpen: pck=[%s] folder=[%s] mode=%d encrypt=%d shortname=%d",
+		szPckPath, szFolder ? szFolder : "(null)", (int)mode, bEncrypt, bShortName);
+
 	char szFullPckPath[MAX_PATH];
 	af_GetFullPath(szFullPckPath, szPckPath);
+	ALOG_DEBUG("AFilePackGame::InnerOpen: fullpath=[%s]", szFullPckPath);
 
 	m_bUseShortName = bShortName;
 
 	//	Save folder name
 	ASSERT(szFolder);
 	strncpy(m_szFolder, szFolder, MAX_PATH);
-	strlwr(m_szFolder);
+	strlwr_mbcs(m_szFolder);
 	AFilePackage::NormalizeFileName(m_szFolder);
+	ALOG_DEBUG("AFilePackGame::InnerOpen: normalized folder=[%s]", m_szFolder);
 
 	//	Add '//' at folder tail
 	int iFolderLen = strlen(m_szFolder);
@@ -468,10 +474,10 @@ static bool CheckFileEntryValid(AFilePackGame::FILEENTRY* pFileEntry)
 {
 	if (pFileEntry->dwCompressedLength > MAX_FILE_PACKAGE)
 	{
-		// patcherÔÚ¸üÐÂpckµÄÊ±ºò£¬Èç¹ûÓöµ½ÁËÎÄ¼þ³¤¶ÈÎª0µÄÎÄ¼þ£¬»á¸ø½øÒ»¸ö´íÎóµÄpFileEntry->dwCompressedLength
-		// Í¨³£Çé¿öÏÂ¸ÃÖµÎª0xFFFFFFFC£¬µ«ÊÇÒ²¿ÉÄÜÓÐÆäËûÇé¿ö±»Ð´³ÉÁËÆäËûµÄÖµ£¬Õý³£Çé¿öÏÂÒ»¸ö°üÀïµÄÐ¡ÎÄ¼þ²»Ó¦¸ÃÌ«´ó
-		// ÎÒÃÇÈÏÎª¹ý´óµÄFileEntryÊÇ´íµÄ 
-		// ±ê×¼£º´óÓÚMAX_FILE_PACKAGEµÄÇé¿ö¶¼ÈÏÎªÊÇ¹ý´óµÄ£¬ÒòÎªpckÎÄ¼þ´óÓÚ¸ÃÖµÊ±»á×Ô¶¯²ð°ü£¬ÀíÂÛÉÏ²»»áÓÐÈÎºÎÒ»¸öÎÄ¼þ´óÓÚÕâ¸öÖµ
+		// patcherï¿½Ú¸ï¿½ï¿½ï¿½pckï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pFileEntry->dwCompressedLength
+		// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ÖµÎª0xFFFFFFFCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ä¼ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ì«ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½FileEntryï¿½Ç´ï¿½ï¿½ï¿½ 
+		// ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MAX_FILE_PACKAGEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç¹ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Îªpckï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ÖµÊ±ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		AFERRLOG(("CheckFileEntryValid, file entry [%s]'s length is not correct!", pFileEntry->szFileName));
 		return false;
 	}
@@ -664,7 +670,7 @@ bool AFilePackGame::ReadCompressedFile(FILEENTRY& fileEntry, LPBYTE pCompressedB
 	return true;
 }
 
-// ÒÑ¾­Ìí¼ÓÁËÄ¿Â¼½á¹¹
+// ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½á¹¹
 bool AFilePackGame::ResortEntries()
 {
 	int i;

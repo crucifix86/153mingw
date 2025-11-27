@@ -24,6 +24,7 @@
 #include "AF.h"
 
 #include <AMImmWrapper.h>
+#include "ADebugLog.h"
 
 AMSoundBuffer::AMSoundBuffer()
 {
@@ -751,7 +752,7 @@ bool AMSoundBuffer::LoadImmEffect()
 			return false;
 
 		szTitle[strlen(szTitle) - 4] = '\0';
-		strlwr(szTitle);
+		strlwr_mbcs(szTitle);
 		if( !m_pAMSoundEngine->GetAMEngine()->GetAMImmWrapper()->LoadImmEffect(szTitle, &m_pImmEffect) )
 		{
 			// It has no imm effects;

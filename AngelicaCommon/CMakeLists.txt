@@ -4,6 +4,7 @@ add_library(AngelicaCommon STATIC
     Source/ACounter.cpp
     Source/AList.cpp
     Source/ALog.cpp
+    Source/BolaDebug.cpp
     Source/AMemory.cpp
     Source/AMemoryDbg.cpp
     Source/AMiniDump.cpp

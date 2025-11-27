@@ -34,6 +34,7 @@
 #include "AMemory.h"
 #include "AFileImage.h"
 #include "AFI.h"
+#include "ADebugLog.h"
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -457,7 +458,7 @@ bool A3DSkin::Load(AFile* pFile)
 						{
 							char szFileTitle[MAX_PATH];
 							af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-							strlwr(szFileTitle);
+							strlwr_mbcs(szFileTitle);
 							if( strstr(szFileTitle, "r_") != szFileTitle )
 								continue;
 						}

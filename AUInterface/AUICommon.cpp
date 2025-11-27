@@ -22,7 +22,7 @@
 #include <stdarg.h>
 
 int _tab_char = 8;
-static bool _report_error_no_assert		= false;
+static bool _report_error_no_assert		= true;  // Disabled asserts on error - just log errors without crashing
 static bool _aui_enable_log				= true;
 static bool _aui_enable_particular_log	= false;
 

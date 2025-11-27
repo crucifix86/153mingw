@@ -7,7 +7,7 @@
  *
  * HISTORY:
  *
- * Copyright (c) 2001 Archosaur Studio, All Rights Reserved.	
+ * Copyright (c) 2001 Archosaur Studio, All Rights Reserved.
  */
 
 #include "AFilePackMan.h"
@@ -18,6 +18,7 @@
 #include "AFilePackGame.h"
 #include "AFI.h"
 #include "AFPI.h"
+#include "ADebugLog.h"
 
 #define new A_DEBUG_NEW
 
@@ -71,10 +72,12 @@ AFilePackMan g_AFilePackMan;
 
 AFilePackMan::AFilePackMan() : m_FilePcks(), m_bUseWinPCK(false)
 {
+	ALOG_INFO("AFilePackMan constructor called");
 }
 
 AFilePackMan::~AFilePackMan()
 {
+	ALOG_INFO("AFilePackMan destructor called");
 	CloseAllPackages();
 }
 
@@ -182,81 +185,99 @@ bool AFilePackMan::OpenFilePackage(const char * szPckFile, const char* szFolder,
 
 bool AFilePackMan::OpenFilePackageInGame(const char* szPckFile, bool bEncrypt/* false */)
 {
+	ALOG_INFO("OpenFilePackageInGame(1): pck=[%s] encrypt=%d", szPckFile, bEncrypt);
 	AFilePackBase* pFilePackage;
-	
+
 	// Check if this is a known multi-part PCK file
 	if (strstr(szPckFile, "litmodels.pck") != NULL || strstr(szPckFile, "building.pck") != NULL) {
 		// Use MultiPart handler with Python script logic for multi-part PCKs
+		ALOG_INFO("OpenFilePackageInGame: Using MultiPart handler for: %s", szPckFile);
 		AFERRLOG(("AFilePackMan: Using MultiPart handler for multi-part PCK: %s", szPckFile));
-		
+
 		if (!(pFilePackage = new AFilePackageMultiPart))
 		{
+			ALOG_ERROR("OpenFilePackageInGame: Failed to allocate AFilePackageMultiPart");
 			return false;
 		}
-		
+
 		if (!((AFilePackageMultiPart*)pFilePackage)->Open(szPckFile, AFilePackage::OPENEXIST, bEncrypt))
 		{
+			ALOG_ERROR("OpenFilePackageInGame: AFilePackageMultiPart::Open failed for: %s", szPckFile);
 			delete pFilePackage;
 			return false;
 		}
-		
+
 		m_FilePcks.push_back(pFilePackage);
+		ALOG_INFO("OpenFilePackageInGame: SUCCESS (multipart) pck=[%s], total_pcks=%d", szPckFile, (int)m_FilePcks.size());
 		return true;
 	}
-	
+
 	// Use default AFilePackage for all other PCKs
+	ALOG_DEBUG("OpenFilePackageInGame: Using standard AFilePackage for: %s", szPckFile);
 	if (!(pFilePackage = new AFilePackage))
 	{
+		ALOG_ERROR("OpenFilePackageInGame: Failed to allocate AFilePackage");
 		return false;
 	}
 
 	if (!((AFilePackage*)pFilePackage)->Open(szPckFile, AFilePackage::OPENEXIST, bEncrypt))
 	{
+		ALOG_ERROR("OpenFilePackageInGame: AFilePackage::Open failed for: %s", szPckFile);
 		delete pFilePackage;
 		return false;
 	}
 
 	m_FilePcks.push_back(pFilePackage);
+	ALOG_INFO("OpenFilePackageInGame: SUCCESS pck=[%s], total_pcks=%d", szPckFile, (int)m_FilePcks.size());
 	return true;
 }
 
 bool AFilePackMan::OpenFilePackageInGame(const char* szPckFile, const char* szFolder, bool bEncrypt/* false */)
 {
+	ALOG_INFO("OpenFilePackageInGame(2): pck=[%s] folder=[%s] encrypt=%d", szPckFile, szFolder ? szFolder : "(null)", bEncrypt);
 	AFilePackBase* pFilePackage;
-	
+
 	// Check if this is a known multi-part PCK file
 	if (strstr(szPckFile, "litmodels.pck") != NULL || strstr(szPckFile, "building.pck") != NULL) {
 		// Use MultiPart handler with Python script logic for multi-part PCKs
+		ALOG_INFO("OpenFilePackageInGame: Using MultiPart handler for: %s", szPckFile);
 		AFERRLOG(("AFilePackMan: Using MultiPart handler for multi-part PCK: %s", szPckFile));
-		
+
 		if (!(pFilePackage = new AFilePackageMultiPart))
 		{
+			ALOG_ERROR("OpenFilePackageInGame: Failed to allocate AFilePackageMultiPart");
 			return false;
 		}
-		
+
 		if (!((AFilePackageMultiPart*)pFilePackage)->Open(szPckFile, szFolder, AFilePackage::OPENEXIST, bEncrypt))
 		{
+			ALOG_ERROR("OpenFilePackageInGame: AFilePackageMultiPart::Open failed for: %s", szPckFile);
 			delete pFilePackage;
 			return false;
 		}
-		
+
 		m_FilePcks.push_back(pFilePackage);
+		ALOG_INFO("OpenFilePackageInGame: SUCCESS (multipart) pck=[%s], total_pcks=%d", szPckFile, (int)m_FilePcks.size());
 		return true;
 	}
-	
+
 	// Use default AFilePackage for all other PCKs
+	ALOG_DEBUG("OpenFilePackageInGame: Using standard AFilePackage for: %s", szPckFile);
 	if (!(pFilePackage = new AFilePackage))
 	{
+		ALOG_ERROR("OpenFilePackageInGame: Failed to allocate AFilePackage");
 		return false;
 	}
 
 	if (!((AFilePackage*)pFilePackage)->Open(szPckFile, szFolder, AFilePackage::OPENEXIST, bEncrypt))
 	{
+		ALOG_ERROR("OpenFilePackageInGame: AFilePackage::Open failed for: %s", szPckFile);
 		delete pFilePackage;
 		return false;
 	}
 
 	m_FilePcks.push_back(pFilePackage);
+	ALOG_INFO("OpenFilePackageInGame: SUCCESS pck=[%s], total_pcks=%d", szPckFile, (int)m_FilePcks.size());
 	return true;
 }
 
@@ -297,21 +318,7 @@ bool AFilePackMan::CloseAllPackages()
 
 AFilePackBase* AFilePackMan::GetFilePck(const char * szPath)
 {
-	char szLowPath[MAX_PATH];
-	strncpy(szLowPath, szPath, MAX_PATH);
-	strlwr(szLowPath);
-	AFilePackage::NormalizeFileName(szLowPath);
-
-	for(size_t i=0; i<m_FilePcks.size(); i++)
-	{
-		AFilePackBase* pPack = m_FilePcks[i];
-		
-		if( strstr(szLowPath, pPack->GetFolder()) == szLowPath )
-		{
-			return pPack;
-		}
-	}
-
+	// Disabled - read from disk instead of PCK files
 	return NULL;
 }
 

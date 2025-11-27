@@ -52,6 +52,7 @@
 #include "EC_ServerList.h"
 #include "EC_AutoPolicy.h"
 #include "Instrument.h"
+#include "BolaDebug.h"
 
 #ifdef _PROFILE_MEMORY
 #include "Memory\EC_HookMemory.h"
@@ -351,38 +352,53 @@ static void hook_exit_process()
 //	Initialize game
 bool CECGame::Init(const GAMEINIT& GameInit)
 {
+	BOLA_FUNC();  // Auto-trace function entry/exit
+	BOLA_CHECKPOINT("CECGame::Init starting");
+
 	a_LogOutput(1, "Build version %d", GAME_BUILD);
+	BOLA_INFO("Build version %d", GAME_BUILD);
 
 	l_idMainThread = GetCurrentThreadId();
+	BOLA_INFO("Main thread ID: %u", l_idMainThread);
 
 	// setup_hook();
+	BOLA_INFO("Hooking terminate/exit process");
 	hook_terminate_process();
 	hook_exit_process();
 
 	// first of all verify the ElementSkill version
+	BOLA_INFO("Checking ElementSkill version");
 	if( ELEMENTSKILL_VERSION != GNET::ElementSkill::GetVersion() )
 	{
+		BOLA_ERROR("ElementSkill version mismatch! Expected %d, got %d", ELEMENTSKILL_VERSION, GNET::ElementSkill::GetVersion());
 		MessageBoxA(GameInit.hWnd, "ElementSkill's version is incorrect!", "ERROR", MB_ICONSTOP | MB_OK);
 		return false;
 	}
+	BOLA_INFO("ElementSkill version OK");
 
 	m_GameInit = GameInit;
 
 	//	Initalize random number generator
+	BOLA_INFO("Initializing random number generator");
 	a_InitRandom();
 
 	//	Load configs
-	m_pConfigs = &g_GameCfgs;	
-	
-	//	��D3D��ʼ��ǰ���ã��Դ���ȫ��ʱIE�ؼ��޷���������������
+	m_pConfigs = &g_GameCfgs;
+
+	//	Before D3D init, this is for IE control issues in fullscreen
+	BOLA_INFO("Initializing browser");
 	InitBrowser();
 
 	//	Initalize A3D engine
+	BOLA_INFO("Initializing A3D engine");
+	BOLA_CHECKPOINT("About to call InitA3DEngine()");
 	if (!InitA3DEngine())
 	{
+		BOLA_ERROR("InitA3DEngine() FAILED at line %d", __LINE__);
 		glb_ErrorOutput(ECERR_FAILEDTOCALL, "CECGame::Init", __LINE__);
 		return false;
 	}
+	BOLA_INFO("A3D engine initialized successfully");
 
 	//	Create fonts
 	if (!CreateFonts())

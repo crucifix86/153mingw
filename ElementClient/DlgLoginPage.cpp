@@ -9,6 +9,7 @@
 #include "EC_Global.h"
 #include "A3DDevice.h"
 #include <WindowsX.h>
+#include "ADebugLog.h"
 
 #define new A_DEBUG_NEW
 
@@ -132,7 +133,7 @@ bool CDlgLoginPage::OnInitDialog()
 		char szFileName[MAX_PATH];
 		
 		sprintf(szFileName, "BBSPages\\%s", fd.cFileName);
-		strlwr(szFileName);
+		strlwr_mbcs(szFileName);
 		
 		if( fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 		{

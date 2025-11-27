@@ -209,7 +209,7 @@ void IMEWrapper::OnFocusIn(bool bCanChangeIME)
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return;
 	}
 	s_bImeFlag = bCanChangeIME;
@@ -278,7 +278,7 @@ bool IMEWrapper::StaticMsgProc( HWND hWnd, UINT uMsg, WPARAM& wParam, LPARAM& lP
 //--------------------------------------------------------------------------------------
 bool IMEWrapper::HandleMouse( UINT uMsg, POINT pt, WPARAM wParam, LPARAM lParam )
 {
-	//Êó±ê²Ù×÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return false;
 }
 
@@ -396,7 +396,7 @@ void IMEWrapper::Uninitialize()
 	extern DWORD g_dwTSFThreadId;
 	if (g_dwTSFThreadId != GetCurrentThreadId())
 	{
-		assert(false);
+		// Wine thread mismatch - IME not available
 		return;
 	}
 

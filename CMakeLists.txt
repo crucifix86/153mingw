@@ -17,6 +17,10 @@ if(MINGW)
     add_compile_options(-fpermissive)  # Allow some non-standard code
     add_compile_options(-msse2)  # Enable SSE2 for FastMemcpy.h
     add_compile_definitions(_WIN32_WINNT=0x0501)  # Windows XP+
+    add_compile_definitions(_A_FORBID_NEWDELETE)  # Use standard CRT allocator instead of custom
+    # Wine compatibility: disable all asserts to prevent crashes
+    add_compile_definitions(NDEBUG)  # Disables standard assert()
+    add_compile_definitions(BOLA_DEVBUILD)  # Disables custom ASSERT macros
 endif()
 
 # ============================================================================

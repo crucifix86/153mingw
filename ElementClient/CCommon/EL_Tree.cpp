@@ -28,6 +28,7 @@
 #include "ConvexHullData.h"
 #include "aabbcd.h"
 #include "CDWithCH.h"
+#include "ADebugLog.h"
 
 CELTree::CELTree()
 {
@@ -1363,7 +1364,7 @@ bool CELTree::InitCDObjects()
 
 	char szTBHFile[MAX_PATH];
 	strncpy(szTBHFile, m_szSPTFile, MAX_PATH);
-	strlwr(szTBHFile);
+	strlwr_mbcs(szTBHFile);
 	char * pExt = strstr(szTBHFile, ".spt");
 	if( !pExt )
 	{

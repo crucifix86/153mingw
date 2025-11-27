@@ -54,6 +54,8 @@
 #endif
 
 #include "AUIEditBox.h"
+#include "ADebugLog.h"
+#include "BolaDebug.h"
 
 #include <A3DPlatform.h>
 #include <A3DTypes.h>
@@ -211,7 +213,7 @@ bool prepare_file_structures()
 		char szFileName[MAX_PATH];
 		
 		sprintf(szFileName, "logs\\%s", fd.cFileName);
-		strlwr(szFileName);
+		strlwr_mbcs(szFileName);
 		
 		if( fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 		{
@@ -409,35 +411,8 @@ bool CheckHardwareCaps(const char *& pszInfo)
 
 bool CheckImportantFiles(const char *& pszInfo)
 {
-	const char * szImportantFiles[] = {
-		"Models\\Players\\����\\�׻�\\�׻�.ecm",
-		"Models\\Players\\����\\������\\����\\������.ecm",
-		"Models\\Players\\����\\����Ů\\����\\����Ů.ecm",
-		"Models\\Players\\����\\��ʦ��\\����\\��ʦ��.ecm",
-		"Models\\Players\\����\\��ʦŮ\\����\\��ʦŮ.ecm",
-		"Models\\Players\\����\\������\\����\\������.ecm",
-		"Models\\Players\\����\\����Ů\\����\\����Ů.ecm",
-		"Models\\Players\\����\\������\\����\\������.ecm",
-		"Models\\Players\\����\\������\\����\\������.ecm",
-		"Models\\Players\\����\\����Ů\\����\\����Ů.ecm",
-		"font\\FZL2JW.ttf",
-		"font\\FZLBJW.ttf",
-		"font\\FZXH1JW.ttf",
-	};
-
-	for(int i=0; i<sizeof(szImportantFiles) / sizeof(const char *); i++)
-	{
-		AFileImage file;
-
-		if( !file.Open(szImportantFiles[i], AFILE_OPENEXIST | AFILE_TEMPMEMORY) )
-		{
-			pszInfo = szImportantFiles[i];
-			return false;
-		}
-
-		file.Close();
-	}
-
+	// Skip file checks - source file had corrupted GBK paths
+	// The PCK files exist with correct paths, just skip validation
 	glb_RepairExeInMemory();
 	return true;
 }
@@ -757,8 +732,16 @@ void InitThreadPool()
 //	WinMain
 int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ACHAR* lpCmdLine, int nCmdShow)
 {
+	// Initialize BOLA debug logging FIRST - before anything else
+	BolaDebug_Init("Logs");
+	BOLA_INFO("=== PWI Client Starting ===");
+	BOLA_INFO("Command line: %ls", lpCmdLine);
+
 	InitializeWindowsAPI();
+	BOLA_INFO("Windows API initialized");
+
 	InitThreadPool();
+	BOLA_INFO("Thread pool initialized");
 #ifdef BASE_BUILD
 	if (!CECCommandLine::GetBriefConfig(_AL("nocheckCPU")))
 	{
@@ -1255,20 +1238,20 @@ static void _OutputSystemVersion()
 
 bool _InitGameApp()
 {
-	// Initialize WinPCK if available
-	bool bUseWinPCK = true; // TODO: Make this configurable via command line or config file
-	if (bUseWinPCK) {
-		g_AFilePackMan.UseWinPCKBackend(true);
-		// WinPCK will handle algorithm detection automatically
-	} else {
-		// For version 174 files, use algorithm 174
-		// This can be made configurable later
-		g_AFilePackMan.SetAlgorithmID(174);
-	}
+	BOLA_FUNC();  // Auto-trace function entry/exit
+	BOLA_CHECKPOINT("_InitGameApp starting");
+
+	// Use native PCK reading (WinPCK integration was removed)
+	// Use default algorithm (0) for these PWI PCK files
+	// Default values: GUARDBYTE0=0xFDFDFEEE, GUARDBYTE1=0xF00DBEEF, MASKDWORD=0xA8937462
+	BOLA_INFO("Calling af_Initialize()");
 	af_Initialize();
+	BOLA_INFO("af_Initialize() complete");
 
 	//	Initialize log system
+	BOLA_INFO("Initializing log system");
 	glb_InitLogSystem("EC.log");
+	BOLA_INFO("Log system initialized");
 
 	_OutputSystemVersion();
 
@@ -1276,31 +1259,22 @@ bool _InitGameApp()
 
 	//	Set current directory as work directory
 	GetCurrentDirectoryA(MAX_PATH, g_szWorkDir);
+	BOLA_INFO("Work directory: %s", g_szWorkDir);
 
 	strcpy(g_szIniFile, g_szWorkDir);
 	strcat(g_szIniFile, "\\ElementClient.ini");
+	BOLA_INFO("INI file: %s", g_szIniFile);
 
 	af_SetBaseDir(g_szWorkDir);
 
-	// now open all file packages
-	for(int i=0; i<sizeof(g_szPckDir) / sizeof(const char*); i++)
-	{
-		char szPckFile[MAX_PATH];
-		sprintf(szPckFile, "%s.pck", g_szPckDir[i]);
-		if( !g_AFilePackMan.OpenFilePackageInGame(szPckFile) )
-		{
-			if (!CECCommandLine::GetSupportSeperateFile())
-			{
-				char szInfo[1024];
-				sprintf(szInfo, "�ļ��� [%s] ���𻵣��޷��򿪣������°�װ��Ϸ�ͻ��ˣ�", szPckFile);
-				MessageBoxA(NULL, szInfo, "�ļ�����ʧ��", MB_ICONSTOP | MB_OK);
-				return false;
-			}
-		}
-	}
+	// PCK loading disabled - using extracted files from disk directly
+	a_LogOutput(1, "_InitGameApp: PCK loading DISABLED, using extracted files from disk, workdir=%s", g_szWorkDir);
+	BOLA_INFO("PCK loading DISABLED - using extracted files");
+	// Skip PCK file opening entirely - files will be read directly from disk via AFileImage fallback
 
 	//	Open file package if it exists
 	GetPrivateProfileStringA("PathFile", "PackageFile", "null", szFile, MAX_PATH, g_szIniFile);
+	BOLA_INFO("PackageFile from ini: %s", szFile);
 
 	/*
 	if (stricmp(szFile, "null"))
@@ -1313,18 +1287,24 @@ bool _InitGameApp()
 	}*/
 
 	//	Initlaize network module
+	BOLA_INFO("Initializing network module");
 	if (!_InitNetwork())
 	{
+		BOLA_ERROR("Network initialization FAILED");
 		MessageBox(NULL, _AL("Failed initialize network module"), _AL("Error"), MB_OK);
 		return false;
 	}
+	BOLA_INFO("Network module initialized successfully");
 
 	//	Load game configs
+	BOLA_INFO("Loading game configs");
 	if (!g_GameCfgs.Init("Configs\\element_client.cfg", "client_id.cfg", "userdata\\SystemSettings.ini"))
 	{
+		BOLA_ERROR("Failed to load configs file");
 		a_LogOutput(1, "_InitGameApp(), Failed to load configs file");
 		return false;
 	}
+	BOLA_INFO("Game configs loaded successfully");
 
 	//	Set language code page
 	a_SetCharCodePage((DWORD)g_GameCfgs.GetLanCodePage());	

@@ -44,6 +44,7 @@
 #include "A3DShaderMan.h"
 #include "AFI.h"
 #include <AUILuaManager.h>
+#include "ADebugLog.h"
 
 
 //	#include <time.h>
@@ -230,7 +231,7 @@ bool glb_WriteString(FILE* fp, const char* str)
 
 ACString glb_GetExeDirectory()
 {
-	//	»ñÈ¡µ±Ç° exe ËùÓÐÄ¿Â¼È«Â·¾¶£¬Ä©Î²´ø \ ×Ö·û
+	//	ï¿½ï¿½È¡ï¿½ï¿½Ç° exe ï¿½ï¿½ï¿½ï¿½Ä¿Â¼È«Â·ï¿½ï¿½ï¿½ï¿½Ä©Î²ï¿½ï¿½ \ ï¿½Ö·ï¿½
 	ACString strDir;
 
 	TCHAR szModulePath[MAX_PATH];
@@ -488,7 +489,7 @@ float AfxGetGrndNorm(const A3DVECTOR3& vPos, A3DVECTOR3* pNorm)
 	if (g_pGame->GetGameRun()->GetWorld())
 		return g_pGame->GetGameRun()->GetWorld()->GetTerrainHeight(vPos, pNorm);
 
-	//	ÍË³öÓÎÏ·Ê±£¬»áÏÈÉ¾³ý World£¬È»ºóµ÷ÓÃGFXµÄTick£¬½ø¶ø»áµ÷ÓÃ´Ëº¯Êý
+	//	ï¿½Ë³ï¿½ï¿½ï¿½Ï·Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ Worldï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½GFXï¿½ï¿½Tickï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´Ëºï¿½ï¿½ï¿½
 	if (pNorm)
 		pNorm->Set(0.0f, 1.0f, 0.0f);
 	return 0.0f;
@@ -618,7 +619,7 @@ bool gGfxGetSurfaceData(const A3DVECTOR3& vCenter, float fRadus, A3DVECTOR3* pVe
 	return false;
 }
 
-//	LuaDlgApi µ÷ÓÃº¯Êý
+//	LuaDlgApi ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½
 AUILuaManager* GetAuiManager()
 {
 	AUILuaManager* ret = NULL;
@@ -729,7 +730,7 @@ void glb_ArmorReplaceShader(A3DSkin * pSkin)
 		{
 			char szFileTitle[MAX_PATH];
 			af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-			strlwr(szFileTitle);
+			strlwr_mbcs(szFileTitle);
 			if( strstr(szFileTitle, "rw_") != szFileTitle )
 			{
 				A3DShader* pReplaceShader = g_pGame->GetA3DEngine()->GetA3DShaderMan()->LoadShaderFile("armor.sdr");
@@ -785,7 +786,7 @@ void glb_BoothReplaceShader(A3DSkin * pSkin)
 		{
 			char szFileTitle[MAX_PATH];
 			af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-			strlwr(szFileTitle);
+			strlwr_mbcs(szFileTitle);
 			if( strstr(szFileTitle, "rw_") == szFileTitle )
 			{
 				A3DShader* pReplaceShader = g_pGame->GetA3DEngine()->GetA3DShaderMan()->LoadShaderFile("rewu.sdr");
@@ -831,7 +832,7 @@ void glb_ArmorReplaceShader_ReflectPrefix(A3DSkin * pSkin)
 		{
 			char szFileTitle[MAX_PATH];
 			af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-			strlwr(szFileTitle);
+			strlwr_mbcs(szFileTitle);
 			if( strstr(szFileTitle, "rw_") != szFileTitle )
 			{
 				if( strstr(szFileTitle, "r_") != szFileTitle )
@@ -891,7 +892,7 @@ void glb_FashionReplaceShader(A3DSkin * pSkin)
 		{
 			char szFileTitle[MAX_PATH];
 			af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-			strlwr(szFileTitle);
+			strlwr_mbcs(szFileTitle);
 			if( strstr(szFileTitle, "rw_") != szFileTitle )
 			{
 				A3DShader* pReplaceShader = g_pGame->GetA3DEngine()->GetA3DShaderMan()->LoadShaderFile("fashion.sdr");
@@ -942,7 +943,7 @@ A3DShader* glb_LoadBodyShader(A3DSkin* pSkin, const char* szTexMap)
 	{
 		char szFileTitle[MAX_PATH];
 		af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-		strlwr(szFileTitle);
+		strlwr_mbcs(szFileTitle);
 		if( strstr(szFileTitle, "rw_") != szFileTitle )
 		{
 			pBodyShader = g_pGame->GetA3DEngine()->GetA3DShaderMan()->LoadShaderFile(res_ShaderFile(RES_SHD_BODY));
@@ -977,7 +978,7 @@ A3DShader* glb_LoadBodyShader(A3DSkin* pSkin, const char* szTexMap)
 
 ACString A3DCOLOR_TO_STRING(A3DCOLOR clr)
 {
-	// °Ñ A3DCOLOR ÑÕÉ«Öµ×ª»»Îª UI ÏÔÊ¾ÐèÒªµÄ ^ffffff ¸ñÊ½
+	// ï¿½ï¿½ A3DCOLOR ï¿½ï¿½É«Öµ×ªï¿½ï¿½Îª UI ï¿½ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ ^ffffff ï¿½ï¿½Ê½
 	//
 
 	ACHAR pszColor[8] = {'^', '0', '0', '0', '0', '0', '0', '\0'};
@@ -1012,7 +1013,7 @@ ACString A3DCOLOR_TO_STRING(A3DCOLOR clr)
 
 bool STRING_TO_A3DCOLOR(ACString str, A3DCOLOR &clr)
 {
-	// Íê³É A3DCOLOR_TO_STRING µÄÄæÏò×ª»»
+	// ï¿½ï¿½ï¿½ A3DCOLOR_TO_STRING ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 	// 
 
 	bool ret(false);
@@ -1022,7 +1023,7 @@ bool STRING_TO_A3DCOLOR(ACString str, A3DCOLOR &clr)
 	int nLen = str.GetLength();
 	while (nLen==7)
 	{
-		// °Ñ×ÖÄ¸¶¼×ª»»³ÉÐ¡Ð´
+		// ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ð¡Ð´
 		str.MakeLower();
 
 		if (str[0] != '^')

@@ -1,3 +1,6 @@
+// BOLA_DEVBUILD: Skip XOR decryption for plain data files (extracted from PCK)
+#define BOLA_DEVBUILD
+
 #include "TaskTemplMan.h"
 #include "TaskInterface.h"
 #include <algorithm>
@@ -403,7 +406,7 @@ bool ATaskTemplMan::UpdateStorage(TaskInterface* pTask, StorageTaskList* pLst, u
 
 bool ATaskTemplMan::UpdateOneStorage(TaskInterface* pTask,StorageTaskList* pStorageLst, unsigned long ulCurTime, int idStorage,bool init_refresh)
 {
-	//¿´Ê±¼äÊÇ·ñ¹ýÁË0µã£¬¹ýÁË0µãË¢ÐÂ´ÎÊýÇåÁã£¬Ë¢ÐÂÊ±¼ä¸üÐÂ
+	//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½0ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ë¢ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬Ë¢ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (idStorage == 0 || idStorage > TASK_STORAGE_COUNT) return false;
 	struct tm * tm1 = localtime((time_t*)&ulCurTime);
 	unsigned long t_base = ulCurTime - tm1->tm_hour*3600 - tm1->tm_min*60 - tm1->tm_sec;
@@ -421,14 +424,14 @@ bool ATaskTemplMan::UpdateOneStorage(TaskInterface* pTask,StorageTaskList* pStor
 	
 	const NPC_TASK_OUT_SERVICE* pEssence = GetStorageTaskEssence(idStorage);
 	if (pEssence != NULL) {
-		// ÔÚ¿ç·þÉÏÒª¼ì²éË¢ÐÂÅäÖÃ
+		// ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (pTask->IsAtCrossServer() && pEssence->storage_refresh_on_crossserver == 0)
 			return false;
-		// ¼ì²éË¢ÐÂ´ÎÊýÊÇ·ñ³¬¹ýÏÞÖÆ
+		// ï¿½ï¿½ï¿½Ë¢ï¿½Â´ï¿½ï¿½ï¿½ï¿½Ç·ñ³¬¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (pStorageLst->m_StoragesRefreshCount[index] > pEssence->storage_refresh_per_day) {
 			return false;
 		}
-		//¿ªÊ¼Ë¢ÐÂ
+		//ï¿½ï¿½Ê¼Ë¢ï¿½ï¿½
 		memset(pStorageLst->m_Storages[index], 0, sizeof(unsigned short) * TASK_STORAGE_LEN);
 		pStorageLst->m_StoragesRefreshCount[index] = init_refresh ? 1 : pStorageLst->m_StoragesRefreshCount[index] + 1;
 		pStorageLst->m_StoragesRefreshTime[index] = ulCurTime;
@@ -437,10 +440,10 @@ bool ATaskTemplMan::UpdateOneStorage(TaskInterface* pTask,StorageTaskList* pStor
 	} else {
 		const TASK_DICE_BY_WEIGHT_CONFIG* pEssence = GetWeightTasksEssence(idStorage);
 		if (pEssence != NULL) {
-			// ÔÚ¿ç·þÉÏÒª¼ì²éË¢ÐÂÅäÖÃ
+			// ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (pTask->IsAtCrossServer() && pEssence->storage_refresh_on_crossserver == 0)
 				return false;
-			//¿ªÊ¼Ë¢ÐÂ
+			//ï¿½ï¿½Ê¼Ë¢ï¿½ï¿½
 			memset(pStorageLst->m_Storages[index], 0, sizeof(unsigned short) * TASK_STORAGE_LEN);
 			pStorageLst->m_StoragesRefreshTime[index] = ulCurTime;
 			return PickTaskByWeight(pTask, pStorageLst, idStorage, ulCurTime, pEssence);		
@@ -462,7 +465,7 @@ bool ATaskTemplMan::UpdateOneStorageDebug(TaskInterface* pTask, unsigned long ul
 	
 	const NPC_TASK_OUT_SERVICE* pEssence = GetStorageTaskEssence(idStorage);
 	if (pEssence != NULL) {
-		//¿ªÊ¼Ë¢ÐÂ
+		//ï¿½ï¿½Ê¼Ë¢ï¿½ï¿½
 		memset(pStorageLst->m_Storages[index], 0, sizeof(unsigned short) * TASK_STORAGE_LEN);
 		pStorageLst->m_StoragesRefreshCount[index] = pStorageLst->m_StoragesRefreshCount[index] + 1;
 		pStorageLst->m_StoragesRefreshTime[index] = ulCurTime;
@@ -471,7 +474,7 @@ bool ATaskTemplMan::UpdateOneStorageDebug(TaskInterface* pTask, unsigned long ul
 	} else {
 		const TASK_DICE_BY_WEIGHT_CONFIG* pEssence = GetWeightTasksEssence(idStorage);
 		if (pEssence != NULL) {
-			//¿ªÊ¼Ë¢ÐÂ
+			//ï¿½ï¿½Ê¼Ë¢ï¿½ï¿½
 			memset(pStorageLst->m_Storages[index], 0, sizeof(unsigned short) * TASK_STORAGE_LEN);
 			pStorageLst->m_StoragesRefreshTime[index] = ulCurTime;
 			unsigned long randSeed = ((tm1->tm_year % 3) << 10) | tm1->tm_yday;
@@ -494,7 +497,7 @@ bool ATaskTemplMan::PickTaskByProbability(TaskInterface* pTask,StorageTaskList* 
 	std::set<int> NormalTaskList;
 
 	size_t task_array_size = SIZE_OF_ARRAY(pEssence->id_tasks); 
-	// Ìî³äÏ¡ÓÐÈÎÎñÈÝÆ÷ºÍÆÕÍ¨ÈÎÎñÈÝÆ÷
+	// ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (size_t j = 0; j < task_array_size; j++)
 	{
 		unsigned int idTask = pEssence->id_tasks[j];
@@ -507,7 +510,7 @@ bool ATaskTemplMan::PickTaskByProbability(TaskInterface* pTask,StorageTaskList* 
 			continue;
 		
 		ATaskTempl* pTempl = it->second;
-		//¼ì²éÊÇ·ñÊÇ¿ÉÒÔ½ÓÊÜµÄÈÎÎñ
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ç¿ï¿½ï¿½Ô½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
 		if (pTempl->CheckPrerequisite(pTask, pActiveLst, ulCurTime, true, true, false) != 0)
 			continue;
 		
@@ -525,7 +528,7 @@ bool ATaskTemplMan::PickTaskByProbability(TaskInterface* pTask,StorageTaskList* 
 	if (RareTaskList.size() == 0 && NormalTaskList.size() == 0)
 		return false;
 	
-	//¼ÓÒ»¸ö¿ÕµÄÏ¡ÓÐÈÎÎñ
+	//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Õµï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(RareTaskList.size())
 	{
 		RareTaskList.push_back(0);
@@ -725,7 +728,7 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 {
 	if (!pEssence || !pTask || !pStorageLst || idStorage <= 0 || idStorage > TASK_STORAGE_COUNT) return false;
 
-	// Ëæ»úÖÖ×Ó
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	struct tm * tm1 = localtime((time_t*)&ulCurTime);
 	int seed1 = tm1->tm_year % 3;
 	int seed2 = tm1->tm_yday;
@@ -737,7 +740,7 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 	int storageIndex = idStorage - 1;
 	int storageSubIndex = 0;
 
-	// ÏÈ°´Ë³Ðò¸ù¾ÝÃ¿¸öÈÎÎñ¼¯ºÏµÄ¸ÅÂÊÀ´Ìí¼Ó
+	// ï¿½È°ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ñ¼¯ºÏµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	size_t taskSetSize = SIZE_OF_ARRAY(pEssence->uniform_weight_list);
 	for (size_t j = 0; j < taskSetSize && storageSubIndex < TASK_STORAGE_LEN; ++j, ++offsetIndex) {
 		int id = pEssence->uniform_weight_list[j].task_list_config_id;
@@ -765,16 +768,16 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 			}
 		}
 	}
-	// ±£´æÈÎÎñ¼¯ºÏµÄÊýÁ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ¼¯ºÏµï¿½ï¿½ï¿½ï¿½ï¿½
 	pStorageLst->m_StoragesTaskSetCount[storageIndex] = storageSubIndex;
-	// È¨ÖØ²»×ãµÄ»°ÓÃµ¥¸öÈÎÎñ²¹³ä
+	// È¨ï¿½Ø²ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ²¹³ï¿½
 	if (totalWeight < pEssence->max_weight) {
 		typedef abase::vector<WeightTaskData> WeightTaskContainer;
 		WeightTaskContainer vecTask, vecResult;
 		std::set<int> setIndex;
 		DATA_TYPE dt;
 		const TASK_LIST_CONFIG* pConfig = (const TASK_LIST_CONFIG*)m_pEleDataMan->get_data_ptr(pEssence->other_task_list_config_id, ID_SPACE_CONFIG, dt);
-		// ÏÈ·Åµ½ÈÝÆ÷ÖÐ
+		// ï¿½È·Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if ( dt == DT_TASK_LIST_CONFIG && pConfig ) {
 			size_t taskArraySize = SIZE_OF_ARRAY(pConfig->id_tasks); 
 			for (size_t j = 0; j < taskArraySize; j++) {
@@ -796,7 +799,7 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 		
 		size_t totalSize = vecTask.size();
 		for (int traversalCount = 0; setIndex.size() <= TASK_STORAGE_LEN; ++offsetIndex, ++traversalCount){
-			// ±éÀúÒ»´ÎËæ»úÊý±íÖ®ºóÍË³öÑ­»·
+			// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ë³ï¿½Ñ­ï¿½ï¿½
 			if (traversalCount >= s_RandTableSize) break;
 			int randIndex = startIndex + offsetIndex;
 			if (randIndex >= s_RandTableSize) {
@@ -819,7 +822,7 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 				}
 			}
 		}
-		// ×îºó±éÀúÒ»´Î
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		if (totalWeight < pEssence->max_weight) {
 			for (size_t i = 0; i < totalSize; ++i){
 				if (setIndex.find(i) == setIndex.end() 
@@ -831,7 +834,7 @@ bool ATaskTemplMan::PickTaskByWeight(TaskInterface* pTask,StorageTaskList* pStor
 			}
 		}
 		size_t resultSize = vecResult.size();
-		// ÆÕÍ¨ÈÎÎñ·Åµ½ºóÃæ
+		// ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½
 		for (size_t  k = 0; k < resultSize && storageSubIndex < TASK_STORAGE_LEN; ++k) {
 			const WeightTaskData& data = vecResult[k];
 			pStorageLst->m_Storages[storageIndex][storageSubIndex++] = data.id;
@@ -942,7 +945,7 @@ bool ATaskTemplMan::SaveDynTasksToPack(const char* szPath, bool bMarshalAll)
 		if (!bMarshalAll && !pTop->m_DynTaskType)
 			continue;
 
-		if (wcsstr(pTop->m_szName, L"²âÊÔÈÎÎñ_") != 0)
+		if (wcsstr(pTop->m_szName, L"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_") != 0)
 			continue;
 
 		int sz = pTop->MarshalDynTask(buf);
@@ -1102,7 +1105,7 @@ bool ATaskTemplMan::SaveTasksToPack2(const char* szPackPath)
 			strPath = "BaseData\\TaskTemplate\\" + strPath + ".tkt";
 			if (!pTempl->LoadFromTextFile(strPath))
 			{
-				AfxMessageBox("¶ÁÈ¡Ó²ÅÌÉÏµÄÄ£°åÎÄ¼þÊ§°Ü£¡", MB_ICONSTOP);
+				AfxMessageBox("ï¿½ï¿½È¡Ó²ï¿½ï¿½ï¿½Ïµï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½Ü£ï¿½", MB_ICONSTOP);
 				delete pTempl;
 				g_ulDelCount++;
 				return false;
@@ -1149,7 +1152,7 @@ bool ATaskTemplMan::SaveDynTasksToPack2(const char* szPath, bool bMarshalAll)
 		if (!bMarshalAll && !(it->second).m_DynTaskType)
 			continue;
 		
-		if (wcsstr((it->second).GetName(), L"²âÊÔÈÎÎñ_") != 0)
+		if (wcsstr((it->second).GetName(), L"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_") != 0)
 			continue;
 		
 		int sz = 0;
@@ -1167,7 +1170,7 @@ bool ATaskTemplMan::SaveDynTasksToPack2(const char* szPath, bool bMarshalAll)
 			strPath = "BaseData\\TaskTemplate\\" + strPath + ".tkt";
 			if (!pTop->LoadFromTextFile(strPath))
 			{
-				AfxMessageBox("¶ÁÈ¡Ó²ÅÌÉÏµÄÄ£°åÎÄ¼þÊ§°Ü£¡", MB_ICONSTOP);
+				AfxMessageBox("ï¿½ï¿½È¡Ó²ï¿½ï¿½ï¿½Ïµï¿½Ä£ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½Ü£ï¿½", MB_ICONSTOP);
 				delete pTop;
 				g_ulDelCount++;
 				return false;
@@ -1284,7 +1287,7 @@ void ATaskTemplMan::GetAvailableTasks(TaskInterface* pPlayer, TaskTemplLst& lst)
 }
 void ATaskTemplMan::UpdateTasksSeekOutDiff(TaskInterface* pTask)
 {
-	// µÃµ½µ±Ç°¿É½ÓÈÎÎñ
+	// ï¿½Ãµï¿½ï¿½ï¿½Ç°ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TaskTemplLst ttl;
 	GetAvailableTasks(pTask, ttl);
 	if (m_TasksCanDeliver.empty()) m_TasksCanDeliver.swap(ttl);
@@ -1294,20 +1297,20 @@ void ATaskTemplMan::UpdateTasksSeekOutDiff(TaskInterface* pTask)
 		if (count_after == count_after)
 			if (std::equal(m_TasksCanDeliver.begin(), m_TasksCanDeliver.end(), ttl.begin()))
 				return;
-		// ¹¹ÔìÖ®Ç°µÄ¿É½ÓÈÎÎñÐòÁÐ
+		// ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ä¿É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		size_t i = 0;
 		TasksSeekOutDiffList task_list_before;
 		for (i = 0; i < count_before; ++i) {
 			TasksSeekOutDiff diff(m_TasksCanDeliver[i]);
 			task_list_before.push_back(diff);
 		}
-		// ¹¹Ôìµ±Ç°µÄ¿É½ÓÈÎÎñÐòÁÐ
+		// ï¿½ï¿½ï¿½ìµ±Ç°ï¿½Ä¿É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		TasksSeekOutDiffList task_list_after;
 		for (i = 0; i < count_after; ++i) {
 			TasksSeekOutDiff diff(ttl[i]);
 			task_list_after.push_back(diff);
 		}
-		// ¼ÆËãÇ°ºóÁ½¸öÐòÁÐµÄ²î¼¯
+		// ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ²î¼¯
 		TasksSeekOutDiffList diff_list;
 		TasksSeekOutDiffList::iterator it;
 		diff_list.resize(a_Max(count_before, count_after));
@@ -1349,7 +1352,7 @@ void ATaskTemplMan::CheckTitleTask(TaskInterface* pTask)
 }
 void ATaskTemplMan::UpdateStatus(TaskInterface* pTask)
 {
-	// ÒòÎªCheckTitleÒÀÀµÓë³ÆºÅÊý¾Ý£¬ËùÒÔÖ±µ½»ñÈ¡µ½³ÆºÅÊý¾ÝÖ®Ç°¶¼²»ÄÜµ÷ÓÃÈÎÎñ½è¿Ú
+	// ï¿½ï¿½ÎªCheckTitleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (!pTask->IsTitleDataReady()) return;
 	CheckAutoDelv(pTask);
 	if (CECUIConfig::Instance().GetGameUI().bEnableTitle)
@@ -1471,7 +1474,7 @@ bool ATaskTemplMan::HasStorageTaskDeliverLimit(unsigned int idStorage)
 {
 	const NPC_TASK_OUT_SERVICE* pEssence = GetStorageTaskEssence(idStorage);
 	bool ret = false;
-	if (pEssence) ret = pEssence->storage_deliver_per_day != 0;// Ä¬ÈÏ0´ú±í²»ÏÞÖÆÃ¿Ìì·¢·Å´ÎÊý
+	if (pEssence) ret = pEssence->storage_deliver_per_day != 0;// Ä¬ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ì·¢ï¿½Å´ï¿½ï¿½ï¿½
 	return ret;
 }
 void ATaskTemplMan::Init(elementdataman* pMan)
@@ -1481,11 +1484,11 @@ void ATaskTemplMan::Init(elementdataman* pMan)
 
 bool ATaskTemplMan::InitStorageTask()
 {
-	// ¿âÈÎÎñÏà¹Ø
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_StorageEssenseMap.clear();
 	m_WeightEssenseMap.clear();
 	
-	// ³õÊ¼»¯ÈÎÎñ²Ö¿âÁÐ±í
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ð±ï¿½
 	DATA_TYPE dt;
 	int id = m_pEleDataMan->get_first_data_id(ID_SPACE_ESSENCE, dt);
 	
@@ -1499,13 +1502,13 @@ bool ATaskTemplMan::InitStorageTask()
 			}
 			
 			if (pData->storage_id > TASK_STORAGE_COUNT) {
-				// ¿âÈÎÎñºÅ³¬¹ýÏÞÖÆ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				return false;
 			}
 			
 			IdEssenceMap::iterator iter = m_StorageEssenseMap.find(pData->storage_id);
 			if (iter != m_StorageEssenseMap.end())
-				return false; // ¿âÈÎÎñºÅÖØ¸´
+				return false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½
 			m_StorageEssenseMap[pData->storage_id] = pData->id;
 			size_t sTasks = SIZE_OF_ARRAY(pData->id_tasks);
 			for (size_t i = 0; i < sTasks; i++) {

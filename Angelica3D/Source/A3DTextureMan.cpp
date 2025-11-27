@@ -10,6 +10,7 @@
 #include "AFI.h"
 #include "AMemory.h"
 #include "ACSWrapper.h"
+#include "ADebugLog.h"
 
 #define new A_DEBUG_NEW
 
@@ -126,7 +127,7 @@ bool A3DTextureMan::LoadTextureFromFile(const char* pszFilename, A3DTexture** pp
 	//	Transform to lower case
 	char szNameLwr[MAX_PATH];
 	strncpy(szNameLwr, pszFilename, MAX_PATH);
-	strlwr(szNameLwr);
+	strlwr_mbcs(szNameLwr);
 	
 	char* pChar = strstr(szNameLwr, ".sdr.");
 	if (pChar)

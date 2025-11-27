@@ -25,10 +25,23 @@
 //
 ///////////////////////////////////////////////////////////////////////////
 
+#ifdef BOLA_DEVBUILD
+// Disable all asserts for Wine compatibility - they crash on non-fatal issues
+// Override both ASSERT and assert to be no-ops
+#ifdef assert
+#undef assert
+#endif
+#define assert(x)	((void)0)
+#ifndef ASSERT
+#define ASSERT(x)	((void)0)
+#endif
+#else
+// Normal build - use standard assert
 #ifndef ASSERT
 #include <assert.h>
 #define ASSERT	assert
-#endif	//	ASSERT
+#endif
+#endif	//	BOLA_DEVBUILD
 
 ///////////////////////////////////////////////////////////////////////////
 //

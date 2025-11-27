@@ -1,3 +1,6 @@
+// BOLA_DEVBUILD: Skip XOR decryption for plain data files (extracted from PCK)
+#define BOLA_DEVBUILD
+
 #include "elementdataman.h"
 using namespace abase;
 
@@ -1156,7 +1159,7 @@ void elementdataman::add_structure(unsigned int id, MONSTER_ESSENCE & data)
 	if( data.drop_times < 0 ) data.drop_times = 0;
 	if( data.drop_times > 10 ) data.drop_times = 10;
 
-	// ¶ÔÓÚ¶à´ÎµôÂäµÄÁĞ±í£¬ÓÉÓÚ³ıµÚÒ»´ÎÒÔÍâµÄµôÂäÔÚËæ»úµ½ºó16¸öÊ±ÒªÈ¡Ïû£¬ËùÒÔ²»ÄÜ½øĞĞÈ¥Áã²Ù×÷¡£
+	// ï¿½ï¿½ï¿½Ú¶ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½Ê±ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Ü½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( data.drop_times == 0 || data.drop_times == 1 )
 		eliminate_zero_item((unsigned char*) data.drop_matters, sizeof(unsigned int)+sizeof(float), 32);
 	else

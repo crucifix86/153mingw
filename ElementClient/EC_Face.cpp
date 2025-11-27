@@ -47,6 +47,7 @@
 #include <A3DGFXEx.h>
 #include <A3DGFXElement.h>
 #include <A3DGFXExMan.h>
+#include "ADebugLog.h"
 
 #define new A_DEBUG_NEW
 
@@ -75,67 +76,67 @@ CExpression 				CECFace::m_Expressions[NUM_PROFESSION][2][FACE_ANIMATION_MAX];	/
 //	Skin sort index
 enum
 {
-	FACE_SKIN_SORT_FACE		= 0,	//	Á³²¿
-	FACE_SKIN_SORT_HAIR		= 1,	//	Í··¢
+	FACE_SKIN_SORT_FACE		= 0,	//	ï¿½ï¿½ï¿½ï¿½
+	FACE_SKIN_SORT_HAIR		= 1,	//	Í·ï¿½ï¿½
 };
 
 static const char* _face_skin[NUM_PROFESSION*NUM_GENDER] = 
 {
-	"models\\face\\ÎäÏÀÄÐ±ê×¼Á³\\ÎäÏÀÄÐ±ê×¼Á³.%s",
-	"models\\face\\·¨Ê¦Å®±ê×¼Á³\\·¨Ê¦Å®±ê×¼Á³.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½.%s",
+	"models\\face\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½.%s",
 	
-	"models\\face\\ÎäÏÀÄÐ±ê×¼Á³\\ÎäÏÀÄÐ±ê×¼Á³.%s",
-	"models\\face\\·¨Ê¦Å®±ê×¼Á³\\·¨Ê¦Å®±ê×¼Á³.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½.%s",
+	"models\\face\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½.%s",
 	
-	"models\\face\\Î×Ê¦ÄÐ±ê×¼Á³\\Î×Ê¦ÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\Î×Ê¦Å®±ê×¼Á³\\Î×Ê¦Å®±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½Ê¦ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ê¦ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ê¦Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 	
 	NULL,
-	"models\\face\\Ñý¾«±ê×¼Á³\\Ñý¾«±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 	
-	"models\\face\\ÑýÊÞÄÐ±ê×¼Á³\\ÑýÊÞÄÐ±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
 	NULL,
 	
-	"models\\face\\´Ì¿ÍÄÐ±ê×¼Á³\\´Ì¿ÍÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\´Ì¿ÍÅ®±ê×¼Á³\\´Ì¿ÍÅ®±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½Ì¿ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½Ì¿ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\ï¿½Ì¿ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½Ì¿ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 	
-	"models\\face\\ÓðÃ¢ÄÐ±ê×¼Á³\\ÓðÃ¢ÄÐ±ê×¼Á³.%s",
-	"models\\face\\ÓðÃ¢Å®±ê×¼Á³\\ÓðÃ¢Å®±ê×¼Á³.%s",
+	"models\\face\\ï¿½ï¿½Ã¢ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ã¢ï¿½Ð±ï¿½×¼ï¿½ï¿½.%s",
+	"models\\face\\ï¿½ï¿½Ã¢Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½Ã¢Å®ï¿½ï¿½×¼ï¿½ï¿½.%s",
 	
-	"models\\face\\ÓðÁéÄÐ±ê×¼Á³\\ÓðÁéÄÐ±ê×¼Á³.%s",
-	"models\\face\\ÓðÁéÅ®±ê×¼Á³\\ÓðÁéÅ®±ê×¼Á³.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½.%s",
 
-	"models\\face\\½£ÁéÄÐ±ê×¼Á³\\½£ÁéÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\½£ÁéÅ®±ê×¼Á³\\½£ÁéÅ®±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 	
-	"models\\face\\÷ÈÁéÄÐ±ê×¼Á³\\÷ÈÁéÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\÷ÈÁéÅ®±ê×¼Á³\\÷ÈÁéÅ®±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 
-	"models\\face\\Ò¹Ó°ÄÐ±ê×¼Á³\\Ò¹Ó°ÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\Ò¹Ó°Å®±ê×¼Á³\\Ò¹Ó°Å®±ê×¼Á³%d.%s",
+	"models\\face\\Ò¹Ó°ï¿½Ð±ï¿½×¼ï¿½ï¿½\\Ò¹Ó°ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\Ò¹Ó°Å®ï¿½ï¿½×¼ï¿½ï¿½\\Ò¹Ó°Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 	
-	"models\\face\\ÔÂÏÉÄÐ±ê×¼Á³\\ÔÂÏÉÄÐ±ê×¼Á³%d.%s",
-	"models\\face\\ÔÂÏÉÅ®±ê×¼Á³\\ÔÂÏÉÅ®±ê×¼Á³%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½×¼ï¿½ï¿½%d.%s",
+	"models\\face\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½\\ï¿½ï¿½ï¿½ï¿½Å®ï¿½ï¿½×¼ï¿½ï¿½%d.%s",
 };
 
 static const char* _face_animation[FACE_ANIMATION_MAX] = 
 {
-	"Õ£ÑÛ",
-	"´óÐ¦",
-	"ÉúÆø",
+	"Õ£ï¿½ï¿½",
+	"ï¿½ï¿½Ð¦",
+	"ï¿½ï¿½ï¿½ï¿½",
 	"Î¢Ð¦",
-	"±¯ÉË",
+	"ï¿½ï¿½ï¿½ï¿½",
 };
 
 const char* CECFace::m_aMeshName[CECFace::NUM_PART] = 
 {
-	"modelÈËÁ³_0",
-	"modelÈËÁ³_1",
-	"modelÈËÁ³_2",
-	"modelÈËÁ³_3",
-	"modelÈËÁ³_4",
-	"modelÈËÁ³_5",
-	"modelÈËÁ³_6",
+	"modelï¿½ï¿½ï¿½ï¿½_0",
+	"modelï¿½ï¿½ï¿½ï¿½_1",
+	"modelï¿½ï¿½ï¿½ï¿½_2",
+	"modelï¿½ï¿½ï¿½ï¿½_3",
+	"modelï¿½ï¿½ï¿½ï¿½_4",
+	"modelï¿½ï¿½ï¿½ï¿½_5",
+	"modelï¿½ï¿½ï¿½ï¿½_6",
 };
 
 static const char* l_aVSFiles[CECFace::NUM_PART+2] = 
@@ -155,8 +156,8 @@ static const char* l_aVSFiles[CECFace::NUM_PART+2] =
 const char* CECFace::m_szNeckHH		= "HH_Neck";
 const char* CECFace::m_szNeckCC		= "CC_Neck";
 const char* CECFace::m_szHeadBone	= "Bip01 Head";
-const char* CECFace::m_szNeckBone	= "²±×Ó¶ÔÆë";
-const char* CECFace::m_sz3rdEyeHH	= "HH_¶îÊÎ";
+const char* CECFace::m_szNeckBone	= "ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½";
+const char* CECFace::m_sz3rdEyeHH	= "HH_ï¿½ï¿½ï¿½ï¿½";
 
 ///////////////////////////////////////////////////////////////////////////
 //	
@@ -218,7 +219,7 @@ bool CECFace::LoadStaticData()
 	return true;
 }
 
-//ÔØÈë±íÇé²ÎÊý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::LoadAnimationFactors()
 {
 	AIniFile IniFile;
@@ -275,20 +276,20 @@ bool CECFace::LoadExpressions()
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan();
 
-	//Êý¾Ý¿Õ¼äID
+	//ï¿½ï¿½ï¿½Ý¿Õ¼ï¿½ID
 	ID_SPACE eIDSpace = ID_SPACE_FACE;		
 
-	//»ñÈ¡Á³ÐÍÏà¹ØÊý¾ÝÊýÁ¿
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int nNumFaceData;
 	nNumFaceData = pElementDataMan->get_data_num( eIDSpace);
 
-	//Á³ÐÍÏà¹ØµÄÊý¾ÝÀàÐÍ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DATA_TYPE dtFaceData;
 
 	int i;
 	for(i=0; i<nNumFaceData; i++)
 	{
-		//»ñÈ¡Á³ÐÍÊý¾Ýid
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
 		unsigned int uFaceDataID = pElementDataMan->get_data_id(eIDSpace, i, dtFaceData);
 
 		if(dtFaceData == DT_FACE_EXPRESSION_ESSENCE)
@@ -297,11 +298,11 @@ bool CECFace::LoadExpressions()
 			if( !pFaceExpressionEssence ||dtFaceData != DT_FACE_EXPRESSION_ESSENCE)
 				return true;
 
-			//µ±Ç°ÈËÎïidºÍÐÔ±ðid
+			//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½Ô±ï¿½id
 			int uCharacterComboID = pFaceExpressionEssence->character_combo_id ;
 			int uGenderID = pFaceExpressionEssence->gender_id ;
 			
-			//if µ±Ç°ÈËÎïµÄ±íÇé
+			//if ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
 			int id = pFaceExpressionEssence->id;
 
 			char* pszExpressionFile = pFaceExpressionEssence->file_expression;
@@ -401,9 +402,9 @@ bool CECFace::Init(int nCharacter, int nGender, int nFaceID)
 {
 	m_bHasTicked		= false;
 
-	m_nCharacter	= nCharacter;	// ÈËÎï
-	m_nGender		= nGender;		// ÐÔ±ð
-	m_nFaceID		= nFaceID;		// Á³ºÅ
+	m_nCharacter	= nCharacter;	// ï¿½ï¿½ï¿½ï¿½
+	m_nGender		= nGender;		// ï¿½Ô±ï¿½
+	m_nFaceID		= nFaceID;		// ï¿½ï¿½ï¿½ï¿½
 
 	// load different model's according to the character and gender
 	AString strBone;
@@ -499,7 +500,7 @@ bool CECFace::Init(int nCharacter, int nGender, int nFaceID)
 
 	m_pSkinModel->SetMaterialMethod(A3DSkinModel::MTL_SCALED);
 
-	m_pSkinModel->Update(0);//¸üÐÂskinModel
+	m_pSkinModel->Update(0);//ï¿½ï¿½ï¿½ï¿½skinModel
 
 	//	Load shaders of various part
 	if (!InitPartShaders())
@@ -509,7 +510,7 @@ bool CECFace::Init(int nCharacter, int nGender, int nFaceID)
 		return false;
 	}
 
-	//´´½¨¹Ç÷À¿ØÖÆÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( !CreateFaceController() )
 	{
 		a_LogOutput(1, "CECFace::Init, Failed to create face controller!");
@@ -518,7 +519,7 @@ bool CECFace::Init(int nCharacter, int nGender, int nFaceID)
 
 	InitEmptyFaceData();
 
-	// ÔØÈë±íÇé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( !LoadAnimations() )
 		return false;
 
@@ -539,7 +540,7 @@ void CECFace::ReleaseFaceController()
 //	Release object
 void CECFace::Release()
 {	
-	//ÊÍ·Å¹Ç÷À¿ØÖÆÆ÷
+	//ï¿½Í·Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ReleaseFaceController();
 
 	ChangeThirdEyeGfx(NULL);
@@ -610,7 +611,7 @@ bool CECFace::InitPartShaders()
 
 	if( m_nCharacter == PROF_ORC && m_nGender == GENDER_MALE )
 	{
-		// ÑýÊÞµÄÍ·ÎÞ¸öÐÔ»¯
+		// ï¿½ï¿½ï¿½Þµï¿½Í·ï¿½Þ¸ï¿½ï¿½Ô»ï¿½
 	}
 	else
 	{
@@ -1296,7 +1297,7 @@ bool CECFace::ChangeFaceTexture(const char * szTexMap)
 
 	char szFileTitle[MAX_PATH];
 	af_GetFileTitle(szTexMap, szFileTitle, MAX_PATH);
-	strlwr(szFileTitle);
+	strlwr_mbcs(szFileTitle);
 
 	char temp[MAX_PATH];
 
@@ -1488,10 +1489,10 @@ bool CECFace::ChangeHairRewuShaderTexture(const char * szTexMap, const char * sz
 		ChangeHairTextureShader(CECRewuShader().Load());
 	}
 	CECRewuShader().SetTexture(m_pHairShader, szTexMap, szTexMap2);
-	m_pHairShader->SetAlphaTextureFlag(false);	//	2014-9-17 ÐìÎÄ±ò£º	·ÇalphaµÄDXT1¸ñÊ½¡¢alphaÖµÎª0µÄÇøÓòÎÞ·¨ÉèÖÃºÚÉ«ÒÔÍâµÄÑÕÉ«£¬
-												//						µ¼ÖÂÊµ¼ÊÏÔÊ¾ÓÐºÚ±ß£¨ÌùÍ¼²åÖµ£©¡£Òò´Ë£¬Ê¹ÓÃDXT3¡¢DXT5µÈ¸ñÊ½
-												//						¿É±ÜÃâºÚ±ß£¬µ«ÒòÍ¸Ã÷¶ÈÅÅÐòÈÝÒ×³öÏÖÎÊÌâ£¬´Ë´¦Ç¿ÐÐÉèÖÃÎª false£¬
-												//						¼ÈÀûÓÃÁË DXT3¡¢DXT5¿ÉÒÔÉèÖÃ·ÇºÚµÄ±ßÔµÑÕÉ«£¬ÓÖÃ»ÓÐÍ¸Ã÷¶ÈÏà¹ØÎÊÌâ
+	m_pHairShader->SetAlphaTextureFlag(false);	//	2014-9-17 ï¿½ï¿½ï¿½Ä±ï¿½	ï¿½ï¿½alphaï¿½ï¿½DXT1ï¿½ï¿½Ê½ï¿½ï¿½alphaÖµÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ãºï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½
+												//						ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ÐºÚ±ß£ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½Ê¹ï¿½ï¿½DXT3ï¿½ï¿½DXT5ï¿½È¸ï¿½Ê½
+												//						ï¿½É±ï¿½ï¿½ï¿½Ú±ß£ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½Ë´ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª falseï¿½ï¿½
+												//						ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DXT3ï¿½ï¿½DXT5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ÇºÚµÄ±ï¿½Ôµï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return true;
 }
 
@@ -1572,7 +1573,7 @@ bool CECFace::ChangeThirdEyeGfx(const char *szGfx)
 	return bRet;
 }
 
-// ³õÊ¼»¯Á³ÐÍÊý¾ÝÎªºÏ·¨µÄ¿Õ°×Êý¾Ý
+// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ï·ï¿½ï¿½Ä¿Õ°ï¿½ï¿½ï¿½ï¿½ï¿½
 void CECFace::InitEmptyFaceData()
 {
 	WORD	idFaceTex[NUM_PROFESSION][2]	= {{44, 0},	 {0, 5},   {855, 860}, {0, 0}, {0, 0}, {845, 850}, {0, 0}, {0, 142}, {0, 0}, {0, 0}, {0, 0}, {0, 0}};
@@ -1593,43 +1594,43 @@ void CECFace::InitEmptyFaceData()
 	m_FaceData.scaleMiddle			= 128;
 	m_FaceData.scaleDown			= 128;
 
-	//Á³ÐÍÈÚºÏ3
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½3
 	m_FaceData.idFaceShape1			= 0;
 	m_FaceData.idFaceShape2			= 0;
 	m_FaceData.blendFaceShape		= 50;
 
-	//Á³ÅÌ3
+	//ï¿½ï¿½ï¿½ï¿½3
 	m_FaceData.scaleFaceH			= 128;
 	m_FaceData.scaleFaceV			= 128;
 	m_FaceData.idFaceTex			= idFaceTex[m_nCharacter][m_nGender];
 
-	//¶îÍ·5
+	//ï¿½ï¿½Í·5
 	m_FaceData.offsetForeheadH		= 128;
 	m_FaceData.offsetForeheadV		= 128;
 	m_FaceData.offsetForeheadZ		= 128;
 	m_FaceData.rotateForehead		= 128;
 	m_FaceData.scaleForehead		= 128;
 
-	//È§¹Ç5
+	//È§ï¿½ï¿½5
 	m_FaceData.offsetYokeBoneH		= 128;
 	m_FaceData.offsetYokeBoneV		= 128;
 	m_FaceData.offsetYokeBoneZ		= 128;
 	m_FaceData.rotateYokeBone		= 128;
 	m_FaceData.scaleYokeBone		= 128;
 
-	//Á³¼Õ4
+	//ï¿½ï¿½ï¿½ï¿½4
 	m_FaceData.offsetCheekH			= 128;
 	m_FaceData.offsetCheekV			= 128;
 	m_FaceData.offsetCheekZ			= 128;
 	m_FaceData.scaleCheek			= 128;
 
-	//ÏÂ°Í4
+	//ï¿½Â°ï¿½4
 	m_FaceData.offsetChainV			= 128;
 	m_FaceData.offsetChainZ			= 128;
 	m_FaceData.rotateChain			= 128;
 	m_FaceData.scaleChainH			= 128;
 
-	//ò¢¹Ç6
+	//ï¿½ï¿½6
 	m_FaceData.offsetJawH			= 128;
 	m_FaceData.offsetJawV			= 128;
 	m_FaceData.offsetJawZ			= 128;
@@ -1637,7 +1638,7 @@ void CECFace::InitEmptyFaceData()
 	m_FaceData.scaleJawH			= 128;
 	m_FaceData.scaleJawV			= 128;
 	
-	//ÑÛ¾¦11 + 7
+	//ï¿½Û¾ï¿½11 + 7
 	m_FaceData.idEyeBaseTex			= idEyeBaseTex[m_nCharacter][m_nGender];
 	m_FaceData.idEyeHighTex			= idEyeHighTex[m_nCharacter][m_nGender];
 	m_FaceData.idEyeBallTex			= idEyeBallTex[m_nCharacter][m_nGender];
@@ -1675,7 +1676,7 @@ void CECFace::InitEmptyFaceData()
 	m_FaceData.offsetBrowV2			= 128;
 	m_FaceData.offsetBrowZ2			= 128;
 
-	//±Ç×Ó8
+	//ï¿½ï¿½ï¿½ï¿½8
 	m_FaceData.idNoseTex			= idNoseTex[m_nCharacter][m_nGender];
 	m_FaceData.idNoseTipShape		= 0;
 	m_FaceData.scaleNoseTipH		= 128;
@@ -1685,7 +1686,7 @@ void CECFace::InitEmptyFaceData()
 	m_FaceData.idNoseBridgeShape	= 128;
 	m_FaceData.scaleBridgeTipH		= 128;
 
-	//×ì12
+	//ï¿½ï¿½12
 	m_FaceData.idMouthUpLipLine		= 0;
 	m_FaceData.idMouthMidLipLine	= 0;
 	m_FaceData.idMouthDownLipLine	= 0;
@@ -1700,20 +1701,20 @@ void CECFace::InitEmptyFaceData()
 	m_FaceData.offsetCornerOfMouthSpecial = 128;
 	m_FaceData.offsetCornerOfMouthSpecial2 = 128;
 
-	//¶ú¶ä3
+	//ï¿½ï¿½ï¿½ï¿½3
 	m_FaceData.idEarShape			= 0;
 	m_FaceData.scaleEar				= 128;
 	m_FaceData.offsetEarV			= 128;
 
-	//Í··¢1
+	//Í·ï¿½ï¿½1
 	m_FaceData.idHairModel			= idHairModel[m_nCharacter][m_nGender];
 	m_FaceData.idHairTex			= idHairTex[m_nCharacter][m_nGender];
 
-	//ºú×Ó2
+	//ï¿½ï¿½ï¿½ï¿½2
 	m_FaceData.idMoustacheTex		= idMoustacheTex[m_nCharacter][m_nGender];
 	m_FaceData.idMoustacheSkin		= 0;
 	
-	//¸÷²¿Î»ÑÕÉ«7
+	//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½É«7
 	m_FaceData.colorHair			= 0xffffffff;
 	m_FaceData.colorFace			= 0xffffffff;
 	m_FaceData.colorEye				= 0xffffffff;
@@ -1727,14 +1728,14 @@ void CECFace::InitEmptyFaceData()
 }
 
 
-// ½«µ±Ç°Á³µÄÊý¾Ý±¸·ÝÆðÀ´£¬ÒÔ±¸½«À´»Ö¸´
+// ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½
 bool CECFace::StoreFaceData()
 {
 	m_FaceDataStored = m_FaceData;
 	return true;
 }
 
-// »Ö¸´±¸·ÝµÄÁ³ÐÍÊý¾Ý
+// ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::RestoreFaceData()
 {
 	m_FaceData = m_FaceDataStored;
@@ -1742,7 +1743,7 @@ bool CECFace::RestoreFaceData()
 	return true;
 }
 
-//¼ÆËãÑÛÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateEye(void)
 {
 	if( m_FaceData.idEyeShape <= 0 )
@@ -1758,82 +1759,82 @@ bool CECFace::CalculateEye(void)
 	CExpression expEye;
 	expEye.LoadExpression(pszFileName);
 
-	//×óÑÛ---------------------------------------------------------------------
+	//ï¿½ï¿½ï¿½ï¿½---------------------------------------------------------------------
 	
 	float fScaleEyeH = TransformScaleFromIntToFloat(m_FaceData.scaleEyeH, m_FaceCusFactor.fScaleEyeHFactor, SCALE_EYEH_FACTOR);
 	float fScaleEyeV = TransformScaleFromIntToFloat(m_FaceData.scaleEyeV, m_FaceCusFactor.fScaleEyeVFactor, SCALE_EYEV_FACTOR);
 	
-	//ÉèÖÃ×óÑÛËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleVector(fScaleEyeH , fScaleEyeV, 1.0f);
 	
 	float fRotateEye = TransformRotateFromIntToFloat(m_FaceData.rotateEye, m_FaceCusFactor.fRotateEyeFactor, ROTATE_EYE_FACTOR);
 
-	//ÉèÖÃ×óÑÛÐý×ªÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateVector( 0.0f, 0.0f, fRotateEye);
 
 	float fOffsetEyeH = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeH, m_FaceCusFactor.fOffsetEyeHFactor, OFFSET_EYEH_FACTOR);
 	float fOffsetEyeV = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeV, m_FaceCusFactor.fOffsetEyeVFactor, OFFSET_EYEV_FACTOR);
 	float fOffsetEyeZ = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeZ, m_FaceCusFactor.fOffsetEyeZFactor, OFFSET_EYEZ_FACTOR);
 
-	//ÉèÖÃ×óÑÛÆ½ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetVector(  fOffsetEyeH, fOffsetEyeV, fOffsetEyeZ);
 
 	float fScaleEyeBall = TransformScaleFromIntToFloat(m_FaceData.scaleEyeBall, m_FaceCusFactor.fScaleEyeBallFactor, SCALE_EYEBALL_FACTOR);
-	//ÉèÖÃ×óÑÛµÄËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleEyeBallVector(fScaleEyeBall, fScaleEyeBall, fScaleEyeBall);
 
-	//ÓÒÑÛ-----------------------------------------------------------------------
+	//ï¿½ï¿½ï¿½ï¿½-----------------------------------------------------------------------
 
 	float fScaleEyeH2 = TransformScaleFromIntToFloat(m_FaceData.scaleEyeH2, m_FaceCusFactor.fScaleEyeHFactor2, SCALE_EYEH_FACTOR2);
 	float fScaleEyeV2 = TransformScaleFromIntToFloat(m_FaceData.scaleEyeV2, m_FaceCusFactor.fScaleEyeVFactor2, SCALE_EYEV_FACTOR2);
 
-	//ÉèÖÃÓÒÑÛËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleVector2( fScaleEyeH2, fScaleEyeV2, 1.0f);
 
 	float fRotateEye2 = TransformRotateFromIntToFloat(m_FaceData.rotateEye2,m_FaceCusFactor.fRotateEyeFactor2, ROTATE_EYE_FACTOR2);
 
-	//ÉèÖÃÓÒÑÛÐý×ªÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateVector2( 0.0f, 0.0f, fRotateEye2);
 
 	float fOffsetEyeH2 = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeH2, m_FaceCusFactor.fOffsetEyeHFactor2, OFFSET_EYEH_FACTOR2);
 	float fOffsetEyeV2 = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeV2, m_FaceCusFactor.fOffsetEyeVFactor2, OFFSET_EYEV_FACTOR2);
 	float fOffsetEyeZ2 = TransformOffsetFromIntToFloat( m_FaceData.offsetEyeZ2, m_FaceCusFactor.fOffsetEyeZFactor2, OFFSET_EYEZ_FACTOR2);
 	
-	//ÉèÖÃÓÒÑÛÆ½ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetVector2(  -fOffsetEyeH2,fOffsetEyeV2, fOffsetEyeZ2);
 
 	float fScaleEyeBall2 = TransformScaleFromIntToFloat(m_FaceData.scaleEyeBall2, m_FaceCusFactor.fScaleEyeBallFactor2, SCALE_EYEBALL_FACTOR2);
 
-	//ÉèÖÃÓÒÑÛµÄËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleEyeBallVector2(fScaleEyeBall2, fScaleEyeBall2, fScaleEyeBall2);
 
 	
 	float fWeight = 1.0f;//È¨Öµ
 
-	//ÑÛÐÍµ÷Õû
+	//ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½
 	if(m_pBoneCtrler->GetReady())
 	{
-		//³õÊ¼»¯Ô­Ê¼ÑÛ¾¦
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Ô­Ê¼ï¿½Û¾ï¿½
 		AddShape(m_pBoneCtrler, 1, &expEye, &fWeight,0);
 
-		//×óÑÛ---------------------------------------------------------------
+		//ï¿½ï¿½ï¿½ï¿½---------------------------------------------------------------
 		
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SelectBoneGroup (7);//7ºÅ¹Ç÷À×éÊÇÑÛ¾¦
+		m_pBoneCtrler->SelectBoneGroup (7);//7ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¾ï¿½
 		m_pBoneCtrler->MirrorSelectFromRightToLeft();
-		//Ëõ·Å
+		//ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVector, CT_ALL,true, true);
 
-		//Ðý×ª
+		//ï¿½ï¿½×ª
 		m_pBoneCtrler->RotateBone( vRotateVector, CT_ALL,true, true);		
 		
-		//Æ½ÒÆÑÛÐÍºÍÑÛÇò
+		//Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone ( vOffsetVector, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SelectBoneGroup (8);//8ºÅ¹Ç÷À×éÊÇÑÛÇò
+		m_pBoneCtrler->SelectBoneGroup (8);//8ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->MirrorSelectFromRightToLeft();
 
@@ -1841,36 +1842,36 @@ bool CECFace::CalculateEye(void)
 		
 		m_pBoneCtrler->TranslateBone ( vOffsetVector, true, true);
 			
-		//Ëõ·ÅÑÛÇò
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ScaleEyeball(vScaleEyeBallVector, true, CFaceBoneController::ESP_LEFT);
 
-		//ÓÒÑÛ---------------------------------------------------------------
+		//ï¿½ï¿½ï¿½ï¿½---------------------------------------------------------------
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SelectBoneGroup (7);//7ºÅ¹Ç÷À×éÊÇÑÛ¾¦
+		m_pBoneCtrler->SelectBoneGroup (7);//7ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¾ï¿½
 
-		//Ëõ·Å
+		//ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVector2, CT_ALL,true, false);
 
-		//Ðý×ª
+		//ï¿½ï¿½×ª
 		m_pBoneCtrler->RotateBone( -vRotateVector2, CT_ALL,true, false);		
 		
-		//Æ½ÒÆÑÛÐÍºÍÑÛÇò
+		//Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone (vOffsetVector2, true, false);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SelectBoneGroup (8);//8ºÅ¹Ç÷À×éÊÇÑÛÇò
+		m_pBoneCtrler->SelectBoneGroup (8);//8ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ResetSelectedBones(true, false);
 		
 		m_pBoneCtrler->TranslateBone ( vOffsetVector2, true, false);
 			
-		//Ëõ·ÅÑÛÇò
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ScaleEyeball(vScaleEyeBallVector2, true, CFaceBoneController::ESP_RIGHT);
 
@@ -1879,13 +1880,13 @@ bool CECFace::CalculateEye(void)
 	return false;
 }
 
-//¼ÆËãÃ¼ÐÍ
+//ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½
 bool CECFace::CalculateBrow(void)
 {
 	if( m_FaceData.idBrowShape <= 0 )		
 		return true;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	DATA_TYPE dtFaceData;
@@ -1895,96 +1896,96 @@ bool CECFace::CalculateBrow(void)
 	char* pszFileName = pShapeEssence->file_shape;
 	
 	CExpression expBrow;
-	expBrow.LoadExpression ( pszFileName);//ÔØÈë±íÇé
+	expBrow.LoadExpression ( pszFileName);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//×óÃ¼--------------------------------------------------------------------------------
+	//ï¿½ï¿½Ã¼--------------------------------------------------------------------------------
 
 	float fScaleBrowH = TransformScaleFromIntToFloat(m_FaceData.scaleBrowH, m_FaceCusFactor.fScaleBrowHFactor, SCALE_BROWH_FACTOR);
 	float fScaleBrowV = TransformScaleFromIntToFloat(m_FaceData.scaleBrowV, m_FaceCusFactor.fScaleBrowVFactor, SCALE_BROWV_FACTOR);
 
-	//Ëõ·ÅÏòÁ¿
-	A3DVECTOR3 vScaleVectorH (fScaleBrowH, 1.0f, 1.0f);//Ë®Æ½Ëõ·Å,¼¸ºÎÖÐÐÄ
-	A3DVECTOR3 vScaleVectorV (1.0f, fScaleBrowV, 1.0f);//ÊúÖ±Ëõ·Å,¸÷×ÔÖÐÐÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	A3DVECTOR3 vScaleVectorH (fScaleBrowH, 1.0f, 1.0f);//Ë®Æ½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	A3DVECTOR3 vScaleVectorV (1.0f, fScaleBrowV, 1.0f);//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	float fRotateBrow = TransformRotateFromIntToFloat(m_FaceData.rotateBrow, m_FaceCusFactor.fRotateBrowFactor,  ROTATE_BROW_FACTOR);
-	//Ðý×ªÏòÁ¿
+	//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateVector(0.0f, 0.0f, fRotateBrow);
 
 	float fOffsetBrowH = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowH, m_FaceCusFactor.fOffsetBrowHFactor, OFFSET_BROWH_FACTOR);
 	float fOffsetBrowV = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowV, m_FaceCusFactor.fOffsetBrowVFactor, OFFSET_BROWV_FACTOR);
 	float fOffsetBrowZ = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowZ, m_FaceCusFactor.fOffsetBrowZFactor, OFFSET_BROWZ_FACTOR);
-	//ÉèÖÃÆ½ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetVector( fOffsetBrowH, fOffsetBrowV, fOffsetBrowZ);
 
-	//ÓÒÃ¼------------------------------------------------------------------------------------
+	//ï¿½ï¿½Ã¼------------------------------------------------------------------------------------
 
 	float fScaleBrowH2 = TransformScaleFromIntToFloat(m_FaceData.scaleBrowH2, m_FaceCusFactor.fScaleBrowHFactor2, SCALE_BROWH_FACTOR2);
 	float fScaleBrowV2 = TransformScaleFromIntToFloat(m_FaceData.scaleBrowV2, m_FaceCusFactor.fScaleBrowVFactor2, SCALE_BROWV_FACTOR2);
 
-	//Ëõ·ÅÏòÁ¿
-	A3DVECTOR3 vScaleVectorH2 (fScaleBrowH2, 1.0f, 1.0f);//Ë®Æ½Ëõ·Å,¼¸ºÎÖÐÐÄ
-	A3DVECTOR3 vScaleVectorV2 (1.0f, fScaleBrowV2, 1.0f);//ÊúÖ±Ëõ·Å,¸÷×ÔÖÐÐÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	A3DVECTOR3 vScaleVectorH2 (fScaleBrowH2, 1.0f, 1.0f);//Ë®Æ½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	A3DVECTOR3 vScaleVectorV2 (1.0f, fScaleBrowV2, 1.0f);//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	float fRotateBrow2 = TransformRotateFromIntToFloat(m_FaceData.rotateBrow2, m_FaceCusFactor.fRotateBrowFactor2, ROTATE_BROW_FACTOR2);
-	//Ðý×ªÏòÁ¿
+	//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateVector2(0.0f, 0.0f, fRotateBrow2);
 	
 	float fOffsetBrowH2 = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowH2, m_FaceCusFactor.fOffsetBrowHFactor2, OFFSET_BROWH_FACTOR2);
 	float fOffsetBrowV2 = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowV2, m_FaceCusFactor.fOffsetBrowVFactor2, OFFSET_BROWV_FACTOR2);
 	float fOffsetBrowZ2 = TransformOffsetFromIntToFloat(m_FaceData.offsetBrowZ2, m_FaceCusFactor.fOffsetBrowZFactor2, OFFSET_BROWZ_FACTOR2);
-	//ÉèÖÃÆ½ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetVector2( -fOffsetBrowH2, fOffsetBrowV2, fOffsetBrowZ2);
 
 
 	float fWeight = 1.0f;//È¨Öµ
 
-	//Ã¼ÐÍµ÷Õû
+	//Ã¼ï¿½Íµï¿½ï¿½ï¿½
 	if(m_pBoneCtrler->GetReady())
 	{
-		//³õÊ¼»¯Ô­Ê¼Ã¼ÐÍ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Ô­Ê¼Ã¼ï¿½ï¿½
 		AddShape(m_pBoneCtrler, 1, &expBrow, &fWeight, 0);
 	
-		//×óÃ¼---------------------------------------------------
+		//ï¿½ï¿½Ã¼---------------------------------------------------
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->SelectBoneGroup (9);//9ÎªÃ¼ÐÍ
+		m_pBoneCtrler->SelectBoneGroup (9);//9ÎªÃ¼ï¿½ï¿½
 
 		m_pBoneCtrler->MirrorSelectFromRightToLeft();
 
-		//Ë®Æ½Ëõ·Å
+		//Ë®Æ½ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVectorH, CT_ALL,true, true);
 
-		//ÊúÖ±Ëõ·Å
+		//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVectorV, CT_SELF, true, true);
 
-		//Ðý×ª
+		//ï¿½ï¿½×ª
 		m_pBoneCtrler->RotateBone (vRotateVector, CT_ALL, true, true);
 
-		//Æ½ÒÆ
+		//Æ½ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone ( vOffsetVector, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		//ÓÒÃ¼-------------------------------------------------------
+		//ï¿½ï¿½Ã¼-------------------------------------------------------
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->SelectBoneGroup (9);//9ÎªÃ¼ÐÍ
+		m_pBoneCtrler->SelectBoneGroup (9);//9ÎªÃ¼ï¿½ï¿½
 		
-		//Ë®Æ½Ëõ·Å
+		//Ë®Æ½ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVectorH2, CT_ALL,true, false);
 
-		//ÊúÖ±Ëõ·Å
+		//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleVectorV2, CT_SELF, true, false);
 
-		//Ðý×ª
+		//ï¿½ï¿½×ª
 		m_pBoneCtrler->RotateBone (-vRotateVector2, CT_ALL, true, false);
 
-		//Æ½ÒÆ
+		//Æ½ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone ( vOffsetVector2, true, false);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 		return true;
@@ -1993,18 +1994,18 @@ bool CECFace::CalculateBrow(void)
 	return false;
 }
 
-//¼ÆËã±ÇÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateNose(void)
 {
 	if( m_FaceData.idNoseTipShape <= 0 || m_FaceData.idNoseBridgeShape <= 0 )
 		return true;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	DATA_TYPE dtFaceData;
 
-	//»ñÈ¡µ±Ç°±ÇÐÍ
+	//ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 	FACE_SHAPE_ESSENCE* pShapeEssence;
 	pShapeEssence = (FACE_SHAPE_ESSENCE*) pElementDataMan->get_data_ptr(m_FaceData.idNoseTipShape, ID_SPACE_FACE, dtFaceData);
 	if (!pShapeEssence ||  dtFaceData != DT_FACE_SHAPE_ESSENCE)
@@ -2016,37 +2017,37 @@ bool CECFace::CalculateNose(void)
 		return true;
 	char* pszFileName2 = pShapeEssence->file_shape;
 
-	CExpression expNoseTip;//±ÇÍ·±íÇé
-	CExpression expNoseBridge;//±ÇÁº±íÇé
+	CExpression expNoseTip;//ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½
+	CExpression expNoseBridge;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	expNoseTip.LoadExpression ( pszFileName1);
 	expNoseBridge.LoadExpression(pszFileName2);
 
 	//-------------------------------------------------------------------------
-	//±ÇÍ·
+	//ï¿½ï¿½Í·
 	float fScaleNoseTipH = TransformScaleFromIntToFloat(m_FaceData.scaleNoseTipH, m_FaceCusFactor.fScaleNoseTipHFactor, SCALE_NOSETIPH_FACTOR);
 	
-	//±ÇÍ·Ë®Æ½Ëõ·ÅÏòÁ¿
+	//ï¿½ï¿½Í·Ë®Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vNoseTipScaleHVector(fScaleNoseTipH, 1.0f, 1.0f);
 
 	float fScaleNoseTipV = TransformScaleFromIntToFloat(m_FaceData.scaleNoseTipV, m_FaceCusFactor.fScaleNoseTipVFactor, SCALE_NOSETIPV_FACTOR);
 
-	//±ÇÍ·´¹Ö±Ëõ·ÅÏòÁ¿
+	//ï¿½ï¿½Í·ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vNoseTipScaleVVector(fScaleNoseTipV, fScaleNoseTipV, fScaleNoseTipV);
 	
 	float fScaleNoseTipZ = TransformScaleFromIntToFloat(m_FaceData.scaleNoseTipZ,m_FaceCusFactor.fScaleNoseTipZFactor, SCALE_NOSETIPZ_FACTOR);
-	//±ÇÍ·Ç°ºóËõ·ÅÏòÁ¿
+	//ï¿½ï¿½Í·Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vNoseTipScaleZVector(1.0f, 1.0f, fScaleNoseTipZ);
 
 	float fOffsetNoseTipV = TransformOffsetFromIntToFloat(m_FaceData.offsetNoseTipV,m_FaceCusFactor.fOffsetNoseTipVFactor, OFFSET_NOSETIPV_FACTOR);
 
-	//±ÇÍ·´¹Ö±Î»ÒÆÏòÁ¿
+	//ï¿½ï¿½Í·ï¿½ï¿½Ö±Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vNoseTipOffsetVVector(0.0f, fOffsetNoseTipV, 0.0f);
 
 	float fScaleBridgeTipH = TransformScaleFromIntToFloat(m_FaceData.scaleBridgeTipH, m_FaceCusFactor.fScaleBridgeTipHFactor, SCALE_BRIDGETIPH_FACTOR);
-	//±ÇÁº´¹Ö±±ÈÀýÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vBridgeTipScaleHVector (fScaleBridgeTipH, 1.0f, 1.0f);
 
-	//±ÇÁºÇ°ºóÎ»ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	float fOffsetBridgeTipZ = TransformOffsetFromIntToFloat(m_FaceData.offsetBridgeTipZ,m_FaceCusFactor.fOffsetBridgeTipZFactor, OFFSET_BRIDGETIPZ_FACTOR);
 
 	float fWeight = 1.0f;//È¨Öµ
@@ -2056,43 +2057,43 @@ bool CECFace::CalculateNose(void)
 		AddShape(m_pBoneCtrler, 1, &expNoseTip, &fWeight, 0);
 		AddShape(m_pBoneCtrler, 1, &expNoseBridge, &fWeight, 0);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->SelectBoneGroup (11);//11Îª±ÇÍ·
+		m_pBoneCtrler->SelectBoneGroup (11);//11Îªï¿½ï¿½Í·
 
-		m_pBoneCtrler->SetSpecialCenter (53);//Ö¸¶¨±ÇÍ·Ë®Æ½Ëõ·ÅµÄËõ·ÅÖÐÐÄÎª"±ÇÍ·40ºÅ"¹Ç÷À
+		m_pBoneCtrler->SetSpecialCenter (53);//Ö¸ï¿½ï¿½ï¿½ï¿½Í·Ë®Æ½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½Í·40ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 		
-		//Ë®Æ½Ëõ·Å±ÇÍ·
+		//Ë®Æ½ï¿½ï¿½ï¿½Å±ï¿½Í·
 		m_pBoneCtrler->ScaleBone (vNoseTipScaleHVector, CT_SPECIAL, true, true);
 
-		//´¹Ö±Ëõ·Å±ÇÍ·
+		//ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Å±ï¿½Í·
 		m_pBoneCtrler->ScaleBone (vNoseTipScaleVVector, CT_SELF, true, true);
 
-		m_pBoneCtrler->SetSpecialCenter (56);//Ö¸¶¨±ÇÍ·Ç°ºóËõ·ÅµÄËõ·ÅÖÐÐÄÎª"±ÇÍ·70ºÅ"¹Ç÷À
+		m_pBoneCtrler->SetSpecialCenter (56);//Ö¸ï¿½ï¿½ï¿½ï¿½Í·Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½Í·70ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 
-		//Ç°ºóËõ·Å±ÇÍ·
+		//Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½Í·
 		m_pBoneCtrler->ScaleBone( vNoseTipScaleZVector, CT_SPECIAL, true, true);
 
-		//±ÇÍ·µÄ´¹Ö±Î»ÒÆ
+		//ï¿½ï¿½Í·ï¿½Ä´ï¿½Ö±Î»ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone ( vNoseTipOffsetVVector, true, true);
 		
 		m_pBoneCtrler->ClearSelection ();
 		
-		//ÉèÖÃ±ÇÁº¹Ç÷À×é
-		m_pBoneCtrler->SelectBoneGroup (10);//10Îª±ÇÁº
+		//ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (10);//10Îªï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SetSpecialCenter (50);//Ö¸¶¨±ÇÁºË®Æ½Ëõ·ÅµÄËõ·ÅÖÐÐÄÎª"±ÇÐÍ010ºÅ"¹Ç÷À
+		m_pBoneCtrler->SetSpecialCenter (50);//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½ï¿½ï¿½010ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 
-		//ÉèÖÃ±ÇÁº¹Ç÷ÀµÄËõ·Å
+		//ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone(vBridgeTipScaleHVector, CT_SPECIAL, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		//ÉèÖÃ±ÇÁº¹Ç¸ìÇ°ºóÎ»ÒÆ
+		//ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½Ç°ï¿½ï¿½Î»ï¿½ï¿½
 		
 		m_pBoneCtrler->MoveNoseBridge(fOffsetBridgeTipZ, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		return true;
 	}
@@ -2100,7 +2101,7 @@ bool CECFace::CalculateNose(void)
 	return false;
 }
 
-//¼ÆËã×ìÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateMouth(void)
 {
 	if( m_FaceData.idMouthUpLipLine <= 0 ||
@@ -2108,12 +2109,12 @@ bool CECFace::CalculateMouth(void)
 		m_FaceData.idMouthDownLipLine <= 0 )
 		return true;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	DATA_TYPE dtFaceData;
 
-	//»ñÈ¡µ±Ç°×ìÐÍ
+	//ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 	FACE_SHAPE_ESSENCE* pShapeEssence;
 	pShapeEssence = (FACE_SHAPE_ESSENCE*) pElementDataMan->get_data_ptr(m_FaceData.idMouthUpLipLine, ID_SPACE_FACE, dtFaceData);
 	if (!pShapeEssence ||  dtFaceData != DT_FACE_SHAPE_ESSENCE)
@@ -2139,29 +2140,29 @@ bool CECFace::CalculateMouth(void)
 	expMouthDownLipLine.LoadExpression (pszFileName3);
 
 	//------------------------------------------------------------------
-	//×ì
+	//ï¿½ï¿½
 	
 	float fThickUpLip = TransformScaleFromIntToFloat( m_FaceData.thickUpLip, m_FaceCusFactor.fThickUpLipFactor, THICK_UPLIP_FACTOR);
 
-	//ÉÏ×ì´½ºñ¶ÈËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vThickUpLipVector(1.0f, fThickUpLip, 1.0f);
 
 	float fThickDownLip = TransformScaleFromIntToFloat(m_FaceData.thickDownLip, m_FaceCusFactor.fThickDownLipFactor, THICK_DOWNLIP_FACTOR);
 
-	//ÏÂ×ì´½ºñ¶ÈËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vThickDownLipVector(1.0f, fThickDownLip, 1.0f);
 
 	float fScaleMouthH = TransformScaleFromIntToFloat(m_FaceData.scaleMouthH, m_FaceCusFactor.fScaleMouthHFactor, SCALE_MOUTHH_FACTOR);
 	float fScaleMouthH2 = TransformScaleFromIntToFloat(m_FaceData.scaleMouthH2,m_FaceCusFactor.fScaleMouthHFactor2, SCALE_MOUTHH_FACTOR2);
 
-	//×ì²¿ÕûÌåË®Æ½±ÈÀýÏòÁ¿
+	//ï¿½ì²¿ï¿½ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleMouthHVector(fScaleMouthH, 1.0f, 1.0f);
 	A3DVECTOR3 vScaleMouthHVector2(fScaleMouthH2, 1.0f, 1.0f);
 
 	float fOffsetMouthV = TransformOffsetFromIntToFloat(m_FaceData.offsetMouthV, m_FaceCusFactor.fOffsetMouthVFactor, OFFSET_MOUTHV_FACTOR);
 	float fOffsetMouthZ = TransformOffsetFromIntToFloat(m_FaceData.offsetMouthZ, m_FaceCusFactor.fOffsetMouthZFactor, OFFSET_MOUTHZ_FACTOR);
 
-	//×ì²¿Î»ÒÆÏòÁ¿
+	//ï¿½ì²¿Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetMouthVector(0.0f, fOffsetMouthV, fOffsetMouthZ );
 
 	float fOffsetCornorOfMouthSpecila = TransformOffsetFromIntToFloat(m_FaceData.offsetCornerOfMouthSpecial, m_FaceCusFactor.fOffsetCornerOfMouthSpecialFactor,  OFFSET_CORNEROFMOUTHSPECIAL_FACTOR);
@@ -2172,54 +2173,54 @@ bool CECFace::CalculateMouth(void)
 	if(m_pBoneCtrler->GetReady())
 	{
 	
-		//³õÊ¼»¯ÉÏ×ì´½
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ì´½
 		AddShape(m_pBoneCtrler, 1, &expMouthUpLipLine, &fWeight, 0);
-		//³õÊ¼»¯´½Ïß
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		AddShape(m_pBoneCtrler, 1, &expMouthMidLipLine, &fWeight, 0);
-		//³õÊ¼»¯ÏÂ×ì´½
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ì´½
 		AddShape(m_pBoneCtrler, 1, &expMouthDownLipLine, &fWeight, 0);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->SelectBoneGroup (12);//12ÎªÉÏ×ì´½
-		m_pBoneCtrler->SetSpecialCenter (32);//Ö¸¶¨ÉÏ×ì´½ºñ¶ÈËõ·ÅµÄËõ·ÅÖÐÐÄÎª"×ìÐÍ051ºÅ"¹Ç÷À
+		m_pBoneCtrler->SelectBoneGroup (12);//12Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SetSpecialCenter (32);//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½ï¿½ï¿½051ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vThickUpLipVector, CT_SPECIAL, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
-		m_pBoneCtrler->SelectBoneGroup (13);//13ÎªÉÏ×ì´½
-		m_pBoneCtrler->SetSpecialCenter (32);//Ö¸¶¨ÏÂ×ì´½ºñ¶ÈËõ·ÅµÄËõ·ÅÖÐÐÄÎª"×ìÐÍ051ºÅ"¹Ç÷À
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (13);//13Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SetSpecialCenter (32);//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½ï¿½ï¿½051ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ScaleBone (vThickDownLipVector, CT_SPECIAL, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
-		m_pBoneCtrler->SelectBoneGroup (12);//12ÎªÉÏ×ì´½
-		m_pBoneCtrler->SelectBoneGroup (13);//13ÎªÏÂ×ì´½
-		m_pBoneCtrler->SelectBoneGroup (14);//14ÎªÉÏ´½¹µ
-		m_pBoneCtrler->SelectBoneGroup (15);//15ÎªÏÂ´½¹µ
-		m_pBoneCtrler->SetSpecialCenter (57);//Ö¸¶¨×ì´½Ë®Æ½Ëõ·ÅµÄËõ·ÅÖÐÐÄÎª"×ìÐÍ010ºÅ"¹Ç÷À
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (12);//12Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SelectBoneGroup (13);//13Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SelectBoneGroup (14);//14Îªï¿½Ï´ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (15);//15Îªï¿½Â´ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SetSpecialCenter (57);//Ö¸ï¿½ï¿½ï¿½ì´½Ë®Æ½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½ï¿½ï¿½010ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->MirrorSelectFromRightToLeft();
 		m_pBoneCtrler->ScaleBone (vScaleMouthHVector, CT_SPECIAL, true, true);
 
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
-		m_pBoneCtrler->SelectBoneGroup (12);//12ÎªÉÏ×ì´½
-		m_pBoneCtrler->SelectBoneGroup (13);//13ÎªÏÂ×ì´½
-		m_pBoneCtrler->SelectBoneGroup (14);//14ÎªÉÏ´½¹µ
-		m_pBoneCtrler->SelectBoneGroup (15);//15ÎªÏÂ´½¹µ
-		m_pBoneCtrler->SetSpecialCenter (57);//Ö¸¶¨×ì´½Ë®Æ½Ëõ·ÅµÄËõ·ÅÖÐÐÄÎª"×ìÐÍ010ºÅ"¹Ç÷À
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (12);//12Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SelectBoneGroup (13);//13Îªï¿½ï¿½ï¿½ì´½
+		m_pBoneCtrler->SelectBoneGroup (14);//14Îªï¿½Ï´ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup (15);//15Îªï¿½Â´ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SetSpecialCenter (57);//Ö¸ï¿½ï¿½ï¿½ì´½Ë®Æ½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª"ï¿½ï¿½ï¿½ï¿½010ï¿½ï¿½"ï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->ScaleBone (vScaleMouthHVector2, CT_SPECIAL, true, false);
 		
 //		if( m_FaceData.offsetMouthZ < 0)
 //		{
-			m_pBoneCtrler->SelectBoneGroup (16);//16ºÅ¹Ç÷ÀÎªÑÀ³Ý
+			m_pBoneCtrler->SelectBoneGroup (16);//16ï¿½Å¹ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 			m_pBoneCtrler->AddSelection(62);
 //		}
 
 		m_pBoneCtrler->TranslateBone (vOffsetMouthVector, true, true);
 		
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		//×ì½ÇµÄÌØÊâÒÆ¶¯
+		//ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 		m_pBoneCtrler->MoveMouthCorner(fOffsetCornorOfMouthSpecila, true, CFaceBoneController::ESP_LEFT );
 		m_pBoneCtrler->MoveMouthCorner(fOffsetCornorOfMouthSpecila2, true, CFaceBoneController::ESP_RIGHT );
 		
@@ -2229,13 +2230,13 @@ bool CECFace::CalculateMouth(void)
 	}	
 	return false;
 }
-//¼ÆËã¶úÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateEar(void)
 {
 	if( m_FaceData.idEarShape <= 0 )
 		return true;
 	
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	DATA_TYPE dtFaceData;
@@ -2245,35 +2246,35 @@ bool CECFace::CalculateEar(void)
 	char* pszFileName1 = pShapeEssence->file_shape;
 
 	CExpression expEar;
-	expEar.LoadExpression (pszFileName1);//ÔØÈë±íÇé
+	expEar.LoadExpression (pszFileName1);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	//-------------------------------------------------------------------------
-	//¶ú¶ä
+	//ï¿½ï¿½ï¿½ï¿½
 	
 	float fScaleEar = TransformScaleFromIntToFloat(m_FaceData.scaleEar, m_FaceCusFactor.fScaleEarFactor, SCALE_EAR_FACTOR);
 
-	//¶úÐÍËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleEarVector(fScaleEar, fScaleEar, 1.0f);
 	
 	float fOffsetEarV = TransformOffsetFromIntToFloat(m_FaceData.offsetEarV, m_FaceCusFactor.fOffsetEarVFactor, OFFSET_EARV_FACTOR);
 
-	//¶úÐÍÎ»ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetEarV(0.0f, fOffsetEarV, 0.0f);
 
 	float fWeight = 1.0f;//È¨Öµ
 	if(m_pBoneCtrler->GetReady ())
 	{
-		//³õÊ¼»¯»ù±¾¶úÐÍ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		AddShape(m_pBoneCtrler, 1, &expEar, &fWeight, 0);
 
 		m_pBoneCtrler->ClearSelection ();
 
-		m_pBoneCtrler->SelectBoneGroup (18);//18Îª¶úÐÍ
-		m_pBoneCtrler->SetSpecialCenter(4);//Á³ÅÌ061
+		m_pBoneCtrler->SelectBoneGroup (18);//18Îªï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SetSpecialCenter(4);//ï¿½ï¿½ï¿½ï¿½061
 		m_pBoneCtrler->ScaleBone ( vScaleEarVector, CT_SPECIAL,true, true);
 
 		m_pBoneCtrler->ClearSelection ();
-		m_pBoneCtrler->SelectBoneGroup (18);//18Îª¶úÐÍ
+		m_pBoneCtrler->SelectBoneGroup (18);//18Îªï¿½ï¿½ï¿½ï¿½
 		m_pBoneCtrler->TranslateBone ( vOffsetEarV,true, true);
 
 		m_pBoneCtrler->ClearSelection ();
@@ -2283,15 +2284,15 @@ bool CECFace::CalculateEar(void)
 	return false;
 }
 
-//¼ÆËãÁ³ÅÌ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateFace(void)
 {
 	//---------------------------------------------------------
-	//Á³ÅÌ
+	//ï¿½ï¿½ï¿½ï¿½
 	float fScaleFaceH = TransformScaleFromIntToFloat(m_FaceData.scaleFaceH, m_FaceCusFactor.fScaleFaceHFactor, SCALE_FACEH_FACTOR);
 	float fScaleFaceV = TransformScaleFromIntToFloat(m_FaceData.scaleFaceV, m_FaceCusFactor.fScaleFaceVFactor, SCALE_FACEV_FACTOR);
 
-	//Á³ÅÌËõ·Å±ÈÀýÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleFaceVector( fScaleFaceH, fScaleFaceV, 1.0f);
 
 
@@ -2300,11 +2301,11 @@ bool CECFace::CalculateFace(void)
 
 		m_pBoneCtrler->ClearSelection();
 
-		m_pBoneCtrler->SelectBoneGroup (1);//1ºÅ¹Ç÷À×éÎªÁ³ÅÌ
+		m_pBoneCtrler->SelectBoneGroup (1);//1ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->SetSpecialCenter(50);//50ºÅ¹ÇÍ·ÎªÁ³ÅÌËõ·ÅÖÐÐÄ
+		m_pBoneCtrler->SetSpecialCenter(50);//50ï¿½Å¹ï¿½Í·Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->ScaleBone (vScaleFaceVector, CT_SPECIAL,true, true);//Ëõ·Å
+		m_pBoneCtrler->ScaleBone (vScaleFaceVector, CT_SPECIAL,true, true);//ï¿½ï¿½ï¿½ï¿½
 		
 		m_pBoneCtrler->ClearSelection ();
 		
@@ -2313,7 +2314,7 @@ bool CECFace::CalculateFace(void)
 	return false;
 }
 
-//¼ÆËã3Í¥
+//ï¿½ï¿½ï¿½ï¿½3Í¥
 bool CECFace::Calculate3Parts(void)
 {
 	float fScaleUp = TransformScaleFromIntToFloat(m_FaceData.scaleUp, m_FaceCusFactor.fScaleUpPartFactor, SCALE_UPPART_FACTOR);
@@ -2329,7 +2330,7 @@ bool CECFace::Calculate3Parts(void)
 	return false;
 }
 
-//¼ÆËã¶îÍ·
+//ï¿½ï¿½ï¿½ï¿½ï¿½Í·
 bool CECFace::CalculateForehead(void)
 {
 	
@@ -2337,28 +2338,28 @@ bool CECFace::CalculateForehead(void)
 	float fOffsetForeheadV = TransformOffsetFromIntToFloat(m_FaceData.offsetForeheadV, m_FaceCusFactor.fOffsetForeheadVFactor, OFFSET_FOREHEADV_FACTOR);
 	float fOffsetForeheadZ = TransformOffsetFromIntToFloat(m_FaceData.offsetForeheadZ, m_FaceCusFactor.fOffsetForeheadZFactor, OFFSET_FOREHEADZ_FACTOR);
 
-	//Æ½ÒÆÏòÁ¿
+	//Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetForehead(fOffsetForeheadH , fOffsetForeheadV, fOffsetForeheadZ);
 
 	float fRotateForehead = TransformRotateFromIntToFloat(m_FaceData.rotateForehead, m_FaceCusFactor.fRotateForeheadFactor, ROTATE_FOREHEAD_FACTOR);
-	//Ðý×ªÏòÁ¿
+	//ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateForeheadVector( fRotateForehead, 0.0f, 0.0f);
 
 	float fScaleForehead = TransformScaleFromIntToFloat(m_FaceData.scaleForehead, m_FaceCusFactor.fScaleForeheadFactor, SCALE_FOREHEAD_FACTOR);
-	//Ëõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleForeheadVector( fScaleForehead, fScaleForehead, fScaleForehead);
 
-	//¿ªÊ¼µ÷½Ú
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 	if( m_pBoneCtrler->GetReady())
 	{
-		m_pBoneCtrler->ClearSelection();//Çå³ýÑ¡ÖÐµÄ¹Ç÷À×é
-		m_pBoneCtrler->SelectBoneGroup ( 3); //3Îª¶îÍ·
+		m_pBoneCtrler->ClearSelection();//ï¿½ï¿½ï¿½Ñ¡ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½
+		m_pBoneCtrler->SelectBoneGroup ( 3); //3Îªï¿½ï¿½Í·
 		
-		m_pBoneCtrler->TranslateBone ( vOffsetForehead,true, true);//Æ½ÒÆ
+		m_pBoneCtrler->TranslateBone ( vOffsetForehead,true, true);//Æ½ï¿½ï¿½
 
-		m_pBoneCtrler->RotateBone ( vRotateForeheadVector, CT_ALL,true, true);//Ðý×ª
+		m_pBoneCtrler->RotateBone ( vRotateForeheadVector, CT_ALL,true, true);//ï¿½ï¿½×ª
 
-		m_pBoneCtrler->ScaleBone ( vScaleForeheadVector, CT_SELF,true, true);//±ÈÀýËõ·Å
+		m_pBoneCtrler->ScaleBone ( vScaleForeheadVector, CT_SELF,true, true);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ClearSelection ();
 
@@ -2367,7 +2368,7 @@ bool CECFace::CalculateForehead(void)
 	return false;
 }
 
-//¼ÆËãÈ§¹Ç
+//ï¿½ï¿½ï¿½ï¿½È§ï¿½ï¿½
 bool CECFace::CalculateYokeBone(void)
 {
 
@@ -2375,25 +2376,25 @@ bool CECFace::CalculateYokeBone(void)
 	float fOffsetYokeBoneV = TransformOffsetFromIntToFloat(m_FaceData.offsetYokeBoneV, m_FaceCusFactor.fOffsetYokeBoneVFactor, OFFSET_YOKEBONEV_FACTOR);
 	float fOffsetYokeBoneZ = TransformOffsetFromIntToFloat(m_FaceData.offsetYokeBoneZ, m_FaceCusFactor.fOffsetYokeBoneZFactor, OFFSET_YOKEBONEZ_FACTOR);
 
-	//È§¹ÇÆ½ÒÆÏòÁ¿
+	//È§ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetYokeBoneVector( fOffsetYokeBoneH, fOffsetYokeBoneV, fOffsetYokeBoneZ);
 
 	float fRotateYokeBone = TransformRotateFromIntToFloat(m_FaceData.rotateYokeBone, m_FaceCusFactor.fRotateYokeBoneFactor, ROTATE_YOKEBONE_FACTOR);
-	//È§¹ÇµÄÐý×ªÏòÁ¿
+	//È§ï¿½Çµï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateYokeBone( 0.0f, 0.0f, fRotateYokeBone);
 	
 	float fScaleYokeBone = TransformScaleFromIntToFloat(m_FaceData.scaleYokeBone,m_FaceCusFactor.fScaleYokeBoneFactor, SCALE_YOKEBONE_FACTOR);
 
-	//È§¹ÇµÄËõ·ÅÏòÁ¿
+	//È§ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleYokeBone( fScaleYokeBone, fScaleYokeBone, fScaleYokeBone);
 	
  	if( m_pBoneCtrler->GetReady ())
 	{
 		m_pBoneCtrler->ClearSelection ();
 
-		m_pBoneCtrler->SelectBoneGroup ( 4);//4ºÅ¹Ç÷À×éÎªÈ§¹Ç
+		m_pBoneCtrler->SelectBoneGroup ( 4);//4ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÈ§ï¿½ï¿½
 
-		m_pBoneCtrler->TranslateBone (vOffsetYokeBoneVector,true, true);//ÒÆ¶¯
+		m_pBoneCtrler->TranslateBone (vOffsetYokeBoneVector,true, true);//ï¿½Æ¶ï¿½
 
 		m_pBoneCtrler->RotateBone ( vRotateYokeBone, CT_ALL,true, true);
 
@@ -2407,7 +2408,7 @@ bool CECFace::CalculateYokeBone(void)
 	return false;
 }
 
-//¼ÆËãÁ³¼Õ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateCheek(void)
 {
 
@@ -2415,22 +2416,22 @@ bool CECFace::CalculateCheek(void)
 	float fOffsetCheekV = TransformOffsetFromIntToFloat(m_FaceData.offsetCheekV, m_FaceCusFactor.fOffsetCheekVFactor, OFFSET_CHEEKV_FACTOR);
 	float fOffsetCheekZ = TransformOffsetFromIntToFloat(m_FaceData.offsetCheekZ, m_FaceCusFactor.fOffsetCheekZFactor, OFFSET_CHEEKZ_FACTOR);
 
-	//Á³¼ÕÆ½ÒÆÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetCheekVector( fOffsetCheekH, fOffsetCheekV, fOffsetCheekZ);
 
 	float fScaleCheek = TransformScaleFromIntToFloat(m_FaceData.scaleCheek, m_FaceCusFactor.fScaleCheekFactor, SCALE_CHEEK_FACTOR);
 
-	//Á³¼ÕËõ·ÅÏòÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleCheekVector( fScaleCheek , fScaleCheek , fScaleCheek );
 
 	if( m_pBoneCtrler->GetReady ())
 	{
 		m_pBoneCtrler->ClearSelection ();
-		m_pBoneCtrler->SelectBoneGroup ( 5);//5ºÅ¹Ç÷À×éÎªÁ³¼Õ
+		m_pBoneCtrler->SelectBoneGroup ( 5);//5ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 
-		m_pBoneCtrler->TranslateBone ( vOffsetCheekVector,true, true);//Æ½ÒÆ
+		m_pBoneCtrler->TranslateBone ( vOffsetCheekVector,true, true);//Æ½ï¿½ï¿½
 
-		m_pBoneCtrler->ScaleBone ( vScaleCheekVector, CT_SELF,true, true);//Ëõ·Å
+		m_pBoneCtrler->ScaleBone ( vScaleCheekVector, CT_SELF,true, true);//ï¿½ï¿½ï¿½ï¿½
 		
 		m_pBoneCtrler->ClearSelection ();
 
@@ -2441,37 +2442,37 @@ bool CECFace::CalculateCheek(void)
 }
 
 
-//¼ÆËãÏÂ°Í
+//ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 bool CECFace::CalculateChain(void)
 {
 	float fOffsetChainV = TransformOffsetFromIntToFloat(m_FaceData.offsetChainV, m_FaceCusFactor.fOffsetChainVFactor, OFFSET_CHAINV_FACTOR);
 	float fOffsetChainZ = TransformOffsetFromIntToFloat(m_FaceData.offsetChainZ, m_FaceCusFactor.fOffsetChainZFactor, OFFSET_CHAINZ_FACTOR);
 
-	//ÏÂ°ÍÆ½ÒÆÏòÁ¿
+	//ï¿½Â°ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vOffsetChainVector(0.0f, fOffsetChainV, fOffsetChainZ);
 	
 	float fRotateChain = TransformRotateFromIntToFloat(m_FaceData.rotateChain, m_FaceCusFactor.fRotateChainFactor, ROTATE_CHAIN_FACTOR);
 
-	//ÏÂ°ÍµÄÐý×ªÏòÁ¿
+	//ï¿½Â°Íµï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vRotateChainVector(fRotateChain, 0.0f, 0.0f);
 
 	float fScaleChainH = TransformScaleFromIntToFloat(m_FaceData.scaleChainH,m_FaceCusFactor.fScaleChainHFactor, SCALE_CHAINH_FACTOR);
 
-	//ÏÂ°ÍµÄËõ·ÅÏòÁ¿
+	//ï¿½Â°Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	A3DVECTOR3 vScaleChainVector(fScaleChainH, 1.0f , 1.0f);
 
 	if( m_pBoneCtrler->GetReady())
 	{
 		m_pBoneCtrler->ClearSelection ();
 
-		m_pBoneCtrler->SelectBoneGroup ( 6);//6ºÅ¹Ç÷À×éÎªÏÂ°Í
+		m_pBoneCtrler->SelectBoneGroup ( 6);//6ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Â°ï¿½
 
-		m_pBoneCtrler->TranslateBone (vOffsetChainVector,true, true);//Æ½ÒÆ
-		m_pBoneCtrler->RotateBone ( vRotateChainVector, CT_ALL,true, true);//Ðý×ª
+		m_pBoneCtrler->TranslateBone (vOffsetChainVector,true, true);//Æ½ï¿½ï¿½
+		m_pBoneCtrler->RotateBone ( vRotateChainVector, CT_ALL,true, true);//ï¿½ï¿½×ª
 
-		m_pBoneCtrler->SetSpecialCenter ( 48);//48ºÅ¹Ç÷À
+		m_pBoneCtrler->SetSpecialCenter ( 48);//48ï¿½Å¹ï¿½ï¿½ï¿½
 		
-		m_pBoneCtrler->ScaleBone ( vScaleChainVector, CT_SPECIAL,true, true);//Ëõ·Å
+		m_pBoneCtrler->ScaleBone ( vScaleChainVector, CT_SPECIAL,true, true);//ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ClearSelection ();
 
@@ -2480,7 +2481,7 @@ bool CECFace::CalculateChain(void)
 	
 	return false;
 }
-//¼ÆËãò¢¹Ç
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::CalculateJaw(void)
 {
 
@@ -2488,12 +2489,12 @@ bool CECFace::CalculateJaw(void)
 	float fOffsetJawV = TransformOffsetFromIntToFloat(m_FaceData.offsetJawV, m_FaceCusFactor.fOffsetJawVFactor, OFFSET_JAWV_FACTOR);
 	float fOffsetJawZ = TransformOffsetFromIntToFloat(m_FaceData.offsetJawZ, m_FaceCusFactor.fOffsetJawZFactor, OFFSET_JAWZ_FACTOR);
 
-	A3DVECTOR3 vOffsetJawVector(fOffsetJawH, fOffsetJawV, fOffsetJawZ);//ò¢¹ÇµÄÒÆ¶¯ÏòÁ¿
+	A3DVECTOR3 vOffsetJawVector(fOffsetJawH, fOffsetJawV, fOffsetJawZ);//ï¿½Çµï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	float fScaleJawH = TransformScaleFromIntToFloat(m_FaceData.scaleJawH, m_FaceCusFactor.fScaleJawHFactor, SCALE_JAWH_FACTOR);
 	float fScaleJawV = TransformScaleFromIntToFloat(m_FaceData.scaleJawV, m_FaceCusFactor.fScaleJawVFactor, SCALE_JAWV_FACTOR);
 
-	A3DVECTOR3 vScaleJawVector(fScaleJawH, fScaleJawV, 1.0f);//ò¢¹Ç±ÈÀýËõ·ÅÏòÁ¿
+	A3DVECTOR3 vScaleJawVector(fScaleJawH, fScaleJawV, 1.0f);//ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	float fScaleJawSpecial = TransformOffsetFromIntToFloat(m_FaceData.scaleJawSpecial, m_FaceCusFactor.fScaleJawSpecialFactor, SCALE_JAWSPECIAL_FACTOR);
 
@@ -2504,21 +2505,21 @@ bool CECFace::CalculateJaw(void)
 	{
 		m_pBoneCtrler->ClearSelection ();
 
-		m_pBoneCtrler->SelectBoneGroup ( 2);//2ºÅ¹Ç÷À×éÎªò¢¹Ç
+		m_pBoneCtrler->SelectBoneGroup ( 2);//2ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 
-		m_pBoneCtrler->TranslateBone ( vOffsetJawVector,true, true);//ÒÆ¶¯
+		m_pBoneCtrler->TranslateBone ( vOffsetJawVector,true, true);//ï¿½Æ¶ï¿½
 
-		m_pBoneCtrler->ScaleBone(vScaleJawVector, CT_ALL,true, true);//Ëõ·Å
+		m_pBoneCtrler->ScaleBone(vScaleJawVector, CT_ALL,true, true);//ï¿½ï¿½ï¿½ï¿½
 		
 		m_pBoneCtrler->ClearSelection ();
 
-		//Ñ¡Ôñò¢¹ÇÌØÊâËõ·ÅµÄ¹Ç÷À(±ÈÕý³£Çé¿öµÄò¢¹ÇÉÙÒ»¸ö¹Ç÷À)
+		//Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅµÄ¹ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 		for (int i=CHEEK_BONE_INDEX1+1; i<CHEEK_BONE_INDEX2; i++)
 		{
 			m_pBoneCtrler->AddSelection(i);
 		}
 		
-		m_pBoneCtrler->MoveCheek(fScaleJawSpecial,true, true);//ÌØÊâËõ·Å
+		m_pBoneCtrler->MoveCheek(fScaleJawSpecial,true, true);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		m_pBoneCtrler->ClearSelection ();
 
@@ -2528,7 +2529,7 @@ bool CECFace::CalculateJaw(void)
 	return false;
 }
 
-//¼ÆËãÁ³ÐÍÈÚºÏ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½
 bool CECFace::CalculateBlendFace(void)
 {
 	if( m_FaceData.idFaceShape1 <= 0 || m_FaceData.idFaceShape2 <= 0 )
@@ -2551,8 +2552,8 @@ bool CECFace::CalculateBlendFace(void)
 	expCombineFaces[1].LoadExpression(pszFileName2);
 
 
-	//ÈÚºÏÁ³ÐÍ
-	float fFaceWeight[2];//Á³ÐÍÈ¨Öµ
+	//ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½
+	float fFaceWeight[2];//ï¿½ï¿½ï¿½ï¿½È¨Öµ
 	float fBlendFaceShape = TransformScaleFromIntToFloat(m_FaceData.blendFaceShape,1.0f, 1.0f);
 
 	fFaceWeight[0] = 1.0f - fBlendFaceShape;
@@ -2561,7 +2562,7 @@ bool CECFace::CalculateBlendFace(void)
 	
 	if( m_pBoneCtrler->GetReady())
 	{
-		//ºÏ²¢Á³ÐÍ
+		//ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½
 		AddShape(m_pBoneCtrler, 2, expCombineFaces, fFaceWeight, 0);
 		return true;
 	}
@@ -2569,14 +2570,14 @@ bool CECFace::CalculateBlendFace(void)
 	return false;
 }
 
-//¸üÐÂÁ³²¿ÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateEyeTexture(void)
 {	
 	if( m_FaceData.idEyeBaseTex <= 0 ||
 		m_FaceData.idEyeHighTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2585,25 +2586,25 @@ bool CECFace::UpdateEyeTexture(void)
 	FACE_TEXTURE_ESSENCE* pFaceTextureEssence = (FACE_TEXTURE_ESSENCE*)pElementDataMan->get_data_ptr(m_FaceData.idEyeBaseTex, ID_SPACE_FACE,dtFaceData); 
 	if (!pFaceTextureEssence ||  dtFaceData != DT_FACE_TEXTURE_ESSENCE)
 		return true;
-	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;//ÑÛ¾¦ÎÆÀí
+	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;//ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	pFaceTextureEssence = (FACE_TEXTURE_ESSENCE*)pElementDataMan->get_data_ptr(m_FaceData.idEyeHighTex, ID_SPACE_FACE,dtFaceData); 
 	if (!pFaceTextureEssence ||  dtFaceData != DT_FACE_TEXTURE_ESSENCE)
 		return true;
-	char* pszHighTexFile = pFaceTextureEssence->file_high_tex; //ÑÛÓ°ÎÄÀí
+	char* pszHighTexFile = pFaceTextureEssence->file_high_tex; //ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½
 
-	ChangeEyeTexture ( pszBaseTexFile, pszHighTexFile);//¸Ä±äÑÛ¾¦ÎÆÀí
+	ChangeEyeTexture ( pszBaseTexFile, pszHighTexFile);//ï¿½Ä±ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	return true;
 }
 
-//¸üÐÂÃ¼Ã«ÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½Ã¼Ã«ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateBrowTexture(void)
 {
 	if( m_FaceData.idBrowTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2616,18 +2617,18 @@ bool CECFace::UpdateBrowTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 
-	ChangeBrowTexture(pszBaseTexFile, pszHighTexFile);//¸Ä±äÃ¼Ã«ÎÆÀí
+	ChangeBrowTexture(pszBaseTexFile, pszHighTexFile);//ï¿½Ä±ï¿½Ã¼Ã«ï¿½ï¿½ï¿½ï¿½
 
 	return true;
 }
 
-//¸üÐÂ±Ç×ÓÎÆÀí
+//ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateNoseTexture(void)
 {
 	if( m_FaceData.idNoseTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2641,7 +2642,7 @@ bool CECFace::UpdateNoseTexture(void)
 	return true;
 }
 
-//¸üÐÂÐ¡ºú×ÓÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateMoustacheTexture(void)
 {
 	if( m_FaceData.idMoustacheTex <= 0 )
@@ -2651,7 +2652,7 @@ bool CECFace::UpdateMoustacheTexture(void)
 	if( m_nGender == GENDER_FEMALE)
 		return true;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2664,19 +2665,19 @@ bool CECFace::UpdateMoustacheTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 
-	//¸Ä±äÐ¡ºú×ÓÎÆÀí
+	//ï¿½Ä±ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeMoustacheTexture( pszBaseTexFile, pszHighTexFile);
 
 	return true;
 }
 
-//¸üÐÂÁ³ÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateFaceTexture(void)
 {
 	if( m_FaceData.idFaceTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2687,19 +2688,19 @@ bool CECFace::UpdateFaceTexture(void)
 		return true;
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
-	//¸Ä±äÁ³ÎÆÀí
+	//ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeFaceTexture( pszBaseTexFile );
 
 	return true;
 }
 
-//¸üÐÂ¸½ÑÛ
+//ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½
 bool CECFace::UpdateThirdEye(void)
 {
 	if( m_FaceData.idThirdEye <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2716,13 +2717,13 @@ bool CECFace::UpdateThirdEye(void)
 	return true;
 }
 
-//¸üÐÂ×ì´½ÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateMouthTexture(void)
 {
 	if( m_FaceData.idMouthTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2734,19 +2735,19 @@ bool CECFace::UpdateMouthTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 
-	//¸Ä±ä×ì´½ÎÆÀí
+	//ï¿½Ä±ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½
 	ChangeMouthTexture( pszBaseTexFile, pszHighTexFile);
 
 	return true;
 }
 
-//¸üÐÂÑÛÇòÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateEyeBallTexture(void)
 {
 	if( m_FaceData.idEyeBallTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2759,19 +2760,19 @@ bool CECFace::UpdateEyeBallTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 
-	//¸Ä±äÑÛÇòÎÆÀí
+	//ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeEyeBallTexture( pszBaseTexFile, pszHighTexFile);
 
 	return true;
 }
 
-// ¸üÐÂÍ··¢ÎÆÀí
+// ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateHairTexture(void)
 {
 	if( m_FaceData.idHairTex <= 0)
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2783,19 +2784,19 @@ bool CECFace::UpdateHairTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 	
-	//¸Ä±äÍ··¢ÎÆÀí
+	//ï¿½Ä±ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeHairTexture(pszBaseTexFile, pszHighTexFile);
 
 	return true;
 }
 
-//¸üÐÂ´óºú×ÓÎÆÀí
+//ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateGoateeTexture(void)
 {
 	if( m_FaceData.idGoateeTex <= 0)
 		return false;
 	
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2807,19 +2808,19 @@ bool CECFace::UpdateGoateeTexture(void)
 	char* pszBaseTexFile = pFaceTextureEssence->file_base_tex;
 	char* pszHighTexFile = pFaceTextureEssence->file_high_tex;
 
-	//¸Ä±äºú×ÓÎÆÀí
+	//ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeGoateeTexture(pszBaseTexFile, pszHighTexFile);
 
 	return true;
 }
 
-//¸üÐÂ·¨ÁîÎÆÀí
+//ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateFalingTexture()
 {
 	if( m_FaceData.idFalingTex <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2832,13 +2833,13 @@ bool CECFace::UpdateFalingTexture()
 	char* pszTexFile = pFaceTextureEssence->file_base_tex;
 	
 
-	//¸Ä±ä·¨ÁîÎÆÀí
+	//ï¿½Ä±ä·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ChangeFalingTexture(pszTexFile);
 
 	return true;
 }
 
-//¸üÐÂÍ··¢
+//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 bool CECFace::UpdateHairModel(void)
 {
 	if( m_FaceData.idHairModel <= 0 )
@@ -2853,7 +2854,7 @@ bool CECFace::UpdateHairModel(void)
 		return false;
 	}
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan();
 	
@@ -2872,7 +2873,7 @@ bool CECFace::UpdateHairModel(void)
 	return true;
 }
 	
-//¸üÐÂºú×ÓÄ£ÐÍ
+//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 bool CECFace::UpdateGoateeModel(void)
 {
 	if( m_FaceData.idMoustacheSkin <= 0 )
@@ -2882,7 +2883,7 @@ bool CECFace::UpdateGoateeModel(void)
 	if( m_nGender == GENDER_FEMALE)
 		return true;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2898,13 +2899,13 @@ bool CECFace::UpdateGoateeModel(void)
 	UpdateGoateeTexture();
 	return true;
 }
-// ¸üÐÂ·¨ÁîÄ£ÐÍ
+// ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 bool CECFace::UpdateFalingModel(void)
 {
 	if( m_FaceData.idFalingSkin <= 0 )
 		return false;
 
-	//»ñÈ¡ÔªËØÊý¾Ý¹ÜÀíÆ÷
+	//ï¿½ï¿½È¡Ôªï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	elementdataman* pElementDataMan;
 	pElementDataMan= g_pGame->GetElementDataMan ();
 	
@@ -2922,7 +2923,7 @@ bool CECFace::UpdateFalingModel(void)
 
 	return true;
 }
-//¸üÐÂÁ³ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 bool CECFace::UpdateFaceColor(void)
 {
 	SetFaceColor(m_FaceData.colorFace);
@@ -2930,7 +2931,7 @@ bool CECFace::UpdateFaceColor(void)
 
 }
 
-//¸üÐÂÑÛÓ°ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½É«
 bool CECFace::UpdateEyeColor(void)
 {
 	SetEyeColor(m_FaceData.colorEye);
@@ -2938,14 +2939,14 @@ bool CECFace::UpdateEyeColor(void)
 
 }
 
-//¸üÐÂÃ¼Ã«ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½Ã¼Ã«ï¿½ï¿½É«
 bool CECFace::UpdateBrowColor(void)
 {
 	SetBrowColor(m_FaceData.colorBrow);
 	return true;
 }
 
-//¸üÐÂ×ì´½ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½É«
 bool CECFace::UpdateMouthColor(void)
 {
 	SetMouthColor(m_FaceData.colorMouth);
@@ -2953,21 +2954,21 @@ bool CECFace::UpdateMouthColor(void)
 
 }
 
-//¸üÐÂÍ··¢ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½É«
 bool CECFace::UpdateHairColor(void)
 {
 	SetHairColor(m_FaceData.colorHair);
 	return true;
 }
 
-//¸üÐÂÑÛÇòÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 bool CECFace::UpdateEyeBallColor(void)
 {
 	SetEyeBallColor( m_FaceData.colorEyeBall);
 	return true;
 }
 
-//¸üÐÂºú×ÓÑÕÉ«
+//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½ï¿½É«
 bool CECFace::UpdateGoateeColor(void)
 {
 	//Å®
@@ -2979,40 +2980,40 @@ bool CECFace::UpdateGoateeColor(void)
 
 }
 
-//¸üÐÂËùÓÐÁ³²¿ÑÕÉ«
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 bool CECFace::UpdateAllFaceColor(void)
 {
-	//¸üÐÂÁ³ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	UpdateFaceColor();
 
-	//¸üÐÂÑÛÓ°ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½É«
 	UpdateEyeColor();
 
-	//¸üÐÂÃ¼Ã«ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½Ã¼Ã«ï¿½ï¿½É«
 	UpdateBrowColor();
 
-	//¸üÐÂ×ì´½ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½É«
 	UpdateMouthColor();
 
-	//¸üÐÂÍ··¢ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½É«
 	UpdateHairColor();
 
-	//¸üÐÂÑÛÇòÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	UpdateEyeBallColor();
 
-	//¸üÐÂºú×ÓÑÕÉ«
+	//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½ï¿½É«
 	UpdateGoateeColor();
 
 
 	return true;
 }
-//¸üÐÂÍ··¢ºÍºú×ÓÄ£ÐÍ
+//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 bool CECFace::UpdateHairAndGoateeModel(void)
 {
-	//¸üÐÂÍ··¢
+	//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	UpdateHairModel();
 	
-	//¸üÐÂºú×ÓÄ£ÐÍ
+	//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 	UpdateGoateeModel();
 
 	UpdateFalingModel();
@@ -3023,47 +3024,47 @@ bool CECFace::UpdateHairAndGoateeModel(void)
 
 
 
-//¸üÐÂÈ«²¿Á³²¿Ïà¹ØµÄÎÆÀí
+//ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::UpdateAllFaceTexture(void)
 {
-	//¸üÐÂÁ³ÐÍÎÆÀí
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateFaceTexture();
 
-	//¸üÐÂÑÛ¾¦ÎÆÀí(ÑÛÆ¤,ÑÛÓ°)
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Æ¤,ï¿½ï¿½Ó°)
 	UpdateEyeTexture();
 
-	//¸üÐÂÃ¼Ã«ÎÆÀí
+	//ï¿½ï¿½ï¿½ï¿½Ã¼Ã«ï¿½ï¿½ï¿½ï¿½
 	UpdateBrowTexture();
 
-	//¸üÐÂ×ì´½ÎÆÀí
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ì´½ï¿½ï¿½ï¿½ï¿½
 	UpdateMouthTexture();
 
-	//¸üÐÂ±Ç×ÓÎÆÀí
+	//ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateNoseTexture();
 
-	//¸üÐÂÑÛÇòÎÆÀí
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateEyeBallTexture();
 	
-	//¸üÐÂºú×ÓÎÆÀí
+	//ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateMoustacheTexture();
 
-	// ¸üÐÂÍ··¢ÎÆÀí
+	// ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateHairTexture();
 
-	//¸üÐÂ´óºú×ÓÎÆÀí
+	//ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateGoateeTexture();
 
-	//¸üÐÂ·¨ÁîÎÆÀí
+	//ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateFalingTexture();
 
-	//ÉèÖÃÎÆÉíÎª¿Õ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 	ChangeTattooTexture(NULL);
 
 
 	return true;
 }
 
-//³õÊ¼»¯Á³ÐÍ¹Ç÷À
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½
 bool CECFace::CreateFaceController()
 {
 	A3DSkeleton* pSkeleton = NULL;
@@ -3071,7 +3072,7 @@ bool CECFace::CreateFaceController()
 
 	m_pBoneCtrler = new CFaceBoneController;
 
-	//¸ø¹Ç÷À¿ØÖÆÆ÷ÉèÖÃ¹Ç÷À
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½
 	m_pBoneCtrler->SetSkeleton(pSkeleton);
 	m_pBoneCtrler->InitBone();
 	m_pBoneCtrler->StoreBoneTM();
@@ -3079,76 +3080,76 @@ bool CECFace::CreateFaceController()
 	return true;
 }
 
-//¼ÆËãÈ«²¿Á³²¿ÐÎ×´
+//ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´
 bool CECFace::CalculateAllFaceShape(void)
 {
-	// ³õÊ¼»¯¹Ç÷À
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pBoneCtrler->RestoreBoneTM();
 
-	// ¼ÆËãÑÛÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateEye();
 
-	// ¼ÆËãÃ¼ÐÍ
+	// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½
 	CalculateBrow();
 
-	// ¼ÆËã±ÇÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateNose();
 
-	// ¼ÆËã×ìÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateMouth();
 
-	// ¼ÆËã¶úÐÍ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateEar();
 
-	// ¼ÆËãÁ³ÐÍÈÚºÏ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½
 	CalculateBlendFace();
 
-	// ¼ÆËãÁ³ÅÌ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateFace();
 
-	// ¼ÆËã¶îÍ·
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Í·
 	CalculateForehead();
 
-	// ¼ÆËãÈ§¹Ç
+	// ï¿½ï¿½ï¿½ï¿½È§ï¿½ï¿½
 	CalculateYokeBone();
 
-	// ¼ÆËãÁ³¼Õ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateCheek();
 
-	// ¼ÆËãÏÂ°Í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 	CalculateChain();
 
-	// ¼ÆËãò¢¹Ç
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CalculateJaw();
 
-	// ¼ÆËã3Í¥
+	// ï¿½ï¿½ï¿½ï¿½3Í¥
 	Calculate3Parts();
 
 	return true;
 }
 
-//Á³ÐÍ¸üÐÂ(ÐÎ×´, ÎÆÀíÑÕÉ«, Ä£ÐÍ,ÑÕÉ«)
+//ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½(ï¿½ï¿½×´, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«, Ä£ï¿½ï¿½,ï¿½ï¿½É«)
 bool CECFace::UpdateAll(void)
 {
-	//¼ÆËãÈ«²¿Á³²¿ÐÎ×´
+	//ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´
 	CalculateAllFaceShape();
 
-	//¸üÐÂÈ«²¿Á³²¿Ïà¹ØµÄÎÆÀí
+	//ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	UpdateAllFaceTexture();
 
-	//¸üÐÂÍ··¢ºÍºú×ÓÄ£ÐÍ
+	//ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½Ä£ï¿½ï¿½
 	UpdateHairAndGoateeModel();
 
-	//¸üÐÂËùÓÐÁ³²¿ÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	UpdateAllFaceColor();
 
-	//¸üÐÂ¸½ÑÛ
+	//ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½
 	UpdateThirdEye();
 
 	return true;
 }
 
-//ÉèÖÃFaceData
+//ï¿½ï¿½ï¿½ï¿½FaceData
 bool CECFace::SetFaceData(const FACE_CUSTOMIZEDATA& faceData)
 {
 	m_FaceData = faceData;
@@ -3195,7 +3196,7 @@ const A3DMATRIX4& CECFace::GetFaceTM()
 	return m_pSkinModel->GetAbsoluteTM();
 }
 
-//°Ñ±ÈÀý´Óint ×ª»»µ½float
+//ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½ï¿½int ×ªï¿½ï¿½ï¿½ï¿½float
 float CECFace::TransformScaleFromIntToFloat(int nScale, float fScaleFactor, float fMax)
 {
 
@@ -3216,7 +3217,7 @@ float CECFace::TransformScaleFromIntToFloat(int nScale, float fScaleFactor, floa
 	return  fScale;
 }
 
-//°ÑÎ»ÒÆ´Óint ×ª»»µ½float
+//ï¿½ï¿½Î»ï¿½Æ´ï¿½int ×ªï¿½ï¿½ï¿½ï¿½float
 float CECFace::TransformOffsetFromIntToFloat(int nOffset, float fOffsetFactor, float fMax)
 {
 	if(fOffsetFactor >= fMax)
@@ -3227,7 +3228,7 @@ float CECFace::TransformOffsetFromIntToFloat(int nOffset, float fOffsetFactor, f
 	return fOffset;
 }
 
-//°ÑÐý×ª´Óint ×ª»»µ½float
+//ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½int ×ªï¿½ï¿½ï¿½ï¿½float
 float CECFace::TransformRotateFromIntToFloat(int nRotate, float fRotateFactor, float fMax)
 {
 	if( fRotateFactor >= fMax)
@@ -3328,7 +3329,7 @@ void CECFace::InitFaceCusFactor()
 	m_FaceCusFactor.fOffsetEarVFactor =OFFSET_EARV_FACTOR;	
 }
 
-//ÔØÈëÁ³ÐÍ×Ô¶¨Òå²ÎÊý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool CECFace::LoadFaceCusFactorFromIni(void)
 {
 	AIniFile IniFile;
@@ -3450,8 +3451,8 @@ bool CECFace::LoadFaceCusFactorFromIni(void)
 
 void CECFace::SetTransparent(float fTrans)
 {
-	//	ÉèÖÃÁ³²¿Ä£ÐÍ¼°ÌØÐ§µÄÍ¸Ã÷¶È
-	//	Á³²¿Ä£ÐÍµÄÍ¸Ã÷¶ÈÔÚ¸¸Ç×Ä£ÐÍÉèÖÃÍ¸Ã÷¶ÈµÄÊ±ºòÒÑÉèÖÃ¹ý£¬ÕâÀïÖ»ÊÇÁÙÊ±¸Ä±äÍ¸Ã÷¶È£¨±ÈÈç×óÉÏ½ÇÈËÎïÃæ°åÖÐÍ·ÏñµÄÏÔÊ¾£¬²»ÊÜÍ¸Ã÷¶ÈÓ°Ïì£©
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Í¼ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
+	//	ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Íµï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½Èµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä±ï¿½Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ì£©
 	//
 	if (m_pSkinModel)
 		m_pSkinModel->SetTransparent(fTrans);
@@ -3466,7 +3467,7 @@ void CECFace::SetTransparent(float fTrans)
 
 float CECFace::GetTransparent()const
 {
-	//	²éÑ¯µ±Ç°Í¸Ã÷¶È£¨¿ÉÓÃÓÚÁÙÊ±¸Ä±äÍ¸Ã÷¶ÈÊ±»Ö¸´£©
+	//	ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°Í¸ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä±ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ö¸ï¿½ï¿½ï¿½
 	//
 	float fTrans = 1.0f;
 	if (m_pSkinModel)

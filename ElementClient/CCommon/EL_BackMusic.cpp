@@ -14,6 +14,7 @@
 #include <io.h>
 #include "AFI.h"
 #include "AFileUnicode.h"
+#include "ADebugLog.h"
 
 CELBackMusic::CELBackMusic()
 : m_bgmPlayList()
@@ -234,7 +235,7 @@ bool CELBackMusic::PlayMusic(const char * szBGMFile, bool bFadeIn, bool bClearPl
 
 	char sz_file[MAX_PATH];
 	strncpy(sz_file, szBGMFile, MAX_PATH);
-	strlwr(sz_file);
+	strlwr_mbcs(sz_file);
 	if( strstr(sz_file, "music") != sz_file || 0 == _access(szBGMFile, 0) || AFileUnicode::IsFileUnicodeExist(szBGMFile) )
 		strncpy(bgm.bgmFile, szBGMFile, MAX_PATH);
 	else
