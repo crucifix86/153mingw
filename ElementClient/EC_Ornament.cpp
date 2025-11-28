@@ -12,6 +12,7 @@
 
 #include "EC_Global.h"
 #include "EC_Ornament.h"
+#include "BolaDebug.h"
 #include "EC_Game.h"
 #include "EC_Viewport.h"
 #include "EC_WorldFile.h"
@@ -114,6 +115,8 @@ bool CECOrnament::Load(CECScene* pScene, const char* szMapPath, float fOffX, flo
 		m_bRefract	= Data.bRefract;
 
 		//	Build building file name
+		//	NOTE: Must use explicit (const char*) cast when passing AString to variadic Format()
+		//	to ensure proper conversion - without the cast, the object may be passed incorrectly.
 		if (pScene->GetSceneFileFlags() == ECWFFLAG_EDITOREXP)
 		{
 			//	Scene file created by ElementEditor
@@ -125,11 +128,11 @@ bool CECOrnament::Load(CECScene* pScene, const char* szMapPath, float fOffX, flo
 				m_strFileToLoad.Format("%s\\%s", szMapPath, pTemp);
 			}
 			else
-				m_strFileToLoad.Format("%s\\%s", szMapPath, strModelFile);
+				m_strFileToLoad.Format("%s\\%s", szMapPath, (const char*)strModelFile);
 		}
 		else	//	Scene file created by in-game home editor
 		{
-			m_strFileToLoad.Format("%s\\%s", szMapPath, strModelFile);
+			m_strFileToLoad.Format("%s\\%s", szMapPath, (const char*)strModelFile);
 		}
 
 		m_vReservedPos.Set(Data.vPos[0]+fOffX, Data.vPos[1], Data.vPos[2]+fOffZ);
@@ -181,6 +184,7 @@ void CECOrnament::LoadInThread(bool bInLoaderThread)
 
 	if (!m_pBrushBuilding->Load(g_pGame->GetA3DDevice(), pBuffer,m_fOffSetX,m_fOffSetZ))
 	{
+		BOLA_ERROR("EC_Ornament: FATAL_ERROR_LOAD_BUILDING - Load failed! file=%s", pBuffer);
 		a_LogOutput(1, "CECOrnament::LoadInThread, Failed to load %s", pBuffer);
 		g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 		return;

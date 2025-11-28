@@ -18,6 +18,7 @@
 #include "EC_Global.h"
 #include "EC_GPDataType.h"
 #include "EC_GameRun.h"
+#include "BolaDebug.h"
 #include "EC_UIManager.h"
 #include "EC_LoginUIMan.h"
 #include "EC_GameUIMan.h"
@@ -639,25 +640,39 @@ void CECGameRun::OnWindowSizeChange(A3DRECT rcOld, A3DRECT rcNew)
 //	Start login interface
 bool CECGameRun::StartLogin()
 {
+	BOLA_FUNC();  // Auto-trace function entry/exit
+	BOLA_CHECKPOINT("StartLogin beginning");
+
 	//	End current game state
+	BOLA_INFO("Calling EndGameState()");
 	EndGameState();
+	BOLA_INFO("EndGameState() completed");
 
 	m_iGameState = GS_LOGIN;
+	BOLA_INFO("Set game state to GS_LOGIN");
 
+	BOLA_CHECKPOINT("About to call CreateLoginWorld()");
 	if( !CreateLoginWorld() )
 	{
+		BOLA_ERROR("CreateLoginWorld() FAILED");
 		a_LogOutput(1, "CECGameRun::StartLogin, Failed to create login world.");
 		return false;
 	}
+	BOLA_INFO("CreateLoginWorld() succeeded");
 
 	//	Change UI manager
+	BOLA_CHECKPOINT("About to call ChangeCurUIManager(UIMAN_LOGIN)");
 	if (!m_pUIManager->ChangeCurUIManager(CECUIManager::UIMAN_LOGIN))
 	{
+		BOLA_ERROR("ChangeCurUIManager(UIMAN_LOGIN) FAILED");
 		a_LogOutput(1, "CECGameRun::StartLogin, Failed to change UI manager.");
 		return false;
 	}
+	BOLA_INFO("ChangeCurUIManager(UIMAN_LOGIN) succeeded");
 
+	BOLA_CHECKPOINT("About to call LaunchPreface()");
 	m_pUIManager->GetLoginUIMan()->LaunchPreface();
+	BOLA_INFO("LaunchPreface() completed");
 	
 	if (!m_pLogo){
 		m_pLogo = new A2DSprite;
@@ -834,12 +849,16 @@ void CECGameRun::ReleaseWorld()
 //	Create Login World
 bool CECGameRun::CreateLoginWorld()
 {
+	BOLA_FUNC();  // Auto-trace function entry/exit
+	BOLA_CHECKPOINT("CreateLoginWorld beginning");
+
 	A3DVECTOR3	vCameraPos(-874.891968, 54.800098, -280.675232);	//	2014���＾����Ƭ�ĵ�¼����λ��
 
 	//	��ȡ��¼�����ʼλ�������ļ����޸ĵ�¼������ʼ����λ�ã�ʹ��������ʱ�����ش˴�����
 	AIniFile theIni;
 	char szFile[MAX_PATH] = {0};
 	sprintf(szFile, "%s\\Configs\\SceneCtrl.ini", af_GetBaseDir());
+	BOLA_INFO("Reading scene config: %s", szFile);
 	if (theIni.Open(szFile))
 	{
 		char szKey[40];
@@ -851,29 +870,39 @@ bool CECGameRun::CreateLoginWorld()
 		sprintf(szKey, "PosZ%d", cameraIndex);
 		vCameraPos.z = theIni.GetValueAsFloat("Camera", szKey, 0.0f);
 		theIni.Close();
+		BOLA_INFO("Camera position: (%.2f, %.2f, %.2f)", vCameraPos.x, vCameraPos.y, vCameraPos.z);
 	}
 	else
 	{
+		BOLA_WARN("Failed to open SceneCtrl.ini, using default camera position");
 		a_LogOutput(1, "CECGameRun::CreateLoginWorld, Failed to set initial login position.");
 	}
 
+	BOLA_CHECKPOINT("About to call LoadLoginRes()");
 	if (!g_pGame->LoadLoginRes())
 	{
+		BOLA_ERROR("LoadLoginRes() FAILED");
 		a_LogOutput(1, "CECGameRun::CreateLoginWorld, Failed to call LoadLoginRes().");
 		return false;
 	}
+	BOLA_INFO("LoadLoginRes() succeeded");
 
+	BOLA_INFO("Creating CECWorld object");
 	if (!(m_pWorld = new CECWorld(this)))
 	{
+		BOLA_ERROR("Failed to allocate CECWorld");
 		glb_ErrorOutput(ECERR_NOTENOUGHMEMORY, "CECGameRun::CreateLoginWorld", __LINE__);
 		return false;
 	}
 
+	BOLA_CHECKPOINT("About to call m_pWorld->Init(0)");
 	if (!m_pWorld->Init(0))
 	{
+		BOLA_ERROR("m_pWorld->Init(0) FAILED");
 		a_LogOutput(1, "CECGameRun::CreateLoginWorld, Failed to initialize world.");
 		return false;
 	}
+	BOLA_INFO("m_pWorld->Init(0) succeeded");
 
 	//	Set scene resource loading distance
 	CECSceneBlock::SetResLoadDists(0, 2000.0f);	//	2014������Ƭ��Ϊ������Դռ�ã���Դ�ͷ���BUG������Ӧ������С��Ұ����
@@ -881,12 +910,15 @@ bool CECGameRun::CreateLoginWorld()
 	//	Begin load progress
 	BeginLoadProgress(0, 100);
 
+	BOLA_CHECKPOINT("About to load world from Maps\\Login\\Login.ecwld");
 	//	Load login scene from file
 	if (!m_pWorld->LoadWorld("Maps\\Login\\Login.ecwld", vCameraPos))
 	{
+		BOLA_ERROR("LoadWorld(Maps\\Login\\Login.ecwld) FAILED");
 		a_LogOutput(1, "CECGameRun::CreateLoginWorld, Failed to load world.");
 		return false;
 	}
+	BOLA_INFO("LoadWorld succeeded");
 
 	//	End load progress
 	EndLoadProgress();
@@ -2808,6 +2840,7 @@ bool CECGameRun::JumpToInstance(int idInst, const A3DVECTOR3& vPos, int iParalle
 	//	Create new world
 	if (!CreateWorld(idInst, vPos, iParallelWorldID))
 	{
+		BOLA_ERROR("EC_GameRun: FATAL_ERROR_LOAD_BUILDING - CreateWorld failed! idInst=%d", idInst);
 		a_LogOutput(1, "CECGameRun::JumpToInstance, failed to create world %d", idInst);
 		g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 		return false;

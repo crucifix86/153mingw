@@ -13,6 +13,7 @@
 #include "EC_Global.h"
 #include "EC_Game.h"
 #include "EC_Matter.h"
+#include "BolaDebug.h"
 #include "EC_Viewport.h"
 #include "EC_GameRun.h"
 #include "EC_GFXCaster.h"
@@ -179,6 +180,7 @@ bool CECMatter::Init(const S2C::info_matter& Info)
 		const char* szFile = g_pGame->GetDynObjectPath(Info.tid);
 		if (!szFile || strlen(szFile) < 1)
 		{
+			BOLA_ERROR("EC_Matter: FATAL_ERROR_LOAD_BUILDING - empty file path! tid=%d", Info.tid);
 			a_LogOutput(1, "CECMatter::Init, empty file path for id=%d", Info.tid);
 			g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 			return false;
@@ -187,6 +189,7 @@ bool CECMatter::Init(const S2C::info_matter& Info)
 		{
 			if( !af_IsFileExist(szFile) )
 			{
+				BOLA_ERROR("EC_Matter: FATAL_ERROR_LOAD_BUILDING - file not exist! file=%s", szFile);
 				a_LogOutput(1, "CECMatter::Init, File not exist: %s", szFile);
 				g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 				return false;
@@ -303,11 +306,11 @@ bool CECMatter::SetLoadedMatterModel(CECModel* pModel)
 		CECWorld* pWorld = g_pGame->GetGameRun()->GetWorld();
 
 		if (vPos.y < pWorld->GetWaterHeight(vPos) - 0.2f)
-			strAct = "µôÂä±£»¤_Ë®ÖÐ";
+			strAct = "ï¿½ï¿½ï¿½ä±£ï¿½ï¿½_Ë®ï¿½ï¿½";
 		else if (vPos.y > pWorld->GetTerrainHeight(vPos, NULL) + 0.2f)
-			strAct = "µôÂä±£»¤_¿ÕÖÐ";
+			strAct = "ï¿½ï¿½ï¿½ä±£ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½";
 		else
-			strAct = "µôÂä±£»¤";
+			strAct = "ï¿½ï¿½ï¿½ä±£ï¿½ï¿½";
 
 		m_pModel->PlayActionByName(strAct, 1.0f);
 		//	Force to use mesh aabb

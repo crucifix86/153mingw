@@ -987,12 +987,17 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ACHAR* lpCmd
 		g_bHookExitProcess = FALSE;
 		return -2;
 	}
+	BOLA_INFO("StartLogin() returned successfully");
 
+	BOLA_INFO("Creating threads and events");
 	DWORD dwThreadID;
 	g_hRenderThread = ::CreateThread(NULL, 0, RenderThreadFunc, NULL, CREATE_SUSPENDED, &dwThreadID);
+	BOLA_INFO("Created RenderThread: %p", g_hRenderThread);
 	g_hDefenceThread = ::CreateThread(NULL, 0, DefenceThreadFunc, NULL, CREATE_SUSPENDED, &dwThreadID);
+	BOLA_INFO("Created DefenceThread: %p", g_hDefenceThread);
 	g_hExitGame = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	g_hRenderEvent = ::CreateEvent(NULL, FALSE, FALSE, NULL);
+	BOLA_INFO("Events created");
 
 #ifdef _MSC_VER
 	NetDLL::Register(-1, static_cast<LPVOID>(ShowAntiHackerMsg));
@@ -1032,33 +1037,58 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ACHAR* lpCmd
 	_defence_thread_init = true;
 #endif
 
+	BOLA_INFO("Entering main loop");
+	static int s_mainLoopCount = 0;
 	while (1)
 	{
+		s_mainLoopCount++;
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop iteration %d starting", s_mainLoopCount);
+
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: checking g_dwFatalErrorFlag=%d", s_mainLoopCount, g_dwFatalErrorFlag);
 		if (g_dwFatalErrorFlag == FATAL_ERROR_LOAD_BUILDING)
 		{
-			MessageBoxA(g_pGame->GetGameInit().hWnd, "���ؽ���ʧ�ܣ����򼴽��˳���", NULL, MB_OK | MB_ICONERROR);
+			BOLA_ERROR("=== FATAL_ERROR_LOAD_BUILDING detected in main loop! ===");
+			BOLA_INFO("About to call a_LogOutput...");
 			a_LogOutput(1, "exit process because failed to load building");
+			BOLA_INFO("a_LogOutput returned, g_pGame=%p", g_pGame);
+			HWND hWnd = g_pGame ? g_pGame->GetGameInit().hWnd : NULL;
+			BOLA_INFO("hWnd=%p, about to call MessageBoxA...", hWnd);
+			// Skip MessageBox to avoid potential crash - just log and exit
+			BOLA_ERROR("Skipping MessageBox, calling ExitProcess(-2)");
 			g_bHookExitProcess = FALSE;
 			::ExitProcess(-2);
 		}
 		else if(g_dwFatalErrorFlag == FATAL_ERROR_WRONG_CONFIGDATA)
 		{
-			MessageBoxA(g_pGame->GetGameInit().hWnd, "��ȡ��Դ���ݳ��������򼴽��˳���", NULL, MB_OK | MB_ICONERROR);
 			a_LogOutput(1, "exit process because wrong config data");
+			HWND hWnd = g_pGame ? g_pGame->GetGameInit().hWnd : NULL;
+			MessageBoxA(hWnd, "Wrong configuration data. The application will now exit.", "Fatal Error", MB_OK | MB_ICONERROR);
 			g_bHookExitProcess = FALSE;
 			::ExitProcess(-3);
 		}
 
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: checking g_bExceptionOccured=%d", s_mainLoopCount, g_bExceptionOccured);
 		if (g_bExceptionOccured)
 		{
 			a_LogOutput(1, "exception has occured, handled or not handled by others, so I have to quit now in ElementClient.cpp");
 			::ExitProcess(-1);
 		}
 
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: calling SuspendRenderThread()", s_mainLoopCount);
 		SuspendRenderThread();
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: SuspendRenderThread() done", s_mainLoopCount);
 
 		// toggle ime state in main thread
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: calling AUIEditBox::ToggleIME()", s_mainLoopCount);
 		AUIEditBox::ToggleIME();
+		if (s_mainLoopCount <= 3)
+			BOLA_INFO("Main loop %d: ToggleIME() done", s_mainLoopCount);
 
 		if (::WaitForSingleObject(g_hToSuspendMain, 0) == WAIT_OBJECT_0)
 			::SuspendThread(::GetCurrentThread());
@@ -1110,8 +1140,15 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, ACHAR* lpCmd
 			::SuspendThread(::GetCurrentThread());
 			g_bMainSuspened = false;
 		}
-		else if (!l_theGame.RunInMainThread())
-			break;
+		else
+		{
+			if (s_mainLoopCount <= 3)
+				BOLA_INFO("Main loop %d: g_bMultiThreadRenderMode=%d, calling RunInMainThread()", s_mainLoopCount, g_bMultiThreadRenderMode);
+			if (!l_theGame.RunInMainThread())
+				break;
+			if (s_mainLoopCount <= 3)
+				BOLA_INFO("Main loop %d: RunInMainThread() returned true", s_mainLoopCount);
+		}
 	}
 
 _exit:

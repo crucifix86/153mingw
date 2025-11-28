@@ -14,6 +14,7 @@
 
 #include "EC_Global.h"
 #include "EC_HomeOrnament.h"
+#include "BolaDebug.h"
 #include "EC_Game.h"
 #include "EC_Viewport.h"
 #include "EC_WorldFile.h"
@@ -68,6 +69,8 @@ void CECHomeOrnament::LoadInThread(bool bInLoaderThread)
 
 	if (!m_pBuildingWithBrush->LoadFromMOXAndCHF(g_pGame->GetA3DDevice(), m_strMoxFile, m_strCHFFile, m_LoadTM))
 	{
+		BOLA_ERROR("EC_HomeOrnament: FATAL_ERROR_LOAD_BUILDING - LoadFromMOXAndCHF failed! mox=%s chf=%s",
+			(const char*)m_strMoxFile, (const char*)m_strCHFFile);
 		a_LogOutput(1, "CECHomeOrnament::LoadInThread, failed to LoadFromMOXAndCHF()");
 		g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 		return;

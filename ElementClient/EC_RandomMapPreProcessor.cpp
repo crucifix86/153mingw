@@ -4,6 +4,7 @@
 
 #include "EC_RandomMapPreProcessor.h"
 #include "EC_Global.h"
+#include "BolaDebug.h"
 #include "EC_Game.h"
 #include "EC_Configs.h"
 #include "EC_GameRun.h"
@@ -1262,6 +1263,7 @@ AString CECRandomMapProcess::GetMapName() {
 }
 void CECRandomMapProcess::DoProcess(const char* szMap) {
 	if (SafeGetDiskFreeSpace(NULL) == FALSE) {
+		BOLA_ERROR("EC_RandomMapPreProcessor: FATAL_ERROR_LOAD_BUILDING - SafeGetDiskFreeSpace failed!");
 		g_dwFatalErrorFlag = FATAL_ERROR_LOAD_BUILDING;
 		return;
 	}

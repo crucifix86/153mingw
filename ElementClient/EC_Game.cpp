@@ -1302,11 +1302,21 @@ int CECGame::RunInRenderThread()
 
 bool CECGame::RunInMainThread()
 {
+	static int s_frameCount = 0;
+	s_frameCount++;
+
+	// Only log first few frames to avoid spam
+	if (s_frameCount <= 3)
+		BOLA_INFO("RunInMainThread frame %d starting", s_frameCount);
+
 	if (!DispatchWindowsMessage())
 	{
 		a_LogOutput(1, "CECGame::Run(), break because DispatchWindowsMessage return false!");
 		return false;
 	}
+
+	if (s_frameCount <= 3)
+		BOLA_INFO("DispatchWindowsMessage complete, frame %d", s_frameCount);
 
 	if (g_bMultiThreadRenderMode)
 		return true;
@@ -1345,12 +1355,20 @@ bool CECGame::OnceRun()
 	static int iTickCnt = 0;
 	static DWORD dwAccuTime = 0;
 	static DWORD dwMGCTime = 0;	//	Memory garbage collect time
+	static int s_onceRunCount = 0;
+	s_onceRunCount++;
+
+	// Log first few frames for debugging
+	if (s_onceRunCount <= 3)
+		BOLA_INFO("OnceRun frame %d starting", s_onceRunCount);
 
 	ACSWrapper csa(&g_csRenderThread);
 
 	if (dwLastFrame == 0)
 	{
 		dwLastFrame = a_GetTime();
+		if (s_onceRunCount <= 3)
+			BOLA_INFO("OnceRun frame %d: first frame, initializing timer", s_onceRunCount);
 		return true;
 	}
 	else
@@ -1396,26 +1414,34 @@ bool CECGame::OnceRun()
 
 	{
 		PROFILE_SCOPE("Tick");
-		 
+
 		//m_bInitialTick = true;
 		//	Game tick routine
+		if (s_onceRunCount <= 3)
+			BOLA_INFO("OnceRun frame %d: about to call Tick()", s_onceRunCount);
 		if (!m_pGameRun->Tick(m_dwTickTime))
 		{
 			a_LogOutput(1, "CECGame::Run(), break because CECGameRun::Tick return false");
 			return false;
 		}
+		if (s_onceRunCount <= 3)
+			BOLA_INFO("OnceRun frame %d: Tick() returned successfully", s_onceRunCount);
 	}
-	
+
 	{
 		PROFILE_SCOPE("Render");
 		bool bRenderNoActive = !m_bActive && g_bRenderNoFocus && m_pA3DDevice && m_pA3DDevice->GetDevFormat().bWindowed;
 		if (m_bActive || bRenderNoActive)
 		{
+			if (s_onceRunCount <= 3)
+				BOLA_INFO("OnceRun frame %d: about to call Render()", s_onceRunCount);
 			if (!m_pGameRun->Render())
 			{
 				a_LogOutput(1, "CECGame::Run(), break because CECGameRun::Render() return false!");
 				return false;
 			}
+			if (s_onceRunCount <= 3)
+				BOLA_INFO("OnceRun frame %d: Render() returned successfully", s_onceRunCount);
 
 			if (m_bActive)
 			{
