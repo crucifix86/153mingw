@@ -4063,11 +4063,15 @@ void CECGameSession::OnPrtcChallenge(GNET::Protocol* pProtocol)
 {
 	using namespace GNET;
 
+	a_LogOutput(1, "CECGameSession::OnPrtcChallenge RECEIVED!");
+
 	DoOvertimeCheck(false, OT_CHALLENGE, 0);
 
 	Challenge* p = (Challenge*)pProtocol;
 
 	AString str((const char *)p->edition.begin(), p->edition.size());
+	a_LogOutput(1, "OnPrtcChallenge: server_ver=%d client_ver=%d edition=%s",
+		p->version, g_pGame->GetGameVersion(), (const char*)str);
 
 	if (p->version != g_pGame->GetGameVersion() || stricmp(g_pGame->GetVersionString(), str))
 	{
@@ -4157,9 +4161,11 @@ void CECGameSession::OnPrtcChallenge(GNET::Protocol* pProtocol)
 		m_strPassword.UnlockBuffer();
 	}
 
+	a_LogOutput(1, "OnPrtcChallenge: Sending Response to server...");
 	SendNetData(res);
+	a_LogOutput(1, "OnPrtcChallenge: Response sent, waiting for KeyExchange...");
 
-	if (m_pNetMan->IsUseUsbKey()){		
+	if (m_pNetMan->IsUseUsbKey()){
 		a_LogOutput(1, "CECReconnect reset for use usb key");
 		CECReconnect::Instance().ResetState();
 	}
@@ -4167,6 +4173,7 @@ void CECGameSession::OnPrtcChallenge(GNET::Protocol* pProtocol)
 
 void CECGameSession::OnPrtcKeyExchange(GNET::Protocol* pProtocol)
 {
+	a_LogOutput(1, "CECGameSession::OnPrtcKeyExchange RECEIVED!");
 	using namespace GNET;
 
 	Octets oSecurity, iSecurity;
