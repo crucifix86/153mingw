@@ -2319,6 +2319,7 @@ int CECGameSession::IOCallBack(void* pData, unsigned int idLink, int iEvent)
 	}
 
 	GNET::Protocol* pProtocol = (GNET::Protocol*)pData;
+	a_LogOutput(1, "IOCallBack: Received protocol type=%d", pProtocol ? pProtocol->GetType() : -1);
 	pSession->AddNewProtocol(pProtocol);
 
 	return 0;
@@ -2400,6 +2401,7 @@ bool CECGameSession::ProcessNewProtocols()
 
 	EnterCriticalSection(&g_csSession);
 
+	int nNewProtos = m_aNewProtocols.GetSize();
 	for (int i=0; i < m_aNewProtocols.GetSize(); i++)
 		m_aTempProtocols.Add(m_aNewProtocols[i]);
 
@@ -2407,11 +2409,15 @@ bool CECGameSession::ProcessNewProtocols()
 
 	LeaveCriticalSection(&g_csSession);
 
+	if (nNewProtos > 0) {
+		a_LogOutput(1, "ProcessNewProtocols: Processing %d new protocols, %d temp total", nNewProtos, m_aTempProtocols.GetSize());
+	}
+
 	for (int i=0; i < m_aTempProtocols.GetSize(); i++)
 	{
 		bool bAddToOld = true;
 		GNET::Protocol* pProtocol = m_aTempProtocols[i];
-		
+
 		if (!pProtocol)
 		{
 			a_LogOutput(1, "CECGameSession::ProcessNewProtocols(), Empty Protocol!");
@@ -2423,6 +2429,8 @@ bool CECGameSession::ProcessNewProtocols()
 			m_aOldProtocols.Add(pProtocol);
 			continue;
 		}
+
+		a_LogOutput(1, "ProcessNewProtocols: Handling protocol type=%d", pProtocol->GetType());
 
 		switch (pProtocol->GetType())
 		{
@@ -4178,20 +4186,26 @@ void CECGameSession::OnPrtcKeyExchange(GNET::Protocol* pProtocol)
 
 	Octets oSecurity, iSecurity;
 	KeyExchange* p = (KeyExchange*)pProtocol;
+	a_LogOutput(1, "OnPrtcKeyExchange: Calling Setup with user=%s kickUser=%d", (const char*)m_strUserName, m_bKickUser ? 1 : 0);
 	p->Setup(m_pNetMan, m_idLink, m_strUserName, m_bKickUser, oSecurity, iSecurity);
+	a_LogOutput(1, "OnPrtcKeyExchange: Setup complete, oSecurity size=%d iSecurity size=%d", (int)oSecurity.size(), (int)iSecurity.size());
 
 	//	��¼���ܲ�������ת��
 	CECCrossServer::Instance().SetOSecurity(oSecurity);
 	CECCrossServer::Instance().SetISecurity(iSecurity);
 
+	a_LogOutput(1, "OnPrtcKeyExchange: Sending KeyExchange response...");
 	SendNetData(p);
+	a_LogOutput(1, "OnPrtcKeyExchange: KeyExchange response sent, waiting for OnlineAnnounce...");
 }
 
 void CECGameSession::OnPrtcOnlineAnnounce(GNET::Protocol* pProtocol)
 {
+	a_LogOutput(1, "CECGameSession::OnPrtcOnlineAnnounce RECEIVED!");
 	using namespace GNET;
 
 	OnlineAnnounce* p = (OnlineAnnounce*)pProtocol;
+	a_LogOutput(1, "OnPrtcOnlineAnnounce: userid=%d zoneid=%d", p->userid, p->zoneid);
 	m_iUserID = p->userid;
 	m_pNetMan->SetZoneID(p->zoneid);
 	
