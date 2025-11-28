@@ -1633,7 +1633,7 @@ void* _a_NewAlign_Debug(size_t size, int align)
 
 void* operator new (size_t size)
 {
-#if !defined(_DEBUG) || !defined(_MSC_VER)
+#ifndef _DEBUG
 	return _a_New(size);
 #else
 	return _a_New_Debug(size);
@@ -1647,7 +1647,7 @@ void operator delete (void *p) noexcept
 
 void* operator new [] (size_t size)
 {
-#if !defined(_DEBUG) || !defined(_MSC_VER)
+#ifndef _DEBUG
 	return _a_New(size);
 #else
 	return _a_New_Debug(size);
@@ -1663,11 +1663,7 @@ void operator delete [] (void *p) noexcept
 
 void* operator new (size_t size, const char* szFile, int iLine)
 {
-#ifdef _MSC_VER
 	return _a_New_Debug(size);
-#else
-	return _a_New(size);
-#endif
 }
 
 void operator delete (void* p, const char* szFile, int iLine) noexcept
@@ -1677,11 +1673,7 @@ void operator delete (void* p, const char* szFile, int iLine) noexcept
 
 void* operator new [] (size_t size, const char* szFile, int iLine)
 {
-#ifdef _MSC_VER
 	return _a_New_Debug(size);
-#else
-	return _a_New(size);
-#endif
 }
 
 void operator delete [] (void* p, const char* szFile, int iLine) noexcept
