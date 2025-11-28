@@ -1511,6 +1511,10 @@ void _a_DeleteAlign(void* pMem)
 			  
 void* _a_New_Debug(size_t size)
 {
+#ifndef _MSC_VER
+	// Skip stack tracing on GCC/Wine - just use regular allocator
+	return _a_New(size);
+#else
 	char* pData = (char*)_a_New(size);
 	s_MEMSMALLBLK* pBlock = _GetMemBlockInfo(pData);
 
@@ -1519,14 +1523,10 @@ void* _a_New_Debug(size_t size)
 	int c = 0;
 	const int skip = 1;
 
-#ifdef _MSC_VER
 	__asm
 	{
 		mov frame_cur, ebp
 	}
-#else
-	__asm__ __volatile__("movl %%ebp, %0" : "=r"(frame_cur));
-#endif
 
 	memset(pBlock->callers, 0, sizeof(pBlock->callers));
 	while (!IsBadReadPtr((LPVOID)(4+frame_cur), 4))
@@ -1550,6 +1550,7 @@ void* _a_New_Debug(size_t size)
 	DumpAllocHistory(GetMemoryHistoryLog(), pBlock);
 
 	return pData;
+#endif
 }
 
 //	Reallocate, pMem must point to a mmeory block that is allocated by
@@ -1633,7 +1634,7 @@ void* _a_NewAlign_Debug(size_t size, int align)
 
 void* operator new (size_t size)
 {
-#ifndef _DEBUG
+#if !defined(_DEBUG) || !defined(_MSC_VER)
 	return _a_New(size);
 #else
 	return _a_New_Debug(size);
@@ -1647,7 +1648,7 @@ void operator delete (void *p) noexcept
 
 void* operator new [] (size_t size)
 {
-#ifndef _DEBUG
+#if !defined(_DEBUG) || !defined(_MSC_VER)
 	return _a_New(size);
 #else
 	return _a_New_Debug(size);
@@ -1663,7 +1664,11 @@ void operator delete [] (void *p) noexcept
 
 void* operator new (size_t size, const char* szFile, int iLine)
 {
+#ifdef _MSC_VER
 	return _a_New_Debug(size);
+#else
+	return _a_New(size);
+#endif
 }
 
 void operator delete (void* p, const char* szFile, int iLine) noexcept
@@ -1673,7 +1678,11 @@ void operator delete (void* p, const char* szFile, int iLine) noexcept
 
 void* operator new [] (size_t size, const char* szFile, int iLine)
 {
+#ifdef _MSC_VER
 	return _a_New_Debug(size);
+#else
+	return _a_New(size);
+#endif
 }
 
 void operator delete [] (void* p, const char* szFile, int iLine) noexcept
