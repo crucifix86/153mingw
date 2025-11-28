@@ -1519,10 +1519,14 @@ void* _a_New_Debug(size_t size)
 	int c = 0;
 	const int skip = 1;
 
+#ifdef _MSC_VER
 	__asm
 	{
 		mov frame_cur, ebp
 	}
+#else
+	__asm__ __volatile__("movl %%ebp, %0" : "=r"(frame_cur));
+#endif
 
 	memset(pBlock->callers, 0, sizeof(pBlock->callers));
 	while (!IsBadReadPtr((LPVOID)(4+frame_cur), 4))

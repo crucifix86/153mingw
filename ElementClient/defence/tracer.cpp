@@ -77,20 +77,36 @@ void stack_trace(LPCVOID sv0, LPCVOID sv1)
 
 	DWORD frame_ptr = hi;
 	DWORD frame_cur, caller, pattern;
+#ifdef _MSC_VER
 	__asm
 	{
 		mov frame_cur, ebp
 	}
+#else
+	__asm__ __volatile__("movl %%ebp, %0" : "=r"(frame_cur));
+#endif
 	if( frame_cur >= hi || frame_cur <lo ) return;
 
 	if ( !IsBadReadPtr((LPVOID)(4+frame_cur),4) && !IsBadReadPtr( (LPVOID)(-4+*(DWORD*)(frame_cur+4)),8 ) )
 	{
+#ifdef _MSC_VER
 		__asm {
 			mov eax, [ebp+4]
 			mov caller, eax
 			mov	eax, [eax-4]
 			mov pattern, eax
 		}
+#else
+		__asm__ __volatile__(
+			"movl 4(%%ebp), %%eax\n\t"
+			"movl %%eax, %0\n\t"
+			"movl -4(%%eax), %%eax\n\t"
+			"movl %%eax, %1"
+			: "=m"(caller), "=m"(pattern)
+			:
+			: "eax"
+		);
+#endif
 	}
 	else
 	{
