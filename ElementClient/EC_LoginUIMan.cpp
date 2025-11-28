@@ -1315,14 +1315,28 @@ bool CECLoginUIMan::ChangeScene(LOGIN_SCENE scene)
 	}
 
 	// for update terrain water's current water height data
-	g_pGame->GetGameRun()->GetWorld()->GetTerrainWater()->UpdateWaterHeight();
+	CECWorld* pWorld = g_pGame->GetGameRun()->GetWorld();
+	if (pWorld)
+	{
+		A3DTerrainWater* pTerrainWater = pWorld->GetTerrainWater();
+		if (pTerrainWater)
+			pTerrainWater->UpdateWaterHeight();
+	}
 
 	return RefreshPlayerList();
 }
 
 bool CECLoginUIMan::RefreshPlayerList()
 {
-	CECPlayerMan::LoginPlayerTable& players = g_pGame->GetGameRun()->GetWorld()->GetPlayerMan()->GetLoginPlayerTable();
+	CECWorld* pWorld = g_pGame->GetGameRun()->GetWorld();
+	if (!pWorld)
+		return false;
+
+	CECPlayerMan* pPlayerMan = pWorld->GetPlayerMan();
+	if (!pPlayerMan)
+		return false;
+
+	CECPlayerMan::LoginPlayerTable& players = pPlayerMan->GetLoginPlayerTable();
 
 	players.clear();
 
@@ -2213,7 +2227,9 @@ void CECLoginUIMan::SetIDCurRole(int idRole)
 	}
 
 	// for update terrain water's current water height data
-	g_pGame->GetGameRun()->GetWorld()->GetTerrainWater()->UpdateWaterHeight();
+	A3DTerrainWater* pTerrainWater = g_pGame->GetGameRun()->GetWorld()->GetTerrainWater();
+	if (pTerrainWater)
+		pTerrainWater->UpdateWaterHeight();
 }
 
 CECLoginPlayer * CECLoginUIMan::GetCurRoleModel()

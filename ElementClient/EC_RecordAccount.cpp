@@ -53,7 +53,7 @@ static ACString Decode(const AString &str)
 
 static bool IsValidFormat(const char *szFile)
 {
-	//	ÅÐ¶ÏÎÄ¼þÊÇ·ñÊÇÕýÈ·¸ñÊ½
+	//	ï¿½Ð¶ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê½
 	bool bValid(false);
 	FILE *file = fopen(szFile, "rb");
 	while (file){
@@ -62,7 +62,7 @@ static bool IsValidFormat(const char *szFile)
 			break;
 		}
 		if (ch == 0xfffe || ch == 0xfeff){
-			//	Unicode ¸ñÊ½
+			//	Unicode ï¿½ï¿½Ê½
 			break;
 		}
 		bValid = true;
@@ -80,7 +80,8 @@ AString CECRecordAccount::Record::Serialize()const
 	if (server >= 0){
 		const CECServerList::ServerInfo & s = CECServerList::Instance().GetServer(server);
 		ACString strServer;
-		strServer.Format(_AL("%d:%s,%s,%d"), s.port_min, AS2AC(s.address), s.server_name, s.line);
+		// NOTE: Must cast ACString to (const ACHAR*) when passing to variadic Format()
+		strServer.Format(_AL("%d:%s,%s,%d"), s.port_min, AS2AC(s.address), (const ACHAR*)s.server_name, s.line);
 		str += " ";
 		str += Encode(strServer);
 	}
@@ -129,7 +130,7 @@ void CECRecordAccount::Resize(bool bAddNew)
 {
 	int nMaxRecord = CECUIConfig::Instance().GetLoginUI().nMaxRecordAccount;
 	if (bAddNew){
-		//	ÒªÌí¼ÓÐÂ³ÉÔ±Ê±£¬¶à¿Õ³öÒ»¸öÎ»ÖÃÀ´
+		//	Òªï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½Ô±Ê±ï¿½ï¿½ï¿½ï¿½Õ³ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 		-- nMaxRecord;
 	}
 	int nCurSize = (int)(m_records.size());
@@ -147,8 +148,8 @@ void CECRecordAccount::Add(const ACHAR *szAccount, int iServer)
 	if (szAccount && GetCanRecord() && CECUIConfig::Instance().GetLoginUI().nMaxRecordAccount > 0){
 		ACString strAccount = szAccount;
 		if (!strAccount.IsEmpty()){
-			//	ÈôÕËºÅÒÑÌí¼Ó¹ý£¬ÏÈÉ¾³ýÔÙÌí¼Ó£¬¿ÉÒÔ¸Ä±äË³Ðò
-			m_records.erase(std::remove(m_records.begin(), m_records.end(), strAccount), m_records.end());	//	ÏÈ´ÓÔ­ÓÐÁÐ±íÖÐÉ¾³ýµ±Ç°ÕËºÅ£¨Èç¹ûÓÐµÄ»°£©
+			//	ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ô¸Ä±ï¿½Ë³ï¿½ï¿½
+			m_records.erase(std::remove(m_records.begin(), m_records.end(), strAccount), m_records.end());	//	ï¿½È´ï¿½Ô­ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ËºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ»ï¿½ï¿½ï¿½
 			Resize(true);
 			m_records.push_back(Record(szAccount, iServer));
 		}
@@ -158,7 +159,7 @@ void CECRecordAccount::Add(const ACHAR *szAccount, int iServer)
 void CECRecordAccount::Clear()
 {
 	m_records.clear();
-	Save();	//	Çå³ýºóÁ¢Âí±£´æ£¬ÒÔ´ïµ½Á¢ÂíÇå³ý±¾µØÎÄ¼þµÄÄ¿µÄ
+	Save();	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½Ô´ïµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 }
 
 bool CECRecordAccount::Complete(const ACHAR *szAccount, Records &candidates)
@@ -198,7 +199,7 @@ const CECRecordAccount::Record * CECRecordAccount::GetLatestRecord()const
 
 void CECRecordAccount::RemoveRecord(int count)
 {
-	//	´Óµ±Ç°¼ÇÂ¼ÖÐÉ¾³ý count ¸ö´æÔÚÊ±¼ä×î³¤µÄ record
+	//	ï¿½Óµï¿½Ç°ï¿½ï¿½Â¼ï¿½ï¿½É¾ï¿½ï¿½ count ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½î³¤ï¿½ï¿½ record
 	if (count <= 0){
 		return;
 	}

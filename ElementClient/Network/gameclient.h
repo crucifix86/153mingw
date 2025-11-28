@@ -5,6 +5,7 @@
 #include "netclient.h"
 #include "gnconf.h"
 #include <AString.h>
+#include "BolaDebug.h"
 namespace GNET
 {
 	union Attr{
@@ -79,34 +80,38 @@ namespace GNET
 		void SetZoneID(char zoneid) { m_zoneid = zoneid; }
 		char GetZoneID() const { return m_zoneid; }
 
-		void OnAddSession(Session::ID sid) 
+		void OnAddSession(Session::ID sid)
 		{
+			BOLA_INFO("OnAddSession: sid=%u, state=%d (PINGING=%d)", sid, m_state, STATE_PINGING);
 			if(m_state==STATE_PINGING){
 				Thread::Mutex::Scoped l(locker_ping);
 				pingmap[sid] = GetTickCount();
+				BOLA_INFO("Ping session added, time=%u", pingmap[sid]);
 			}
 			m_sid = sid;
 			if(m_callback&&m_state==STATE_CONNECTING)
 				m_callback(NULL, sid, EVENT_ADDSESSION);
 		}
 
-		void OnDelSession(Session::ID sid) 
+		void OnDelSession(Session::ID sid)
 		{
+			BOLA_INFO("OnDelSession: sid=%u, state=%d", sid, m_state);
 			if(m_callback)
 			{
 				if(sid==m_sid && m_state==STATE_KEEPING)
 				{
 					m_callback(NULL, sid, EVENT_DELSESSION);
 					m_state = STATE_CLOSED;
-					return;	//	EVENT_DELSESSION ÖÐÒÑ¾­¿ÉÒÔ´¦Àí£¬²»ÐèÒªÔÙÍ¨¹ý EVENT_DISCONNECT Í¨Öª£¬ÒÔ¼ò»¯Àí½âÌá¸ß¿ÉÎ¬»¤ÐÔ
+					return;	//	EVENT_DELSESSION ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Í¨ï¿½ï¿½ EVENT_DISCONNECT Í¨Öªï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
 				}
 				if(m_state!=STATE_PINGING)
 					m_callback(NULL, sid, EVENT_DISCONNECT);
 			}
 		}
 
-		void OnAbortSession(Session::ID sid) 
-		{ 
+		void OnAbortSession(Session::ID sid)
+		{
+			BOLA_INFO("OnAbortSession: sid=%u, state=%d", sid, m_state);
 			if(m_callback && m_state==STATE_CONNECTING)
 				m_callback(NULL, sid, EVENT_ABORTSESSION);
 		}

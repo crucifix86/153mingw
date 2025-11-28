@@ -91,6 +91,10 @@ public:
 
 	void LoadConfig()
 	{
+		// NOTE: Server has encryption disabled (isec/osec commented in config)
+		// So we use NULLSECURITY to match. If server enables encryption,
+		// uncomment the code below.
+		#if 0
 		Conf *conf = Conf::GetInstance();
 		Conf::section_type section = Identification();
 		size_t size;
@@ -99,6 +103,8 @@ public:
 		SetISecurity(size, Octets(&ikey[0], ikey.size()));
 		Conf::value_type okey = "0f5e0d00b83898f5b18d7a0fbaef6288";
 		SetOSecurity(size, Octets(&okey[0], okey.size()));
+		#endif
+		// Use no encryption - server sends plaintext
 	}
 
 	virtual void Close() { closing = true; }
@@ -169,7 +175,7 @@ class StreamIO : public NetIO
 		Thread::Mutex::Scoped l(session->locker);
 		if (ibuf->size())
 			session->OnRecv();
-		/* BW 2010/12/6 ÍêÃÀ×é±¨¸æËµµ±¿Í»§¶ËÓÐÊý¾Ý»ýÀÛÎ´·¢³öÊ±¶ÏÏß£¬¿Í»§¶ËÎÞ·¨Õý³£ÊÕµ½¶ÏÏßÏûÏ¢
+		/* BW 2010/12/6 ï¿½ï¿½ï¿½ï¿½ï¿½é±¨ï¿½ï¿½Ëµï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ß£ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		if (!session->closing)
 			session->OnSend();
 		if (obuf->size()||!(session->NoMoreData()))

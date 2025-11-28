@@ -1119,6 +1119,16 @@ bool AUIDialog::OnCommand(const char *pszCommand)
 {
 	ASSERT(m_pAUIManager);
 
+	// Debug: log all commands
+	if (pszCommand && strlen(pszCommand) > 0) {
+		// Only log interesting commands, not empty ones
+		static int cmdCount = 0;
+		if (cmdCount < 50) {  // Limit logging
+			a_LogOutput(1, "AUIDialog::OnCommand: dialog=%s cmd=%s", GetName(), pszCommand);
+			cmdCount++;
+		}
+	}
+
 	// Do not deal with empty command.
 	if( strlen(pszCommand) <= 0 )
 		return true;
@@ -3466,7 +3476,10 @@ bool AUIDialog::ProcessEventMap(const AUI_EVENT_MAP_ENTRY *pMapEntry, UINT uMsg,
 bool AUIDialog::OnCommandMap(const char *szCommand)
 {
 	const AUI_COMMAND_MAP_TYPE *pMap = GetCommandMap();
-	
+
+	// Debug: log command map processing
+	a_LogOutput(1, "AUIDialog::OnCommandMap: dialog=%s cmd=%s pMap=%p", GetName(), szCommand, pMap);
+
 	do
 	{
 		// find in my command map
@@ -3482,16 +3495,32 @@ bool AUIDialog::OnCommandMap(const char *szCommand)
 
 bool AUIDialog::ProcessCommandMap(const AUI_COMMAND_MAP_ENTRY *pMapEntry, const char *szCommand)
 {
-	while (pMapEntry->pFunc) 
+	// Debug: always log
+	a_LogOutput(1, "ProcessCommandMap: pMapEntry=%p szCommand=%s hasFunc=%d",
+		pMapEntry, szCommand, (pMapEntry && pMapEntry->pFunc) ? 1 : 0);
+
+	while (pMapEntry && pMapEntry->pFunc)
 	{
-		if (IsMatch(szCommand, pMapEntry->szCommand, false))
-		{ 
+		// Debug: log each map entry's command string with details
+		const char* mapCmd = (const char*)pMapEntry->szCommand;
+		int mapCmdLen = mapCmd ? (int)strlen(mapCmd) : -1;
+		a_LogOutput(1, "ProcessCommandMap: mapCmd ptr=%p len=%d str=[%s] vs inputCmd=[%s]",
+			mapCmd, mapCmdLen, mapCmd ? mapCmd : "(null)", szCommand);
+
+		// Try direct strcmp first
+		bool directMatch = (mapCmd && szCommand && stricmp(szCommand, mapCmd) == 0);
+		bool wildcardMatch = IsMatch(szCommand, pMapEntry->szCommand, false);
+		a_LogOutput(1, "ProcessCommandMap: directMatch=%d wildcardMatch=%d", directMatch, wildcardMatch);
+
+		if (directMatch || wildcardMatch)
+		{
+			a_LogOutput(1, "ProcessCommandMap: MATCHED cmd=%s", szCommand);
 			// call the handler
-			(this->*(pMapEntry->pFunc))(szCommand); 
-			return true; 
+			(this->*(pMapEntry->pFunc))(szCommand);
+			return true;
 		}
-		pMapEntry++; 
-	} 
+		pMapEntry++;
+	}
 	return false;
 }
 

@@ -26,18 +26,19 @@ CDlgCurrentServer::CDlgCurrentServer(AUIDialog *pDialog)
 
 void CDlgCurrentServer::OnTick()
 {	
-	//	¸üÐÂ·þÎñÆ÷¼° Ping ÐÅÏ¢
+	//	ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ping ï¿½ï¿½Ï¢
 	int iServer = CECServerList::Instance().GetSelected();
 	if (iServer >= 0){
 		if (m_pTxt_ServerName != NULL){
 			const CECServerList::ServerInfo &info = CECServerList::Instance().GetServer(iServer);
 			if (iServer != (int)m_pTxt_ServerName->GetData()){
-				//	¸üÐÂµ±Ç°Ñ¡ÖÐµÄ·þÎñÆ÷Ãû³Æ
+				//	ï¿½ï¿½ï¿½Âµï¿½Ç°Ñ¡ï¿½ÐµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				m_pTxt_ServerName->SetData((DWORD)iServer);
 				int iGroup = CECServerList::Instance().FindGroup(iServer, false);
 				const CECServerList::GroupInfo &group = CECServerList::Instance().GetGroup(iGroup);
 				ACString strText;
-				strText.Format(m_pParent->GetStringFromTable(280), group.group_name, info.server_name);
+				// NOTE: Must cast ACString to (const ACHAR*) when passing to variadic Format()
+			strText.Format(m_pParent->GetStringFromTable(280), (const ACHAR*)group.group_name, (const ACHAR*)info.server_name);
 				m_pTxt_ServerName->SetText(strText);
 				
 				CECServerList::Instance().SetNeedPing(iServer, true);
@@ -46,7 +47,7 @@ void CDlgCurrentServer::OnTick()
 			}
 		}
 		if (m_pTxt_Ping && m_pTxt_Ping->GetData() == 0){
-			//	¸üÐÂÁ¬½ÓÊ±¼ä
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 			DWORD dwStatus, dwCreateTime;
 			unsigned char cExpRate;
 			DWORD dwTime = g_pGame->GetGameSession()->GetPingTime(iServer, dwStatus, dwCreateTime, cExpRate);

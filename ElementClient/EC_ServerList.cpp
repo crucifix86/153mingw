@@ -2,6 +2,7 @@
 #include "EC_CrossServerList.h"
 #include "EC_Global.h"
 #include "EC_Game.h"
+#include "BolaDebug.h"
 #include "EC_GameRun.h"
 #include "EC_GameSession.h"
 #include "EC_GetHostByName.h"
@@ -67,18 +68,28 @@ void CECServerList::Init(const ACHAR *szHotGroupName)
 	
 	srand(time(NULL));
 	
+	BOLA_INFO("ServerList::Init - path=%s", (const char*)m_strServerList);
 	if(!m_strServerList.IsEmpty() && (fStream = fopen(m_strServerList, "rb")) != NULL )
 	{
+		BOLA_INFO("ServerList::Init - file opened successfully");
 		const ACHAR * szHotFlag = _AL("&1");           // ���·����
 		const ACHAR * szCrossServerFlag = _AL("&2");   // �����������
 		ACHAR szLine[256];
-		a_fgetc(fStream);
-		GroupInfo hotGroup;		
+		wint_t bom = a_fgetc(fStream);
+		BOLA_INFO("ServerList::Init - BOM char: 0x%04X", (unsigned int)bom);
+		GroupInfo hotGroup;
 		hotGroup.bHot = true;
 		hotGroup.group_name = szHotGroupName;
 		do{
 			if (!a_fgets(szLine, ARRAY_SIZE(szLine), fStream))
 				break;
+			// Log what we read (convert to narrow for logging)
+			char narrowLine[256];
+			for(int k=0; k<255 && szLine[k]; k++) {
+				narrowLine[k] = (szLine[k] < 128) ? (char)szLine[k] : '?';
+				narrowLine[k+1] = 0;
+			}
+			BOLA_INFO("ServerList::Init - line read: [%s] len=%d", narrowLine, (int)a_strlen(szLine));
 			if( a_strlen(szLine) > 0){
 				int n = a_strlen(szLine) - 1;
 				while( n >= 0 && (szLine[n] == '\r' || szLine[n] == '\n') )
@@ -143,7 +154,8 @@ void CECServerList::Init(const ACHAR *szHotGroupName)
 					}
 
 					//	���ӵ���ͨ�������б�
-					m_serverVec.push_back(info);					
+					m_serverVec.push_back(info);
+					BOLA_INFO("ServerList::Init - Added server: port=%d addr=%s zone=%d", info.port, (const char*)info.address, info.zone_id);					
 					if(group_id>=0)
 						m_groupVec[group_id].server_vec.push_back(m_serverVec.size()-1);					
 					if(info.flag==1)

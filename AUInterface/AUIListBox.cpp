@@ -26,6 +26,7 @@
 #include "AUIComboBox.h"
 #include "AUICTranslate.h"
 #include "AUITag.h"
+#include "BolaDebug.h"
 
 #define AUILISTBOX_SCROLL_DELAY		50
 #define AUILISTBOX_LINESPACE		0
@@ -1253,6 +1254,20 @@ bool AUIListBox::Render(void)
 			m_nLinesCurPage++;
 			if( m_nNumColumns > 1 )
 			{
+				// Debug: log strText before CSplit
+				static bool loggedOnce = false;
+				if (!loggedOnce && m_Item[i].strText.GetLength() > 0) {
+					const ACHAR* str = (const ACHAR*)m_Item[i].strText;
+					int len = m_Item[i].strText.GetLength();
+					char hexBuf[256] = {0};
+					for(int k=0; k<len && k<20; k++) {
+						char tmp[8];
+						sprintf(tmp, "%04X ", (unsigned int)str[k]);
+						strcat(hexBuf, tmp);
+					}
+					BOLA_INFO("Render: strText len=%d hex: %s", len, hexBuf);
+					loggedOnce = true;
+				}
 				CSplit s(m_Item[i].strText);
 				CSPLIT_STRING_VECTOR vec = s.Split(_AL("\t"));
 				int nNumCols = min(m_nNumColumns, int(vec.size()));
@@ -1581,9 +1596,35 @@ int AUIListBox::AddString(const ACHAR *pszString)
 {
 	UpdateRenderTarget();
 
+	// Debug: log input string hex
+	if (pszString) {
+		char inHex[256] = {0};
+		int len = wcslen(pszString);
+		for(int i=0; i<len && i<20; i++) {
+			char tmp[8];
+			sprintf(tmp, "%04X ", (unsigned int)pszString[i]);
+			strcat(inHex, tmp);
+		}
+		BOLA_INFO("AUIListBox::AddString input len=%d hex: %s", len, inHex);
+	}
+
 	AUILISTBOX_ITEM Item;
-	
+
 	Item.strText = UnmarshalEditBoxText(pszString, Item.itemsSet, 0, L"", 0xffffffff, m_nItemMask);
+
+	// Debug: log output string hex
+	{
+		const ACHAR* outStr = (const ACHAR*)Item.strText;
+		int outLen = Item.strText.GetLength();
+		char outHex[256] = {0};
+		for(int i=0; i<outLen && i<20; i++) {
+			char tmp[8];
+			sprintf(tmp, "%04X ", (unsigned int)outStr[i]);
+			strcat(outHex, tmp);
+		}
+		BOLA_INFO("AUIListBox::AddString output len=%d hex: %s", outLen, outHex);
+	}
+
 	Item.nLines = 0;
 	Item.bSelState = false;
 	for( int i = 0; i < AUILISTBOX_MAX_COLUMN; i++ )

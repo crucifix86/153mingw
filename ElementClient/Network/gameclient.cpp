@@ -3,6 +3,7 @@
 #include "challenge.hpp"
 #include "UsbHidKey.h"
 #include "EC_TimeSafeChecker.h"
+#include "BolaDebug.h"
 
 extern void VerifyDefenceThread();
 
@@ -18,13 +19,16 @@ namespace GNET
 		return errormsg;
 	}
 
-	void GameClient::OnRecvProtocol(Session::ID sid, Protocol* pdata) 
+	void GameClient::OnRecvProtocol(Session::ID sid, Protocol* pdata)
 	{
+		BOLA_INFO("OnRecvProtocol: sid=%u, type=%d, state=%d", sid, pdata->GetType(), m_state);
 		if(pdata->GetType()!=34)
 		if(m_state==STATE_PINGING)
 		{
+			BOLA_INFO("STATE_PINGING: received protocol type=%d (CHALLENGE=%d)", pdata->GetType(), PROTOCOL_CHALLENGE);
 			if(pdata->GetType()==PROTOCOL_CHALLENGE)
 			{
+				BOLA_INFO("Got CHALLENGE response for ping!");
 				Challenge* p = (Challenge*)pdata;
 				ServerStatus status;
 				status.attr = *(Attr*)(p->nonce.begin());
@@ -38,6 +42,7 @@ namespace GNET
 				status.ping = status.ping>9999?9999:status.ping;
 				status.createtime = *((unsigned int*)p->nonce.begin()+1);
 				status.exp_rate = p->exp_rate;
+				BOLA_INFO("Ping result: ping=%u, load=%u, exp_rate=%u", status.ping, status.attr.load, status.exp_rate);
 				m_callback(&status, sid, EVENT_PINGRETURN);
 				Close(sid);
 				p->Destroy();

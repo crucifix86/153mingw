@@ -564,6 +564,8 @@ bool AUIStillImageButton::OnDlgItemMessage(UINT msg, WPARAM wParam, LPARAM lPara
 		if( AUISTILLIMAGEBUTTON_STATE_CLICK == m_nState )
 		{
 			m_nState = AUISTILLIMAGEBUTTON_STATE_NORMAL;
+			// Debug: log button click
+			a_LogOutput(1, "AUIStillImageButton: CLICK name=%s cmd=%s", m_szName, (const char*)(m_strCommand.IsEmpty() ? AString(m_szName) : m_strCommand));
 			if( m_strCommand != "" )
 				m_pParent->SetCommand(m_strCommand);
 			else

@@ -18,6 +18,7 @@
 #include "EC_Split.h"
 #include "EC_UIAnimation.h"
 #include "EC_CommandLine.h"
+#include "BolaDebug.h"
 
 #define new A_DEBUG_NEW
 
@@ -100,7 +101,7 @@ void CDlgLoginServerList::OnShowDialog()
 		int iServer = CECServerList::Instance().GetSelected();	
 		int group = CECServerList::Instance().FindGroup(iServer, true);
 		if (group < 0){
-			group = 0;		//	ÎÞ·¨ÕÒµ½±£´æµÄ·þÎñÆ÷Ê±, ÏÔÊ¾µÚÒ»¸öÎ»ÖÃ
+			group = 0;		//	ï¿½Þ·ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ê±, ï¿½ï¿½Ê¾ï¿½ï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½
 		}
 		SelectGroup(group);
 	}
@@ -192,23 +193,23 @@ void CDlgLoginServerList::OnTick()
 				{
 					if (cExpRate == 20)
 					{
-						// Ë«±¶¾­Ñé
+						// Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						strHint += GetStringFromTable(263);
 					}
 					else if (cExpRate > 10 && cExpRate <= 100)
 					{
-						// ÆäËü±¶Êý¾­Ñé
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						ACString strFormat;
 						if (cExpRate % 10)
 						{
-							// ´øÐ¡Êý±¶Êý
+							// ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							strFormat = _AL("%.1f");
 							strFormat += GetStringFromTable(267);
 							strText.Format(strFormat, cExpRate*0.1f);
 						}
 						else
 						{
-							// ÕûÊý±¶Êý
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							strFormat = _AL("%d");
 							strFormat += GetStringFromTable(267);
 							strText.Format(strFormat, cExpRate/10);
@@ -282,12 +283,29 @@ void CDlgLoginServerList::SelectGroup(int nGroup)
 	int iSelected = CECServerList::Instance().GetSelected();
 	int nSel = -1;
 	const CECServerList::GroupInfo &group = CECServerList::Instance().GetGroup(nGroup);
+	BOLA_INFO("SelectGroup: group has %d servers", (int)group.server_vec.size());
 	for (int i(0); i < (int)group.server_vec.size(); i++)
 	{
 		int iServer = group.server_vec[i];
 		const CECServerList::ServerInfo& serverInfo = CECServerList::Instance().GetServer(iServer);
-		ACString strText;		
-		strText.Format(_AL("%s\t---\t---\t "), serverInfo.server_name);
+
+		// Debug: log the server name bytes
+		const ACHAR* namePtr = (const ACHAR*)serverInfo.server_name;
+		int nameLen = serverInfo.server_name.GetLength();
+		BOLA_INFO("SelectGroup: server %d, name len=%d", iServer, nameLen);
+		char debugBuf[128] = {0};
+		for(int j=0; j<nameLen && j<30; j++) {
+			char tmp[8];
+			sprintf(tmp, "%04X ", (unsigned int)namePtr[j]);
+			strcat(debugBuf, tmp);
+		}
+		BOLA_INFO("SelectGroup: name hex: %s", debugBuf);
+
+		ACString strText;
+		// Build string manually to avoid Format issues
+		strText = serverInfo.server_name;
+		strText += _AL("\t---\t---\t ");
+		BOLA_INFO("SelectGroup: built text len=%d", strText.GetLength());
 		m_pLst_Server->AddString(strText);
 		int itemIndex = m_pLst_Server->GetCount() - 1;
 		m_pLst_Server->SetItemData(itemIndex, iServer,			COL_SERVERINDEX);
@@ -318,13 +336,22 @@ void CDlgLoginServerList::OnCommandCancel(const char* szCommand)
 
 void CDlgLoginServerList::OnCommandConfirm(const char* szCommand)
 {
+	BOLA_INFO("OnCommandConfirm called");
 	int nSel = m_pLst_Server->GetCurSel();
-	if( nSel >= 0 && nSel < m_pLst_Server->GetCount() )
+	int nCount = m_pLst_Server->GetCount();
+	BOLA_INFO("OnCommandConfirm: nSel=%d, count=%d", nSel, nCount);
+	if( nSel >= 0 && nSel < nCount )
 	{
 		int iServer = m_pLst_Server->GetItemData(nSel, COL_SERVERINDEX);
+		BOLA_INFO("OnCommandConfirm: iServer=%d, calling SelectServer", iServer);
 		CECServerList::Instance().SelectServer(iServer);
+		BOLA_INFO("OnCommandConfirm: calling Show(false)");
 		Show(false);
+		BOLA_INFO("OnCommandConfirm: calling DefaultLogin()");
 		GetLoginUIMan()->DefaultLogin();
+		BOLA_INFO("OnCommandConfirm: done");
+	} else {
+		BOLA_INFO("OnCommandConfirm: selection invalid, not proceeding");
 	}
 }
 void CDlgLoginServerList::OnCommandSortName(const char* szCommand)
@@ -446,8 +473,14 @@ void CDlgLoginServerListButton::OnCommandCancel(const char* szCommand)
 
 void CDlgLoginServerListButton::OnCommandConfirm(const char* szCommand)
 {
+	BOLA_INFO("CDlgLoginServerListButton::OnCommandConfirm called");
 	PAUIDIALOG pDlgLoginServerList = m_pAUIManager->GetDialog("Win_LoginServerList");
-	pDlgLoginServerList->OnCommand("confirm");
+	if (pDlgLoginServerList) {
+		BOLA_INFO("Found Win_LoginServerList dialog, calling OnCommand");
+		pDlgLoginServerList->OnCommand("confirm");
+	} else {
+		BOLA_INFO("ERROR: Win_LoginServerList dialog NOT FOUND");
+	}
 }
 
 void CDlgLoginServerListButton::OnCommandQuery(const char *szCommand)

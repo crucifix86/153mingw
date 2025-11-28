@@ -16,6 +16,7 @@
 #include "gntimer.h"
 #define ZLIB_WINAPI
 #include "zlib.h"
+#include "BolaDebug.h"
 
 namespace GNET
 {
@@ -142,6 +143,17 @@ public:
 			{
 				timer.Reset();
 				Octets &input = Input();
+				BOLA_INFO("OnRecv: sid=%u, input size=%u, compress=%d", sid, (unsigned)input.size(), manager->blCompress);
+				// Hex dump first 20 bytes
+				if (input.size() > 0) {
+					char hexbuf[128] = {0};
+					unsigned char *p = (unsigned char*)input.begin();
+					int len = input.size() < 20 ? input.size() : 20;
+					for (int i = 0; i < len; i++) {
+						sprintf(hexbuf + i*3, "%02x ", p[i]);
+					}
+					BOLA_INFO("OnRecv hex: %s", hexbuf);
+				}
 				if (manager->blCompress)
 				{
 					isc.insert(isc.end(), input.begin(), input.end());
@@ -154,10 +166,13 @@ public:
 				input.clear();
 				try
 				{
+					BOLA_INFO("OnRecv: about to decode, is.size=%u", (unsigned)is.size());
 					for (Protocol *p; (p = Protocol::Decode(is)); Protocol::Task::Dispatch(manager, sid, p));
+					BOLA_INFO("OnRecv: decode complete");
 				}
 				catch (Protocol::Exception&)
 				{
+					BOLA_ERROR("OnRecv: Protocol::Exception caught, closing session");
 					NetSession::Close();
 				}
 			}
@@ -170,7 +185,7 @@ public:
 				//printf("Compress:: Enter compress procedure....\n");
 				for (;os.size();)
 				{       
-					//if (os.front().size() + obuffer.size() > obuffer.capacity()) break;//Ñ¹Ëõºó³ß´ç´óÓÚÔ­³ß´çÈçºÎÅÐ¶Ï
+					//if (os.front().size() + obuffer.size() > obuffer.capacity()) break;//Ñ¹ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ß´ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
 					ss.insert(ss.end(),os.front().begin(),os.front().size());
 					os.pop_front();
 				}   
@@ -395,8 +410,11 @@ private:
 			if (is.check_policy)
 			{
 				is >> Marshal::Begin >> CompactUINT(type) >> CompactUINT(size) >> Marshal::Rollback;
+				BOLA_INFO("Decode: type=%u, size=%u, StatePolicy=%d, InputPolicy=%d",
+					type, (unsigned)size, is.session->StatePolicy(type), is.session->manager->InputPolicy(type, size));
 				if (!is.session->StatePolicy(type) || !is.session->manager->InputPolicy(type, size))
 				{
+					BOLA_ERROR("Decode: Policy violation type=%d size=%d", type, (int)size);
 					_snprintf(errormsg, ERRSIZE, "Policy violation type=%d size=%d\n", type, size);
 					throw Protocol::Exception();
 				}
@@ -405,13 +423,22 @@ private:
 
 			Manager::Session::Stream data(is.session);
 			is >> Marshal::Begin >> CompactUINT(type) >> data >> Marshal::Commit;
-			if ((protocol = Protocol::Create(type))) 
+			BOLA_INFO("Decode: Creating protocol type=%u", type);
+			if ((protocol = Protocol::Create(type)))
+			{
+				BOLA_INFO("Decode: Protocol created, unmarshalling");
 				data >> *protocol;
+			}
+			else
+			{
+				BOLA_ERROR("Decode: Protocol::Create returned NULL for type=%u", type);
+			}
 			is.check_policy = true;
 
 		}
 		catch (Marshal::Exception &)
 		{
+			BOLA_ERROR("Decode: Marshal::Exception, type=%u, protocol=%p", type, protocol);
             if (protocol)
             {
 				protocol->Destroy();

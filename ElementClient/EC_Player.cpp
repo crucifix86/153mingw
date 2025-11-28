@@ -170,212 +170,212 @@ static const char* _hh_qiu_base			=	"HH_base";			//	���ϵ���Ч�ҵ�
 
 const char* _multiobject_effect[] = {"��ɫ����.gfx","��ɫ����.gfx","��ɫ����.gfx",};
 
-static const char* _head_skin[NUM_PROFESSION*NUM_GENDER] = 
+static const char* _head_skin[NUM_PROFESSION*NUM_GENDER] =
 {
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
-	"Evolved\\Players\\����\\����Ů\\ͷ\\����Ůͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC4\xD0\\\xCD\xB7\\\xCE\xE4\xCF\xC0\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC5\xAE\\\xCD\xB7\\\xCE\xE4\xCF\xC0\xC5\xAE\xCD\xB7",
 
-	"Evolved\\Players\\����\\��ʦ��\\ͷ\\��ʦ��ͷ",
-	"Evolved\\Players\\����\\��ʦŮ\\ͷ\\��ʦŮͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC4\xD0\\\xCD\xB7\\\xB7\xA8\xCA\xA6\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC5\xAE\\\xCD\xB7\\\xB7\xA8\xCA\xA6\xC5\xAE\xCD\xB7",
 
-	"Evolved\\Players\\����\\��ʦ��\\ͷ\\��ʦ��ͷ",
-	"Evolved\\Players\\����\\��ʦŮ\\ͷ\\��ʦŮͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC4\xD0\\\xCD\xB7\\\xCE\xD7\xCA\xA6\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC5\xAE\\\xCD\xB7\\\xCE\xD7\xCA\xA6\xC5\xAE\xCD\xB7",
 
 	"",
-	"Evolved\\Players\\����\\����\\ͷ\\����ͷ",
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xBE\xAB\\\xCD\xB7\\\xD1\xFD\xBE\xAB\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xCA\xDE\xC4\xD0\\\xCD\xB7\\\xD1\xFD\xCA\xDE\xC4\xD0\xCD\xB7",
 	"",
-	"Evolved\\Players\\����\\�̿���\\ͷ\\�̿���ͷ",
-	"Evolved\\Players\\����\\�̿�Ů\\ͷ\\�̿�Ůͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC4\xD0\\\xCD\xB7\\\xB4\xCC\xBF\xCD\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC5\xAE\\\xCD\xB7\\\xB4\xCC\xBF\xCD\xC5\xAE\xCD\xB7",
 
-	"Evolved\\Players\\����\\��â��\\ͷ\\��â��ͷ",
-	"Evolved\\Players\\����\\��âŮ\\ͷ\\��âŮͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC4\xD0\\\xCD\xB7\\\xD3\xF0\xC3\xA2\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC5\xAE\\\xCD\xB7\\\xD3\xF0\xC3\xA2\xC5\xAE\xCD\xB7",
 
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
-	"Evolved\\Players\\����\\����Ů\\ͷ\\����Ůͷ",
-	
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
-	"Evolved\\Players\\����\\����Ů\\ͷ\\����Ůͷ",
-	
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
-	"Evolved\\Players\\����\\����Ů\\ͷ\\����Ůͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC4\xD0\\\xCD\xB7\\\xD3\xF0\xC1\xE9\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC5\xAE\\\xCD\xB7\\\xD3\xF0\xC1\xE9\xC5\xAE\xCD\xB7",
 
-	"Evolved\\Players\\����\\ҹӰ��\\ͷ\\ҹӰ��ͷ",
-	"Evolved\\Players\\����\\ҹӰŮ\\ͷ\\ҹӰŮͷ",
-	
-	"Evolved\\Players\\����\\������\\ͷ\\������ͷ",
-	"Evolved\\Players\\����\\����Ů\\ͷ\\����Ůͷ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC4\xD0\\\xCD\xB7\\\xBD\xA3\xC1\xE9\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC5\xAE\\\xCD\xB7\\\xBD\xA3\xC1\xE9\xC5\xAE\xCD\xB7",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC4\xD0\\\xCD\xB7\\\xC3\xC4\xC1\xE9\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC5\xAE\\\xCD\xB7\\\xC3\xC4\xC1\xE9\xC5\xAE\xCD\xB7",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC4\xD0\\\xCD\xB7\\\xD2\xB9\xD3\xB0\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC5\xAE\\\xCD\xB7\\\xD2\xB9\xD3\xB0\xC5\xAE\xCD\xB7",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC4\xD0\\\xCD\xB7\\\xD4\xC2\xCF\xC9\xC4\xD0\xCD\xB7",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC5\xAE\\\xCD\xB7\\\xD4\xC2\xCF\xC9\xC5\xAE\xCD\xB7",
 };
 
-static const char* _body_skin[NUM_PROFESSION*NUM_GENDER] = 
+static const char* _body_skin[NUM_PROFESSION*NUM_GENDER] =
 {
-	"Evolved\\Players\\����\\������\\����\\������",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xCE\xE4\xCF\xC0\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xCE\xE4\xCF\xC0\xC5\xAE",
 
-	"Evolved\\Players\\����\\��ʦ��\\����\\��ʦ��",
-	"Evolved\\Players\\����\\��ʦŮ\\����\\��ʦŮ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xB7\xA8\xCA\xA6\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xB7\xA8\xCA\xA6\xC5\xAE",
 
-	"Evolved\\Players\\����\\��ʦ��\\����\\��ʦ��%d",
-	"Evolved\\Players\\����\\��ʦŮ\\����\\��ʦŮ%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xCE\xD7\xCA\xA6\xC4\xD0%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xCE\xD7\xCA\xA6\xC5\xAE%d",
 	"",
-	"Evolved\\Players\\����\\����\\����\\����%d",
-	"Evolved\\Players\\����\\������\\����\\������%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xBE\xAB\\\xC7\xFB\xB8\xC9\\\xD1\xFD\xBE\xAB%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xCA\xDE\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD1\xFD\xCA\xDE\xC4\xD0%d",
 	"",
-	"Evolved\\Players\\����\\�̿���\\����\\�̿���%d",
-	"Evolved\\Players\\����\\�̿�Ů\\����\\�̿�Ů%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xB4\xCC\xBF\xCD\xC4\xD0%d",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xB4\xCC\xBF\xCD\xC5\xAE%d",
 
-	"Evolved\\Players\\����\\��â��\\����\\��â��",
-	"Evolved\\Players\\����\\��âŮ\\����\\��âŮ",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC3\xA2\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC3\xA2\xC5\xAE",
 
-	"Evolved\\Players\\����\\������\\����\\������",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC1\xE9\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC1\xE9\xC5\xAE",
 
-	"Evolved\\Players\\����\\������\\����\\������",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů",
-	
-	"Evolved\\Players\\����\\������\\����\\������",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xBD\xA3\xC1\xE9\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xBD\xA3\xC1\xE9\xC5\xAE",
 
-	"Evolved\\Players\\����\\ҹӰ��\\����\\ҹӰ��",
-	"Evolved\\Players\\����\\ҹӰŮ\\����\\ҹӰŮ",
-	
-	"Evolved\\Players\\����\\������\\����\\������",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xC3\xC4\xC1\xE9\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xC3\xC4\xC1\xE9\xC5\xAE",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD2\xB9\xD3\xB0\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD2\xB9\xD3\xB0\xC5\xAE",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD4\xC2\xCF\xC9\xC4\xD0",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD4\xC2\xCF\xC9\xC5\xAE",
 };
 
-static const char* _simple_body_skin[NUM_PROFESSION*NUM_GENDER] = 
+static const char* _simple_body_skin[NUM_PROFESSION*NUM_GENDER] =
 {
-	"Evolved\\Players\\����\\������\\����\\�����м�",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů��",
-	
-	"Evolved\\Players\\����\\��ʦ��\\����\\��ʦ�м�",
-	"Evolved\\Players\\����\\��ʦŮ\\����\\��ʦŮ��",
-	
-	"Evolved\\Players\\����\\��ʦ��\\����\\��ʦ�м�",
-	"Evolved\\Players\\����\\��ʦŮ\\����\\��ʦŮ��",
-	"",
-	"Evolved\\Players\\����\\����\\����\\������",
-	"Evolved\\Players\\����\\������\\����\\�����м�%d",
-	"",
-	"Evolved\\Players\\����\\�̿���\\����\\�̿��м�",
-	"Evolved\\Players\\����\\�̿�Ů\\����\\�̿�Ů��",
-	
-	"Evolved\\Players\\����\\��â��\\����\\��â�м�",
-	"Evolved\\Players\\����\\��âŮ\\����\\��âŮ��",
-	
-	"Evolved\\Players\\����\\������\\����\\�����м�",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů��",
-	
-	"Evolved\\Players\\����\\������\\����\\�����м�",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů��",
-	
-	"Evolved\\Players\\����\\������\\����\\�����м�",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů��",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xCE\xE4\xCF\xC0\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xE4\xCF\xC0\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xCE\xE4\xCF\xC0\xC5\xAE\xBC\xF2",
 
-	"Evolved\\Players\\����\\ҹӰ��\\����\\ҹӰ�м�",
-	"Evolved\\Players\\����\\ҹӰŮ\\����\\ҹӰŮ��",
-	
-	"Evolved\\Players\\����\\������\\����\\�����м�",
-	"Evolved\\Players\\����\\����Ů\\����\\����Ů��",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xB7\xA8\xCA\xA6\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB7\xA8\xCA\xA6\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xB7\xA8\xCA\xA6\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xCE\xD7\xCA\xA6\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xCE\xD7\xCA\xA6\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xCE\xD7\xCA\xA6\xC5\xAE\xBC\xF2",
+	"",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xBE\xAB\\\xC7\xFB\xB8\xC9\\\xD1\xFD\xBE\xAB\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD1\xFD\xCA\xDE\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD1\xFD\xCA\xDE\xC4\xD0\xBC\xF2%d",
+	"",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xB4\xCC\xBF\xCD\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xB4\xCC\xBF\xCD\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xB4\xCC\xBF\xCD\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC3\xA2\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC3\xA2\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC3\xA2\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC1\xE9\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD3\xF0\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD3\xF0\xC1\xE9\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xBD\xA3\xC1\xE9\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xBD\xA3\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xBD\xA3\xC1\xE9\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xC3\xC4\xC1\xE9\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xC3\xC4\xC1\xE9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xC3\xC4\xC1\xE9\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD2\xB9\xD3\xB0\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD2\xB9\xD3\xB0\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD2\xB9\xD3\xB0\xC5\xAE\xBC\xF2",
+
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC4\xD0\\\xC7\xFB\xB8\xC9\\\xD4\xC2\xCF\xC9\xC4\xD0\xBC\xF2",
+	"Models\\Players\\\xD0\xCE\xCF\xF3\\\xD4\xC2\xCF\xC9\xC5\xAE\\\xC7\xFB\xB8\xC9\\\xD4\xC2\xCF\xC9\xC5\xAE\xBC\xF2",
 };
 
-static const char* _equipment_skin[NUM_PROFESSION*NUM_GENDER] = 
+static const char* _equipment_skin[NUM_PROFESSION*NUM_GENDER] =
 {
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 	"",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����%s",
-	"Evolved\\Players\\װ��\\��\\%s\\����%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD1\xFD\xBE\xAB%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD1\xFD\xCA\xDE%s",
 	"",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"Evolved\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 };
 
 static const char* _equipment_custom_skin[NUM_PROFESSION * NUM_GENDER] =
 {
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 	"",
-	"%s\\Players\\װ��\\Ů\\%s\\����%s",
-	"%s\\Players\\װ��\\��\\%s\\����%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD1\xFD\xBE\xAB%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD1\xFD\xCA\xDE%s",
 	"",
 
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
-	"%s\\Players\\װ��\\��\\%s\\��ͨ��%s",
-	"%s\\Players\\װ��\\Ů\\%s\\Ůͨ��%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC4\xD0\xCD\xA8\xD3\xC3%s",
+	"%s\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC5\xAE\xCD\xA8\xD3\xC3%s",
 };
 
-static const char* _equipment_default_skin[NUM_PROFESSION*NUM_GENDER] = 
+static const char* _equipment_default_skin[NUM_PROFESSION*NUM_GENDER] =
 {
-	"Evolved\\Players\\װ��\\��\\%s\\������%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����Ů%s",
-	"Evolved\\Players\\װ��\\��\\%s\\��ʦ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\��ʦŮ%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xCE\xE4\xCF\xC0\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xCE\xE4\xCF\xC0\xC5\xAE%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xB7\xA8\xCA\xA6\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xB7\xA8\xCA\xA6\xC5\xAE%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��ʦ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\��ʦŮ%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xCE\xD7\xCA\xA6\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xCE\xD7\xCA\xA6\xC5\xAE%s",
 	"",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����%s",
-	"Evolved\\Players\\װ��\\��\\%s\\����%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD1\xFD\xBE\xAB%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD1\xFD\xCA\xDE%s",
 	"",
 
-	"Evolved\\Players\\װ��\\��\\%s\\�̿���%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\�̿�Ů%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xB4\xCC\xBF\xCD\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xB4\xCC\xBF\xCD\xC5\xAE%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\��â��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\��âŮ%s",
-	"Evolved\\Players\\װ��\\��\\%s\\������%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����Ů%s",
-	
-	"Evolved\\Players\\װ��\\��\\%s\\������%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����Ů%s",
-	"Evolved\\Players\\װ��\\��\\%s\\������%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����Ů%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD3\xF0\xC3\xA2\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD3\xF0\xC3\xA2\xC5\xAE%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD3\xF0\xC1\xE9\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD3\xF0\xC1\xE9\xC5\xAE%s",
 
-	"Evolved\\Players\\װ��\\��\\%s\\ҹӰ��%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\ҹӰŮ%s",
-	"Evolved\\Players\\װ��\\��\\%s\\������%s",
-	"Evolved\\Players\\װ��\\Ů\\%s\\����Ů%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xBD\xA3\xC1\xE9\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xBD\xA3\xC1\xE9\xC5\xAE%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xC3\xC4\xC1\xE9\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xC3\xC4\xC1\xE9\xC5\xAE%s",
+
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD2\xB9\xD3\xB0\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD2\xB9\xD3\xB0\xC5\xAE%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC4\xD0\\%s\\\xD4\xC2\xCF\xC9\xC4\xD0%s",
+	"Models\\Players\\\xD7\xB0\xB1\xB8\\\xC5\xAE\\%s\\\xD4\xC2\xCF\xC9\xC5\xAE%s",
 };
 
 static const int _skin_alpha_map[] =
@@ -1715,8 +1715,9 @@ bool CECPlayer::LoadPlayerSkin(
 
 	if( szFile )
 	{
-		const char * suffix1[] = {"һ��", "����", "����"};
-		const char * suffix2[] = {"", "����", "����"};
+		// Changed from 层 (layer) to 级 (tier) to match actual file names
+		const char * suffix1[] = {"\xd2\xbb\xbc\xb6", "\xb6\xfe\xbc\xb6", "\xc8\xfd\xbc\xb6"};  // 一级, 二级, 三级
+		const char * suffix2[] = {"", "\xb6\xfe\xbc\xb6", "\xc8\xfd\xbc\xb6"};  // "", 二级, 三级
 		const char ** pSuffixes;
 
 		if( iIndex == SKIN_BODY_INDEX || iIndex == SKIN_HEAD_INDEX )
